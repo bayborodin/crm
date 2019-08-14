@@ -1,6 +1,0 @@
-{
-    "python.pythonPath": "/home/nb/.local/share/virtualenvs/crm-tc8fdP6g/bin/python",
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
-}
