@@ -1,3 +1,9 @@
 [flake8]
-exclude = .git, *migrations*
+exclude = .git,*migrations*,*/docs/*,*/.tox/*,*/.venv/*,manage.py
 max-line-length = 119
+max-complexity = 10
+show-source = true
+enable-extensions=G
+application-import-names = crm
+import-order-style = google
+inline-quotes = '
