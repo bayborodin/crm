@@ -21,3 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='admin/')),
 ]
+
+admin.site.site_header = "SKAT CRM"
+admin.site.site_title = "SKAT CRM Портал администрирования"
+admin.site.index_title = "Добро пожаловать на портал администрирования SKAT CRM"
