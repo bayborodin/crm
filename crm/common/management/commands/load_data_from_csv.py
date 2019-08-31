@@ -9,28 +9,39 @@ from accounts.models import AccountType
 class Command(BaseCommand):
     help = 'Display current time'
 
-    def handle(self, *args, **kvargs):
-        # read csv file
+    def get_ftp_connection(self):
         server = '212.19.5.226'
         username = 'User3'
         password = 'DhtvtYy0'
         remote_path = 'connect'
+
         ftp_connection = ftplib.FTP(server, username, password)
         ftp_connection.cwd(remote_path)
+
+        return ftp_connection
+
+    def get_filename(self):
+        ftp = self.get_ftp_connection()
 
         file_list = []
 
         try:
-            file_list = ftp_connection.nlst()
+            file_list = ftp.nlst()
         except ftplib.error_perm as resp:
             str_resp = str(resp)
             if str_resp == "550 No files found":
                 print("No files in this directory")
             else:
                 raise
-        file_name = max(file_list)
-        ftp_connection.retrbinary("RETR " + file_name, open(f'/tmp/{file_name}', 'wb').write)
-        ftp_connection.close()
+        ftp.close()
+
+        return max(file_list)
+
+    def handle(self, *args, **kvargs):
+        file_name = self.get_filename()
+        ftp = self.get_ftp_connection()
+        ftp.retrbinary("RETR " + file_name, open(f'/tmp/{file_name}', 'wb').write)
+        ftp.close()
 
         # oбъявим словарь, ключи которого - тип объекта(object_type),
         # а значения - класс, объект которого будем создавать
@@ -67,3 +78,5 @@ class Command(BaseCommand):
                     # если данные не корректны - игнорируем их
                     print(f'Ошибка создания объекта {object_class} из строки: {row}')
                     continue
+                except (NotImplementedError):
+                    print(f'Создание объекта {object_class} из CSV не реализовано!')
