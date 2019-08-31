@@ -5,7 +5,7 @@ from .models import AccountType, Account
 
 
 class AccountTypeAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'description']
 
 
 # Account model admin
