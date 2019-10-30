@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 
 from accounts.models import Account
 from accounts.models import AccountType
+from common.models import CommunicationType
 
 
 class Command(BaseCommand):
@@ -47,7 +48,8 @@ class Command(BaseCommand):
         # а значения - класс, объект которого будем создавать
         create_strategy = {
             'accounts': Account,
-            'account_types': AccountType
+            'account_types': AccountType,
+            'communication_types': CommunicationType
         }
 
         # parse csv file

@@ -24,8 +24,8 @@ class AccountType(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = 'Тип'
-        verbose_name_plural = 'Типы'
+        verbose_name = 'Тип контрагента'
+        verbose_name_plural = 'Типы контрагентов'
 
     def __str__(self):
         return self.name
