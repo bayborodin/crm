@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    {% block title %}
+    <title>SKAT CRM</title>
+    {% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=cyrillic" rel="stylesheet"
+        id="wt-sky-css--725574360">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base_generic.css' %}">
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar-default sidebar" role="navigation">
+            <div class="logo">
+                <span class="logo-text">SKAT CRM</span>
+            </div>
+            <div class="user">Иван Тестеров</div>
+            <div class="sidebar-collapse">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link nav-link_active" href="#">
+                            <span class="navbar-label">Главная</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="#">
+                            <span class="navbar-label">Контрагенты</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="#">
+                            <span class="navbar-label">Контакты</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="#">
+                            <span class="navbar-label">Договоры</span>
+                        </a>
+                    </li>
+                    <li class="nav-item delimiter"></li>
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="#">
+                            <span class="navbar-label">Сервис</span>
+                        </a>
+                    </li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item delimiter"></li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="navbar-label">Выйти</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main id="page-wrapper">
+            <div>
+                <div class="toolbar toolbar_fixed">
+                    <div class="toolbar-head">
+                        <h3>Контрагенты</h3>
+                    </div>
+                </div>
+                <div class="content">content</div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
