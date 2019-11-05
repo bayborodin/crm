@@ -16,6 +16,25 @@ body {
     min-height: 100hv;
 }
 
+.panel-login {
+    max-width: 330px;
+    margin: 0 auto;
+    margin-top: 90px;
+}
+
+.login-title {
+    text-align: center;
+}
+
+.panel-login>.login-heading {
+    color: #fff;
+    background-color: #3c4144;
+}
+
+.form-signin>.input-group {
+    margin-bottom: 5px;
+}
+
 nav {
     display: block;
 }

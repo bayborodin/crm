@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=cyrillic" rel="stylesheet"
         id="wt-sky-css--725574360">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/base_generic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
@@ -55,7 +55,7 @@
                     <li class="nav-item"></li>
                     <li class="nav-item delimiter"></li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{% url 'logout' %}" class="nav-link">
                             <span class="navbar-label">Выйти</span>
                         </a>
                     </li>

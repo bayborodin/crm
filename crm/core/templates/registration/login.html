@@ -1,0 +1,38 @@
+{% extends "master.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Ошибка!.</p>
+{% endif %}
+
+<div class="panel panel-default panel-login">
+    <div class="panel-heading login-heading">
+        <h3 class="login-title">SKAT CRM</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <form class="form-signin" method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <div class="input-group">
+                    <span class="input-group-addon" style="background-color:#f4791f; color:white"><span
+                            class="glyphicon glyphicon-user"></span></span>
+                    <input class="form-control" id="{{ form.username.id_for_label }}" maxlength="30"
+                        name="{{ form.username.html_name }}" placeholder="Логин" type="text" />
+                    {{ field.errors }}
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" style="background-color:#f4791f; color:white"><span
+                            class="glyphicon glyphicon-lock"></span></span>
+                    <input class="form-control" id="{{ form.password.id_for_label }}" maxlength="30"
+                        name="{{ form.password.html_name }}" placeholder="Пароль" type="password" />
+                    {{ field.errors }}
+                </div>
+                <br>
+                <input class="btn btn-primary btn-block" type="submit" value="Вход" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
