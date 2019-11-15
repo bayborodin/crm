@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from accounts.models import Account
 from accounts.models import AccountType
 from common.models import CommunicationType
+from logistics.models import DeliveryPrice
 
 
 class Command(BaseCommand):
@@ -49,7 +50,8 @@ class Command(BaseCommand):
         create_strategy = {
             'accounts': Account,
             'account_types': AccountType,
-            'communication_types': CommunicationType
+            'communication_types': CommunicationType,
+            'delivery_prices': DeliveryPrice,
         }
 
         # parse csv file

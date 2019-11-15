@@ -8,7 +8,8 @@ urlpatterns = [
     path('', RedirectView.as_view(url='users/login/')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('users/', include('django.contrib.auth.urls'))
+    path('logistics/', include('logistics.urls')),
+    path('users/', include('django.contrib.auth.urls')),
 ]
 
 admin.site.site_header = "SKAT CRM"

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'common',
     'core',
     'contracts',
+    'logistics',
 ]
 
 MIDDLEWARE = [
