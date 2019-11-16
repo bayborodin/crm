@@ -35,18 +35,26 @@ class DeliveryPrice(models.Model):
     delivery_company = models.ForeignKey(DeliveryCompany, related_name='prices',
                                          verbose_name='Транспортная компания',
                                          on_delete=models.PROTECT, null=True)
-    departure = models.CharField(max_length=250, db_index=True, verbose_name='Пункт отправления')
-    destination = models.CharField(max_length=250, db_index=True, verbose_name='Пункт назначения')
-    weight_from = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name='Вес от')
-    weight_to = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name='Вес до')
-    volume_from = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name='Объем от')
-    volume_to = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name='Объем до')
+    departure = models.CharField(max_length=250, db_index=True,
+                                 verbose_name='Пункт отправления')
+    destination = models.CharField(max_length=250, db_index=True,
+                                   verbose_name='Пункт назначения')
+    weight_from = models.DecimalField(max_digits=10, decimal_places=2,
+                                      default=0.00, verbose_name='Вес от')
+    weight_to = models.DecimalField(max_digits=10, decimal_places=2,
+                                    default=0.00, verbose_name='Вес до')
+    volume_from = models.DecimalField(max_digits=10, decimal_places=2,
+                                      default=0.00, verbose_name='Объем от')
+    volume_to = models.DecimalField(max_digits=10, decimal_places=2,
+                                    default=0.00, verbose_name='Объем до')
     price_type = models.ForeignKey(DeliveryPriceType, related_name='prices',
                                    verbose_name='Тип тарифа',
                                    on_delete=models.PROTECT, null=True)
-    base_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name='Базовый тариф')
+    base_price = models.DecimalField(max_digits=10, decimal_places=2,
+                                     default=0.00, verbose_name='Базовый тариф')
     expedition_price = models.DecimalField(max_digits=10, decimal_places=2,
-                                           default=0.00, verbose_name='Тариф экспедирования')
+                                           default=0.00,
+                                           verbose_name='Тариф экспедирования')
 
     @classmethod
     def get_float(cls, numstr):
