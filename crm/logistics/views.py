@@ -24,6 +24,7 @@ def index(request):
 
     if result.count() == 0:
         error = 'Не найден подходящий тариф'
+        delivery_company = 'Не удалось подобрать ТК'
     else:
         price_record = result[0]
         price_type = price_record.price_type.name
