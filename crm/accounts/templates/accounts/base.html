@@ -1,11 +1,9 @@
 {% extends "base_generic.html" %}
 
-{% block nemu %}
-<p>
-    <a href="{% url 'accounts:index' %}">Контрагенты</a>
-</p>
-{% endblock %}
+{% block section_header %}
+<h3>Контрагенты</h3>
+{% endblock section_header %}
 
-{% block content %}
-base
-{% endblock content %}
+{% block section_content %}
+контрагенты контент
+{% endblock section_content %}

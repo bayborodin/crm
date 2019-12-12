@@ -129,3 +129,16 @@ nav {
     width: calc(100% - 200px);
     padding-left: 10px;
 }
+
+.content {
+    padding: 75px 15px 15px;
+}
+
+.table {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+}
+
+.table th {
+    text-align: left;
+}

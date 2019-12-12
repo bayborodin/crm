@@ -21,7 +21,7 @@
             <div class="logo">
                 <span class="logo-text">SKAT CRM</span>
             </div>
-            <div class="user">Иван Тестеров</div>
+            <div class="user">{{user.first_name}} {{user.last_name}}</div>
             <div class="sidebar-collapse">
                 <ul class="nav">
                     <li class="nav-item">
@@ -66,10 +66,16 @@
             <div>
                 <div class="toolbar toolbar_fixed">
                     <div class="toolbar-head">
-                        <h3>Контрагенты</h3>
+                        <h3>
+                            {% block section_header %}
+                            {% endblock section_header %}
+                        </h3>
                     </div>
                 </div>
-                <div class="content">content</div>
+                <div class="content">
+                    {% block section_content %}
+                    {% endblock section_content %}
+                </div>
             </div>
         </main>
     </div>

@@ -1,5 +1,25 @@
 {% extends "accounts/base.html" %}
 
-{% block content %}
-<h2>Контрагенты</h2>
-{% endblock content %}
+{% block section_content %}
+<div class="data-table">
+    <table class="table table-accounts">
+        <thead>
+            <tr>
+                <th>Код</th>
+                <th>Наименование</th>
+                <th>Ответственный</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in collection %}
+            <tr>
+                <td>{{ account.id }}</td>
+                <td>{{ account.name }}</td>
+                <td>Иван Иванов</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'includes/pagination.html' %}
+</div>
+{% endblock section_content %}
