@@ -50,17 +50,19 @@ class Order(models.Model):
     customer = models.ForeignKey(
         Account, related_name='orders',
         verbose_name='Клиент',
-        on_delete=models.PROTEC
+        on_delete=models.PROTECT
     )
 
     amount = models.DecimalField(
-        max_digits=8, decimal_places=2,
+        max_digits=8,
+        decimal_places=2,
         verbose_name='Стоимость без доставки',
         default=Decimal(0.00)
     )
 
     delivery_amount = models.DecimalField(
-        max_digits=8, decimal_places=2,
+        max_digits=8,
+        decimal_places=2,
         verbose_name='Стоимость доставки',
         default=Decimal(0.00)
     )
