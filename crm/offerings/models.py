@@ -18,7 +18,7 @@ class OfferingGroup(models.Model):
         verbose_name_plural = 'Товарные группы'
 
     def __str__(self):
-        return name
+        return self.name
 
 
 class Offering(models.Model):
@@ -106,6 +106,7 @@ class Offering(models.Model):
     class Meta:
         ordering = ['name']
         verbose_name = 'Продукция'
+        verbose_name_plural = 'Продукция'
 
     def __str__(self):
-        return name
+        return self.name
