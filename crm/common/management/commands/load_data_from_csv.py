@@ -6,6 +6,7 @@ from accounts.models import Account
 from accounts.models import AccountType
 from common.models import CommunicationType
 from logistics.models import DeliveryPrice
+from offerings.models import OfferingGroup
 
 
 class Command(BaseCommand):
@@ -52,6 +53,7 @@ class Command(BaseCommand):
             'account_types': AccountType,
             'communication_types': CommunicationType,
             'delivery_prices': DeliveryPrice,
+            'offering_groups': OfferingGroup,
         }
 
         # parse csv file

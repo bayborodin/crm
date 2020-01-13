@@ -12,6 +12,20 @@ class OfferingGroup(models.Model):
 
     enabled = models.BooleanField(verbose_name='Активно', default=True)
 
+    @classmethod
+    def from_tuple(cls, row):
+        offering_group, created = OfferingGroup.objects.get_or_create(extid=row[1])
+        if created:
+            res = 'Создана новая товарная группа'
+        else:
+            res = 'Обновлена товарная группа'
+
+        offering_group.name = row[2]
+        offering_group.enabled = row[3] == 'True'
+        offering_group.save()
+
+        return res
+
     class Meta:
         ordering = ['name']
         verbose_name = 'Товарная группа'
