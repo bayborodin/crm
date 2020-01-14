@@ -2,6 +2,8 @@ from decimal import Decimal
 
 from django.db import models
 
+from common.utils import parse_float
+
 
 class OfferingGroup(models.Model):
     extid = models.CharField(max_length=36, db_index=True, null=True,
@@ -63,21 +65,21 @@ class Offering(models.Model):
     )
 
     bulk_price = models.DecimalField(
-        max_digits=8,
+        max_digits=9,
         decimal_places=2,
         verbose_name='Оптовая цена',
         default=Decimal(0.00)
     )
 
     retail_price = models.DecimalField(
-        max_digits=8,
+        max_digits=9,
         decimal_places=2,
         verbose_name='Розничная цена',
         default=Decimal(0.00)
     )
 
     weight = models.DecimalField(
-        max_digits=6,
+        max_digits=7,
         decimal_places=3,
         verbose_name='Вес',
         default=Decimal(0.00)
@@ -116,6 +118,40 @@ class Offering(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     updated = models.DateTimeField(auto_now=True)
+
+    @classmethod
+    def from_tuple(cls, row):
+        offerings = Offering.objects.filter(extid=row[1])
+        if offerings.exists():
+            offering = offerings[0]
+            res = 'Обновлена позиция номенклатуры'
+        else:
+            offering = Offering(extid=row[1])
+            res = 'Создана новая позиция номенклатуры'
+
+        offering_groups = OfferingGroup.objects.filter(extid=row[5])
+        if offering_groups.exists():
+            offering_group = offering_groups[0]
+        else:
+            offering_group = OfferingGroup.objects.get(pk=1)
+
+        offering.name = row[3]
+        offering.code_1c = row[2]
+        offering.short_name = row[4]
+        offering.group = offering_group
+        offering.url = row[6]
+        offering.bulk_price = parse_float(row[7])
+        offering.retail_price = parse_float(row[8])
+        offering.weight = parse_float(row[9])
+        offering.volume = parse_float(row[10])
+        offering.height = parse_float(row[11])
+        offering.width = parse_float(row[12])
+        offering.length = parse_float(row[13])
+        offering.enabled = row[14] == '1'
+
+        offering.save()
+
+        return res
 
     class Meta:
         ordering = ['name']

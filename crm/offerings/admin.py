@@ -8,7 +8,7 @@ class OfferingGroupAdmin(admin.ModelAdmin):
 
 
 class OfferingAdmin(admin.ModelAdmin):
-    list_display = ['code_1c', 'name', 'group', 'url', 'bulk_price',
+    list_display = ['code_1c', 'name', 'group', 'bulk_price',
                     'retail_price', 'enabled']
     list_filter = ['group', 'enabled']
 

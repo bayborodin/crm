@@ -6,7 +6,7 @@ from accounts.models import Account
 from accounts.models import AccountType
 from common.models import CommunicationType
 from logistics.models import DeliveryPrice
-from offerings.models import OfferingGroup
+from offerings.models import OfferingGroup, Offering
 
 
 class Command(BaseCommand):
@@ -54,6 +54,7 @@ class Command(BaseCommand):
             'communication_types': CommunicationType,
             'delivery_prices': DeliveryPrice,
             'offering_groups': OfferingGroup,
+            'offerings': Offering,
         }
 
         # parse csv file
@@ -80,9 +81,9 @@ class Command(BaseCommand):
                     # создаем объект
                     res = object_class.from_tuple(row)
                     print(res)
-                except (ValueError, IndexError):
+                except (ValueError, IndexError) as e:
                     # если данные не корректны - игнорируем их
-                    print(f'Ошибка создания объекта {object_class} из строки: {row}')
+                    print(f'Ошибка создания объекта {object_class} из строки: {row} ({str(e)})')
                     continue
                 except (NotImplementedError):
                     print(f'Создание объекта {object_class} из CSV не реализовано!')
