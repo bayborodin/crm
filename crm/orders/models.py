@@ -1,27 +1,10 @@
 from decimal import Decimal
 
 from django.db import models
+from django.utils.dateparse import parse_date
+
 from accounts.models import Account
-
-
-# Order state
-class OrderState(models.Model):
-    extid = models.CharField(max_length=36, db_index=True, null=True,
-                             verbose_name='Внешний код')
-
-    name = models.CharField(max_length=250, db_index=True,
-                            verbose_name='Наименование')
-
-    description = models.CharField(max_length=250, verbose_name='Описание',
-                                   blank=True)
-
-    class Meta:
-        ordering = ['name']
-        verbose_name = 'Статус заказа'
-        verbose_name_plural = 'Статусы заказов'
-
-    def __str__(self):
-        return self.name
+from common.utils import parse_float
 
 
 # Order model
@@ -33,19 +16,13 @@ class Order(models.Model):
         verbose_name='Внешний код'
     )
 
-    number_1c = models.CharField(
-        max_length=12,
+    order_number = models.CharField(
+        max_length=11,
         db_index=True,
-        verbose_name='Номер в 1С'
+        verbose_name='Номер'
     )
 
     date = models.DateField(verbose_name='Дата')
-
-    state = models.ForeignKey(
-        OrderState, related_name='orders',
-        verbose_name='Состояние',
-        on_delete=models.PROTECT
-    )
 
     customer = models.ForeignKey(
         Account, related_name='orders',
@@ -53,35 +30,9 @@ class Order(models.Model):
         on_delete=models.PROTECT
     )
 
-    amount = models.DecimalField(
-        max_digits=8,
-        decimal_places=2,
-        verbose_name='Стоимость без доставки',
-        default=Decimal(0.00)
-    )
-
-    delivery_amount = models.DecimalField(
-        max_digits=8,
-        decimal_places=2,
-        verbose_name='Стоимость доставки',
-        default=Decimal(0.00)
-    )
-
-    total_amount = models.DecimalField(
-        max_digits=8, decimal_places=2,
-        verbose_name='Стоимость с доставкой',
-        default=Decimal(0.00)
-    )
-
-    total_weight = models.DecimalField(
-        max_digits=6, decimal_places=2,
-        verbose_name='Вес, всего',
-        default=Decimal(0.00)
-    )
-
-    total_volume = models.DecimalField(
-        max_digits=6, decimal_places=2,
-        verbose_name='Объем, всего',
+    total = models.DecimalField(
+        max_digits=9, decimal_places=2,
+        verbose_name='Сумма всего',
         default=Decimal(0.00)
     )
 
@@ -89,10 +40,34 @@ class Order(models.Model):
 
     updated = models.DateTimeField(auto_now=True)
 
+    @classmethod
+    def from_tuple(cls, row):
+        orders = Order.objects.filter(extid=row[1])
+        if orders.exists():
+            order = orders[0]
+            res = 'Обновлён заказ'
+        else:
+            order = Order(extid=row[1])
+            res = 'Создан новый заказ'
+
+        customers = Account.objects.filter(extid=row[4])
+        if customers.exists():
+            order.customer = customers[0]
+        else:
+            raise ValueError('Order has unknown client id.')
+
+        order.order_number = row[3]
+        order.date = parse_date(row[2])
+        order.total = parse_float(row[5])
+
+        order.save()
+
+        return res
+
     class Meta:
         ordering = ['date']
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
 
     def __str__(self):
-        return f'Заказ {self.number_1c} от {self.date} ({self.customer})'
+        return f'Заказ {self.order_number} от {self.date} ({self.customer})'

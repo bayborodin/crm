@@ -1,18 +1,12 @@
 from django.contrib import admin
 
-from .models import Order, OrderState
+from .models import Order
 
 
 # Order model admin
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'date', 'number_1c', 'customer', 'total_amount', 'state']
-    list_filter = ['date', 'customer', 'state']
-
-
-# OrderState model
-class OrderStateAdmin(admin.ModelAdmin):
-    list_display = ['name', 'description']
+    list_display = ['id', 'date', 'order_number', 'customer', 'total']
+    list_filter = ['date', 'customer']
 
 
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderState, OrderStateAdmin)
