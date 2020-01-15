@@ -2,12 +2,12 @@ import ftplib
 import csv
 from django.core.management.base import BaseCommand
 
-from accounts.models import Account
+from accounts.models import Account, LegalEntity
 from accounts.models import AccountType
 from common.models import CommunicationType
 from logistics.models import DeliveryPrice
 from offerings.models import OfferingGroup, Offering
-# from orders.models import Order
+from orders.models import Order
 
 
 class Command(BaseCommand):
@@ -54,9 +54,10 @@ class Command(BaseCommand):
             'account_types': AccountType,
             'communication_types': CommunicationType,
             'delivery_prices': DeliveryPrice,
+            'legal_entities': LegalEntity,
             'offering_groups': OfferingGroup,
             'offerings': Offering,
-            # 'orders': Order,
+            'orders': Order,
         }
 
         # parse csv file
@@ -86,6 +87,6 @@ class Command(BaseCommand):
                 except (ValueError, IndexError) as e:
                     # если данные не корректны - игнорируем их
                     print(f'Ошибка создания объекта {object_class} из строки: {row} ({str(e)})')
-                    continue
+                    # continue
                 except (NotImplementedError):
                     print(f'Создание объекта {object_class} из CSV не реализовано!')

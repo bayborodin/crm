@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.db import models
 from django.utils.dateparse import parse_date
 
-from accounts.models import Account
+from accounts.models import LegalEntity
 from common.utils import parse_float
 
 
@@ -24,9 +24,10 @@ class Order(models.Model):
 
     date = models.DateField(verbose_name='Дата')
 
-    customer = models.ForeignKey(
-        Account, related_name='orders',
-        verbose_name='Клиент',
+    legal_entity = models.ForeignKey(
+        LegalEntity,
+        related_name='orders',
+        verbose_name='Юридическое лицо',
         on_delete=models.PROTECT
     )
 
@@ -50,11 +51,11 @@ class Order(models.Model):
             order = Order(extid=row[1])
             res = 'Создан новый заказ'
 
-        customers = Account.objects.filter(extid=row[4])
-        if customers.exists():
-            order.customer = customers[0]
+        legal_entities = LegalEntity.objects.filter(extid=row[4])
+        if legal_entities.exists():
+            order.legal_entity = legal_entities[0]
         else:
-            raise ValueError('Order has unknown client id.')
+            raise ValueError(f'Order has unknown client id ({row[4]}).')
 
         order.order_number = row[3]
         order.date = parse_date(row[2])
@@ -70,4 +71,4 @@ class Order(models.Model):
         verbose_name_plural = 'Заказы'
 
     def __str__(self):
-        return f'Заказ {self.order_number} от {self.date} ({self.customer})'
+        return f'Заказ {self.order_number} от {self.date} ({self.legal_entity})'

@@ -150,4 +150,4 @@ class LegalEntity(models.Model):
         verbose_name_plural = 'Юридические лица'
 
     def __str__(self):
-        return self.short_name
+        return f'{self.short_name} (ИНН {self.inn})'
