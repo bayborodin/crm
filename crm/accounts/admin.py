@@ -11,8 +11,6 @@ class LegalEntityInline(admin.StackedInline):
     model = LegalEntity
     extra = 0
 
-# Account model admin
-
 
 class AccountAdmin(admin.ModelAdmin):
     list_display = ['name', 'account_type', 'created', 'updated']
