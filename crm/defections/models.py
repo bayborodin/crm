@@ -28,7 +28,7 @@ class Defection(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'Акт обранужения брака {self.id} ({self.account})'
+        return f'Акт обранужения брака №{self.id} ({self.account})'
 
     class Meta:
         verbose_name = 'Акт обнаружения брака'

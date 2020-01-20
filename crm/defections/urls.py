@@ -5,5 +5,5 @@ from . import views
 app_name = 'defections'
 
 urlpatterns = [
-    path('', views.index)
+    path('<str:account_extid>', views.index, name='index')
 ]

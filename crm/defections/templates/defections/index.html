@@ -1,1 +1,13 @@
-<h1>hello</h1>
+<h1>Реестр актов обнаружения брака</h1>
+
+{% block content %}
+
+<ul>
+    {% for defection in defections %}
+    <li>{{ defection.id }} | {{ defection.created }} | {{ defection.account }}</li>
+    {% empty %}
+    <li>Акты обнаружения брака не обнаружены :)</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
