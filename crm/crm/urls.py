@@ -10,6 +10,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('logistics/', include('logistics.urls')),
     path('users/', include('django.contrib.auth.urls')),
+    path('defections/', include('defections.urls')),
 ]
 
 admin.site.site_header = "SKAT CRM"
