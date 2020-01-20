@@ -138,10 +138,10 @@ class LegalEntity(models.Model):
         legal_entity.short_name = row[4]
         # Check INN length
         if len(row[10]) > 12:
-            raise ValueError(f'INN is too long. (row)')
-        legal_entity.inn = row[10]
-        legal_entity.kpp = row[12]
-        legal_entity.code_1c = row[16]
+            raise ValueError(f'INN is too long.')
+        legal_entity.inn = row[10][:10]
+        legal_entity.kpp = row[12][:9]
+        legal_entity.code_1c = row[16][:9]
 
         legal_entity.save()
 
