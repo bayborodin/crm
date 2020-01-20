@@ -113,7 +113,7 @@ class LegalEntity(models.Model):
     )
 
     code_1c = models.CharField(
-        max_length=12,
+        max_length=9,
         db_index=True,
         verbose_name='Код в 1С'
     )
