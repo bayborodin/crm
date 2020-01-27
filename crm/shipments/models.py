@@ -3,6 +3,8 @@ from decimal import Decimal
 from django.db import models
 
 from accounts.models import LegalEntity
+from common.utils import parse_date
+from common.utils import parse_float
 from orders.models import Order
 
 
@@ -53,6 +55,41 @@ class Shipment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     updated = models.DateTimeField(auto_now=True)
+
+    @classmethod
+    def from_tuple(cls, row):
+        shipments = Shipment.objects.filter(extid=row[1])
+        if shipments.exists():
+            shipment = shipments[0]
+            res = 'Обновлена отгрузка'
+        else:
+            shipment = Shipment(extid=row[1])
+            res = 'Создана новая отгрузка'
+
+        legal_entities = LegalEntity.objects.filter(extid=row[2])
+        if legal_entities.exists():
+            shipment.buyer = legal_entities[0]
+            shipment.consignee = legal_entities[0]
+        else:
+            raise ValueError(f'Order has unknown buyer id ({row[2]}).')
+
+        orders = Order.objects.filter(extid=row[3])
+        if orders.exists():
+            shipment.order = orders[0]
+        else:
+            raise ValueError(f'Shipment has unknown order id ({row[3]}).')
+
+        shipment.number = row[4]
+
+        date_str = row[5].split()[0]
+
+        shipment.date = parse_date(date_str)
+
+        shipment.total = parse_float(row[6])
+
+        shipment.save()
+
+        return res
 
     class Meta:
         ordering = ['date']
