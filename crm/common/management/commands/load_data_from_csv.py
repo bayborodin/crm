@@ -8,7 +8,7 @@ from common.models import CommunicationType
 from logistics.models import DeliveryPrice
 from offerings.models import OfferingGroup, Offering
 from orders.models import Order, OrderOffering
-from shipments.models import Shipment
+from shipments.models import Shipment, ShipmentOffering
 
 
 class Command(BaseCommand):
@@ -60,7 +60,8 @@ class Command(BaseCommand):
             'offerings': Offering,
             'orders': Order,
             'order_details': OrderOffering,
-            'shipments': Shipment
+            'shipments': Shipment,
+            'shipment_offerings': ShipmentOffering
         }
 
         # parse csv file
