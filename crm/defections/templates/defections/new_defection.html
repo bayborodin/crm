@@ -1,0 +1,10 @@
+{% load bootstrap4 %}
+{% block content %}
+<p>Add new defection</p>
+{{ context.extid }}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">add defectinon</button>
+</form>
+{% endblock content %}
