@@ -1,6 +1,7 @@
 from django.db import models
 
 from accounts.models import Account
+from offerings.models import Offering
 from shipments.models import Shipment
 
 
@@ -16,6 +17,14 @@ class Defection(models.Model):
         Shipment,
         related_name='defections',
         verbose_name='Отгрузка',
+        on_delete=models.PROTECT,
+        null=True
+    )
+
+    offering = models.ForeignKey(
+        Offering,
+        related_name='defections',
+        verbose_name='Номенклатура',
         on_delete=models.PROTECT,
         null=True
     )

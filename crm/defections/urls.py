@@ -7,4 +7,5 @@ app_name = 'defections'
 urlpatterns = [
     path('<str:account_extid>', views.index, name='index'),
     path('<str:account_extid>/new', views.new_defection, name='add'),
+    path('ajax/load-offerings', views.load_offerings, name='ajax_load_offerings'),
 ]

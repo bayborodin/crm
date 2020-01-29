@@ -3,9 +3,27 @@
 {% block content %}
 <p>Add new defection</p>
 {{ context.extid }}
-<form method="POST">
+<form method="POST" id="defectionForm" data-offerings-url="{% url 'defections:ajax_load_offerings' %}" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submit">Отправить акт</button>
 </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $('#id_shipment').change(function () {
+        var url = $('#defectionForm').attr('data-offerings-url');
+        var shipmentId = $(this).val();
+
+        $.ajax({
+            url: url,
+            data: {
+                'shipment': shipmentId
+            },
+            success: function (data) {
+                $('#id_offering').html(data);
+            }
+        });
+    })
+</script>
 {% endblock content %}

@@ -5,6 +5,7 @@ from django.urls import reverse
 from .models import Defection
 from .forms import DefectionForm
 from accounts.models import Account
+from shipments.models import ShipmentOffering
 
 
 def index(request, account_extid):
@@ -33,3 +34,13 @@ def new_defection(request, account_extid):
 
     context = {'form': form, 'extid': account_extid}
     return render(request, 'defections/new_defection.html', context)
+
+
+def load_offerings(request):
+    shipment_id = request.GET.get('shipment')
+    shipment_offerings = ShipmentOffering.objects.filter(shipment_id=shipment_id)
+    offerings = []
+    for row in shipment_offerings:
+        offerings.append(row.offering)
+
+    return render(request, 'defections/offering_list.html', {'offerings': offerings})

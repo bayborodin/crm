@@ -9,7 +9,7 @@ class PhotoInline(admin.StackedInline):
 
 
 class DefectionAdmin(admin.ModelAdmin):
-    list_display = ['id', 'created', 'updated', 'account', 'kind']
+    list_display = ['id', 'created', 'updated', 'account', 'shipment', 'offering', 'kind']
     inlines = [PhotoInline]
 
 
