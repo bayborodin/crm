@@ -99,7 +99,7 @@ class Shipment(models.Model):
         verbose_name_plural = 'Отгрузки'
 
     def __str__(self):
-        return 'Отгрузка'
+        return f'Реализация №{self.number} от {self.date}'
 
 
 class ShipmentOffering(models.Model):

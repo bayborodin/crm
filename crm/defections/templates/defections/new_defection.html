@@ -1,10 +1,11 @@
-{% load bootstrap4 %}
+{% extends 'defections/base.html' %}
+
 {% block content %}
 <p>Add new defection</p>
 {{ context.extid }}
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">add defectinon</button>
+    <button name="submit">Отправить акт</button>
 </form>
 {% endblock content %}

@@ -1,12 +1,13 @@
 from django import forms
 
 from .models import Defection
+from shipments.models import Shipment
 
 
 class DefectionForm(forms.ModelForm):
     class Meta:
         model = Defection
-        fields = ['serial_number', 'description']
+        fields = ['shipment', 'serial_number', 'kind', 'description']
         widgets = {
             'description': forms.Textarea(
                 attrs={
@@ -15,3 +16,7 @@ class DefectionForm(forms.ModelForm):
                 }
             )
         }
+
+    def __init__(self, account, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['shipment'].queryset = Shipment.objects.filter(buyer__account=account)

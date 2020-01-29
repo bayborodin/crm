@@ -1,32 +1,18 @@
-{% load bootstrap4 %}
-<!DOCTYPE html>
-<html lang="ru">
+{% extends 'defections/base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE-edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% bootstrap_css %}
-</head>
+{% block content %}
+<h1>Реестр актов обнаружения брака</h1>
 
-<body>
-    <div class="container">
-        <h1>Реестр актов обнаружения брака</h1>
+<h2>{{ account }}</h2>
 
-        <h2>{{ account }}</h2>
-
-        <ul>
-            {% for defection in defections %}
-            <li>{{ defection.id }} | {{ defection.created }} | {{ defection.account }}</li>
-            {% empty %}
-            <li>Акты обнаружения брака не обнаружены :)</li>
-            {% endfor %}
-        </ul>
-        <div>
-            <a href="{% url  'defections:add' account.extid %}">Добавить новый акт</a>
-        </div>
-    </div>
-    {% bootstrap_javascript %}
-</body>
-
-</html>
+<ul>
+    {% for defection in defections %}
+    <li>{{ defection.id }} | {{ defection.created }} | {{ defection.account }}</li>
+    {% empty %}
+    <li>Акты обнаружения брака не обнаружены :)</li>
+    {% endfor %}
+</ul>
+<div>
+    <a href="{% url  'defections:add' account.extid %}">Добавить новый акт</a>
+</div>
+{% endblock %}

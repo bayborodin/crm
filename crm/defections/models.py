@@ -1,6 +1,7 @@
 from django.db import models
 
 from accounts.models import Account
+from shipments.models import Shipment
 
 
 class Defection(models.Model):
@@ -11,10 +12,35 @@ class Defection(models.Model):
         on_delete=models.PROTECT
     )
 
+    shipment = models.ForeignKey(
+        Shipment,
+        related_name='defections',
+        verbose_name='Отгрузка',
+        on_delete=models.PROTECT,
+        null=True
+    )
+
     serial_number = models.CharField(
         max_length=20,
         null=True,
         verbose_name='Серийный номер'
+    )
+
+    SHORTAGE = 'SH'
+    TRANSPORTATION_DAMAGE = 'TG'
+    OTHER = 'OT'
+
+    KIND_CHOICES = [
+        (SHORTAGE, 'Некомплект'),
+        (TRANSPORTATION_DAMAGE, 'Транспортный бой'),
+        (OTHER, 'Другое'),
+    ]
+
+    kind = models.CharField(
+        max_length=2,
+        choices=KIND_CHOICES,
+        default=SHORTAGE,
+        verbose_name='Характер брака'
     )
 
     description = models.CharField(
@@ -33,3 +59,15 @@ class Defection(models.Model):
     class Meta:
         verbose_name = 'Акт обнаружения брака'
         verbose_name_plural = 'Акты обнаружения брака'
+
+
+class Photo(models.Model):
+    defection = models.ForeignKey(
+        Defection,
+        related_name='photos',
+        verbose_name='Изображение',
+        on_delete=models.PROTECT
+    )
+    title = models.CharField(max_length=255, blank=True)
+    file = models.ImageField(upload_to='defections/%Y/%m/%d')
+    uploaded_at = models.DateField(auto_now_add=True)

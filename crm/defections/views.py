@@ -22,7 +22,7 @@ def index(request, account_extid):
 def new_defection(request, account_extid):
     account = Account.objects.get(extid=account_extid.upper())
     if request.method != 'POST':
-        form = DefectionForm()
+        form = DefectionForm(account)
     else:
         form = DefectionForm(request.POST)
         if form.is_valid():
