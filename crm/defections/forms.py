@@ -6,6 +6,19 @@ from shipments.models import Shipment
 
 
 class DefectionForm(forms.ModelForm):
+    damage_photo = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True, 'disabled': True}),
+        label='Фото повреждения'
+    )
+    package_photo_outside = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True, 'disabled': True}),
+        label='Фото упаковки (снаружи)'
+    )
+    package_photo_inside = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True, 'disabled': True}),
+        label='Фото упаковки (изнутри)'
+    )
+
     class Meta:
         model = Defection
         fields = ['shipment', 'offering', 'serial_number', 'kind', 'description']
@@ -13,9 +26,9 @@ class DefectionForm(forms.ModelForm):
             'description': forms.Textarea(
                 attrs={
                     'cols': 80,
-                    'placeholder': 'Введите описание'
+                    'placeholder': 'Укажите, чего не хватает в комплекте'
                 }
-            )
+            ),
         }
 
     def __init__(self, account, *args, **kwargs):

@@ -1,12 +1,13 @@
 {% extends 'defections/base.html' %}
 
 {% block content %}
-<p>Add new defection</p>
+<h2>Добавить новый акт обнаружения брака</h2>
+<br>
 {{ context.extid }}
 <form method="POST" id="defectionForm" data-offerings-url="{% url 'defections:ajax_load_offerings' %}" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">Отправить акт</button>
+    <button name="submit">Отправить</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -24,6 +25,26 @@
                 $('#id_offering').html(data);
             }
         });
-    })
+    });
+    $('#id_kind').change(function () {
+        var placeholderText = 'Укажите характер брака';
+        var kindId = $(this).val();
+        if (kindId === 'SH') {
+            $('#id_damage_photo').attr('disabled', true);
+            $('#id_package_photo_outside').attr('disabled', true);
+            $('#id_package_photo_inside').attr('disabled', true);
+            placeholderText = 'Укажите, чего не хватает в комплекте';
+        } else if (kindId === 'TG') {
+            placeholderText = 'Укажите, какие детали повреждены';
+            $('#id_damage_photo').attr('disabled', false);
+            $('#id_package_photo_outside').attr('disabled', false);
+            $('#id_package_photo_inside').attr('disabled', false);
+        } else {
+            $('#id_damage_photo').attr('disabled', false);
+            $('#id_package_photo_outside').attr('disabled', true);
+            $('#id_package_photo_inside').attr('disabled', true);
+        }
+        $('#id_description').attr('placeholder', placeholderText)
+    });
 </script>
 {% endblock content %}
