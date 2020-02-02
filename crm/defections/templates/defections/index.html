@@ -1,18 +1,31 @@
 {% extends 'defections/base.html' %}
 
 {% block content %}
-<h1>Реестр актов обнаружения брака</h1>
-
-<h2>{{ account }}</h2>
-
-<ul>
-    {% for defection in defections %}
-    <li>{{ defection.id }} | {{ defection.created }} | {{ defection.account }}</li>
-    {% empty %}
-    <li>Акты обнаружения брака не обнаружены :)</li>
-    {% endfor %}
-</ul>
-<div>
+<h2>Реестр актов обнаружения брака</h2>
+<div style="margin-top: 10pt; margin-bottom: 10px;">
+    <a href="{% url  'defections:add' account.extid %}">Добавить новый акт</a>
+</div>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Номер</th>
+            <th>Дата</th>
+            <th>Контрагент</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for defection in defections %}
+        <tr>
+            <td>{{ defection.id }}</td>
+            <td>{{ defection.created }}</td>
+            <td>{{ defection.offering }}</td>
+            <td><button type="button" class="btn btn-outline-primary btn-sm">Посмотреть</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div style="margin-top: 10pt; margin-bottom: 10px;">
     <a href="{% url  'defections:add' account.extid %}">Добавить новый акт</a>
 </div>
 {% endblock %}

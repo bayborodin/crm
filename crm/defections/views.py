@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Defection
+from .models import Defection, Photo
 from .forms import DefectionForm
 from accounts.models import Account
 from shipments.models import ShipmentOffering
@@ -25,11 +25,23 @@ def new_defection(request, account_extid):
     if request.method != 'POST':
         form = DefectionForm(account)
     else:
-        form = DefectionForm(request.POST)
+        form = DefectionForm(account, request.POST, request.FILES)
         if form.is_valid():
             new_defection = form.save(commit=False)
             new_defection.account = account
             new_defection.save()
+
+            print('DBG!!!')
+            print(request.FILES)
+            files = request.FILES.getlist('damage_photo')
+            for f in files:
+                print(f)
+                photo = Photo()
+                photo.defection = new_defection
+                photo.title = 'Фото повреждения'
+                photo.file = f
+                photo.save()
+
             return HttpResponseRedirect(reverse('defections:index', args=[account_extid]))
 
     context = {'form': form, 'extid': account_extid}

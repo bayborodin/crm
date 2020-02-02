@@ -75,7 +75,7 @@ class Photo(models.Model):
         Defection,
         related_name='photos',
         verbose_name='Изображение',
-        on_delete=models.PROTECT
+        on_delete=models.CASCADE
     )
     title = models.CharField(max_length=255, blank=True)
     file = models.ImageField(upload_to='defections/%Y/%m/%d')

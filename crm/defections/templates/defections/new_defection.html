@@ -4,7 +4,8 @@
 <h2>Добавить новый акт обнаружения брака</h2>
 <br>
 {{ context.extid }}
-<form method="POST" id="defectionForm" data-offerings-url="{% url 'defections:ajax_load_offerings' %}" novalidate>
+<form method="POST" enctype="multipart/form-data" id="defectionForm"
+    data-offerings-url="{% url 'defections:ajax_load_offerings' %}" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submit">Отправить</button>
@@ -35,10 +36,10 @@
             $('#id_package_photo_inside').attr('disabled', true);
             placeholderText = 'Укажите, чего не хватает в комплекте';
         } else if (kindId === 'TG') {
-            placeholderText = 'Укажите, какие детали повреждены';
             $('#id_damage_photo').attr('disabled', false);
             $('#id_package_photo_outside').attr('disabled', false);
             $('#id_package_photo_inside').attr('disabled', false);
+            placeholderText = 'Укажите, какие детали повреждены';
         } else {
             $('#id_damage_photo').attr('disabled', false);
             $('#id_package_photo_outside').attr('disabled', true);
