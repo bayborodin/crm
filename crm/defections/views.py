@@ -1,3 +1,5 @@
+from django.core.mail import send_mail
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -20,6 +22,14 @@ def index(request, account_extid):
     return render(request, 'defections/index.html', context)
 
 
+def defection(request, account_extid, defection_id):
+    '''Выводит акт обнаружения брака для просмотра'''
+    defection = Defection.objects.get(id=defection_id)
+    account = Account.objects.get(extid=account_extid.upper())
+    context = {'defection': defection, 'account': account}
+    return render(request, 'defections/defection.html', context)
+
+
 def new_defection(request, account_extid):
     account = Account.objects.get(extid=account_extid.upper())
     if request.method != 'POST':
@@ -30,12 +40,10 @@ def new_defection(request, account_extid):
             new_defection = form.save(commit=False)
             new_defection.account = account
             new_defection.save()
+            notify(new_defection)
 
-            print('DBG!!!')
-            print(request.FILES)
             files = request.FILES.getlist('damage_photo')
             for f in files:
-                print(f)
                 photo = Photo()
                 photo.defection = new_defection
                 photo.title = 'Фото повреждения'
@@ -44,7 +52,7 @@ def new_defection(request, account_extid):
 
             return HttpResponseRedirect(reverse('defections:index', args=[account_extid]))
 
-    context = {'form': form, 'extid': account_extid}
+    context = {'form': form, 'extid': account_extid, 'account': account}
     return render(request, 'defections/new_defection.html', context)
 
 
@@ -56,3 +64,20 @@ def load_offerings(request):
         offerings.append(row.offering)
 
     return render(request, 'defections/offering_list.html', {'offerings': offerings})
+
+
+def notify(defection):
+    subject = 'Новый акт обнаружения брака!'
+    message = f'''
+        Контрагент: {defection.account}\n
+        Документ отгрузки: {defection.shipment}\n
+        Оборудование: {defection.offering}\n
+        Серийный номер: {defection.serial_number}'''
+
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [
+        'n.bayborodin@skatpower.ru',
+        'k.davydov@skatpower.ru',
+    ]
+
+    send_mail(subject, message, email_from, recipient_list)

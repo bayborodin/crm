@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Реестр актов обнаружения брака</h2>
 <div style="margin-top: 10pt; margin-bottom: 10px;">
-    <a href="{% url  'defections:add' account.extid %}">Добавить новый акт</a>
+    <a href="{% url  'defections:add' account.extid %}" class="btn btn-primary btn-sm">Добавить новый акт</a>
 </div>
 <table class="table table-striped">
     <thead class="thead-dark">
@@ -20,12 +20,13 @@
             <td>{{ defection.id }}</td>
             <td>{{ defection.created }}</td>
             <td>{{ defection.offering }}</td>
-            <td><button type="button" class="btn btn-outline-primary btn-sm">Посмотреть</button></td>
+            <td><a type="button" class="btn btn-outline-primary btn-sm"
+                    href="{% url 'defections:defection' account.extid defection.id %}">Посмотреть</button></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 <div style="margin-top: 10pt; margin-bottom: 10px;">
-    <a href="{% url  'defections:add' account.extid %}">Добавить новый акт</a>
+    <a href="{% url  'defections:add' account.extid %}" class="btn btn-primary btn-sm">Добавить новый акт</a>
 </div>
 {% endblock %}

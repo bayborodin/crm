@@ -1,0 +1,18 @@
+{% extends 'defections/base.html' %}
+
+{% block content %}
+<h2>Акт обнаружения брака №{{ defection.pk }}</h2>
+<div style="margin-top: 20px;">
+    <p>
+        <strong>Документ отгрузки:</strong> {{ defection.shipment }}<br>
+        <strong>Оборудование:</strong> {{ defection.offering }}<br>
+        <strong>Серийный номер:</strong> {{ defection.serial_number }}<br>
+        <strong>Характер брака:</strong> {{ defection.kind }}<br>
+        <strong>Описание брака:</strong><br>
+        {{ defection.description }}
+    </p>
+</div>
+<div>
+    <a type="button" class="btn btn-success" href="{% url  'defections:index' account.extid %}">Назад</a>
+</div>
+{% endblock %}

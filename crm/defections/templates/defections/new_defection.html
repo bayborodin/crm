@@ -1,5 +1,7 @@
 {% extends 'defections/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 <h2>Добавить новый акт обнаружения брака</h2>
 <br>
@@ -7,8 +9,25 @@
 <form method="POST" enctype="multipart/form-data" id="defectionForm"
     data-offerings-url="{% url 'defections:ajax_load_offerings' %}" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Отправить</button>
+    {{ form.shipment|as_crispy_field }}
+    {{ form.offering|as_crispy_field }}
+    {{ form.serial_number|as_crispy_field }}
+    {{ form.kind|as_crispy_field }}
+    {{ form.description|as_crispy_field }}
+    <div class="row">
+        <div class="col-4">
+            {{ form.damage_photo|as_crispy_field }}
+        </div>
+        <div class="col-4">
+            {{ form.package_photo_outside|as_crispy_field }}
+        </div>
+        <div class="col-4">
+            {{ form.package_photo_inside|as_crispy_field }}
+        </div>
+    </div>
+    <div style="margin-top: 20px">
+        <button name="submit" class="btn btn-success">Отправить</button>
+    </div style="margin-top: 20px">
 </form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
