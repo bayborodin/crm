@@ -7,7 +7,7 @@
         <strong>Документ отгрузки:</strong> {{ defection.shipment }}<br>
         <strong>Оборудование:</strong> {{ defection.offering }}<br>
         <strong>Серийный номер:</strong> {{ defection.serial_number }}<br>
-        <strong>Характер брака:</strong> {{ defection.kind }}<br>
+        <strong>Характер брака:</strong> {{ defection.get_kind_display }}<br>
         <strong>Описание брака:</strong><br>
         {{ defection.description }}
     </p>

@@ -63,10 +63,10 @@
 
 <body>
     <div class="pdf-document">
-        <div class="company">{{ account }}</div>
-        <div class="title">Акт обнаружения брака №{{ defection.pk }}</div>
+        <div class="company">{{ buyer_legal_entity.name }}</div>
+        <div class="title">Акт обнаружения брака № {{ defection.pk }}</div>
         <div class="content">
-            По документу {{ defection.shipment }} от ООО Скат ДВ была получена партия товара.
+            По документу {{ defection.shipment }} от {{ seler_name }} была получена партия товара.
             Груз у перевозчика был принят без замечаний. Во время приёмки товара по количеству
             и качеству был выявлен брак.
         </div>

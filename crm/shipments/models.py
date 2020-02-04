@@ -18,25 +18,33 @@ class Shipment(models.Model):
         verbose_name='Внешний код'
     )
 
+    seller = models.ForeignKey(
+        LegalEntity,
+        related_name='sales',
+        verbose_name='Поставщик',
+        on_delete=models.PROTECT,
+        null=True,
+    )
+
     buyer = models.ForeignKey(
         LegalEntity,
         related_name='purchases',
         verbose_name='Покупатель',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
     )
 
     consignee = models.ForeignKey(
         LegalEntity,
         related_name='shipments',
         verbose_name='Грузополучатель',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
     )
 
     order = models.ForeignKey(
         Order,
         related_name='shipments',
         verbose_name='Заказ',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
     )
 
     number = models.CharField(
@@ -60,6 +68,7 @@ class Shipment(models.Model):
 
     @classmethod
     def from_tuple(cls, row):
+        # Shipment
         shipments = Shipment.objects.filter(extid=row[1])
         if shipments.exists():
             shipment = shipments[0]
@@ -68,6 +77,7 @@ class Shipment(models.Model):
             shipment = Shipment(extid=row[1])
             res = 'Создана новая отгрузка'
 
+        # Legal Entity
         legal_entities = LegalEntity.objects.filter(extid=row[2])
         if legal_entities.exists():
             shipment.buyer = legal_entities[0]
@@ -75,19 +85,30 @@ class Shipment(models.Model):
         else:
             raise ValueError(f'Order has unknown buyer id ({row[2]}).')
 
-        orders = Order.objects.filter(extid=row[3])
+        # Seller
+        if row[4].find('/') >= 0:
+            inn, kpp = row[4].split('/')
+        else:
+            inn = row[4]
+            kpp = None
+        legal_entities = LegalEntity.objects.filter(inn=inn, kpp=kpp)
+        if legal_entities.exists():
+            shipment.seller = legal_entities[0]
+        else:
+            raise ValueError(f'Order has unknown seller INN/KPP ({row[4]})')
+
+        # Order
+        orders = Order.objects.filter(extid=row[5])
         if orders.exists():
             shipment.order = orders[0]
         else:
-            raise ValueError(f'Shipment has unknown order id ({row[3]}).')
+            raise ValueError(f'Shipment has unknown order id ({row[5]}).')
 
-        shipment.number = row[4]
-
-        date_str = row[5].split()[0]
-
+        # Other fields
+        shipment.number = row[6]
+        date_str = row[7].split()[0]
         shipment.date = parse_date(date_str)
-
-        shipment.total = parse_float(row[6])
+        shipment.total = parse_float(row[8])
 
         shipment.save()
 
@@ -99,7 +120,7 @@ class Shipment(models.Model):
         verbose_name_plural = 'Отгрузки'
 
     def __str__(self):
-        return f'Реализация №{self.number} от {self.date}'
+        return f'Реализация № {self.number} от {self.date.strftime("%d.%m.%Y")}'
 
 
 class ShipmentOffering(models.Model):

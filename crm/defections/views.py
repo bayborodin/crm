@@ -39,10 +39,19 @@ def pdf(request, account_extid, defection_id):
     '''Формирует PDF форму акта обнаружения брака'''
     # Model data
     defection = Defection.objects.get(id=defection_id)
-    account = Account.objects.get(extid=account_extid.upper())
 
     # Render
-    context = {'defection': defection, 'account': account}
+    buyer_legal_entity = defection.shipment.buyer
+    seller_name = defection.shipment.seller.name
+    seller_name = seller_name.replace('Общество с ограниченной ответственностью',
+                                      'Общества с ограниченной ответственностью')
+    seller_name = seller_name.replace('Индивидуальный предприниматель',
+                                      'Индивидуального предпринимателя')
+    context = {
+        'defection': defection,
+        'buyer_legal_entity': buyer_legal_entity,
+        'seler_name': seller_name,
+    }
     html_string = render_to_string('defections/pdf.html', context)
     html = HTML(string=html_string)
     result = html.write_pdf()
