@@ -1,8 +1,13 @@
+import tempfile
+
 from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template.loader import render_to_string
 from django.urls import reverse
+
+from weasyprint import HTML
 
 from .models import Defection, Photo
 from .forms import DefectionForm
@@ -28,6 +33,31 @@ def defection(request, account_extid, defection_id):
     account = Account.objects.get(extid=account_extid.upper())
     context = {'defection': defection, 'account': account}
     return render(request, 'defections/defection.html', context)
+
+
+def pdf(request, account_extid, defection_id):
+    '''Формирует PDF форму акта обнаружения брака'''
+    # Model data
+    defection = Defection.objects.get(id=defection_id)
+    account = Account.objects.get(extid=account_extid.upper())
+
+    # Render
+    context = {'defection': defection, 'account': account}
+    html_string = render_to_string('defections/pdf.html', context)
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    # Create HTTP response
+    response = HttpResponse(content_type='application/pdf;')
+    response['Content-Disposition'] = 'inline; filename=defection.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    return response
 
 
 def new_defection(request, account_extid):

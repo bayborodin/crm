@@ -27,6 +27,8 @@
     </div>
     <div style="margin-top: 20px">
         <button name="submit" class="btn btn-success">Отправить</button>
+        <a href="{% url  'defections:index' account.extid %}" class="btn btn-danger"
+            style="margin-left: 20px;">Отмена</a>
     </div style="margin-top: 20px">
 </form>
 

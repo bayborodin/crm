@@ -14,5 +14,7 @@
 </div>
 <div>
     <a type="button" class="btn btn-success" href="{% url  'defections:index' account.extid %}">Назад</a>
+    <a type="button" class="btn btn-info" style="margin-left: 30px;"
+        href="{% url  'defections:pdf' account.extid defection.id %}" target="blank">Печать</a>
 </div>
 {% endblock %}

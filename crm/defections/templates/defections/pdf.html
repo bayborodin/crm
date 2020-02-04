@@ -1,0 +1,103 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% bootstrap_css %}
+
+    <style type="text/css">
+        .pdf-document {
+            font-family: "Open Sans", Calibri, Candara, Arial, sans-serif;
+        }
+
+        .company {
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sign {
+            float: right;
+            text-align: right;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: large;
+        }
+
+        .defection {
+            border: 1px solid #000;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        td,
+        th {
+            padding: 10px;
+        }
+
+        .defection th {
+            border: 1px solid #000;
+        }
+
+        .defection td {
+            border: 1px solid #000;
+        }
+
+        .sign {
+            margin-top: 20px;
+        }
+
+        .content {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pdf-document">
+        <div class="company">{{ account }}</div>
+        <div class="title">Акт обнаружения брака №{{ defection.pk }}</div>
+        <div class="content">
+            По документу {{ defection.shipment }} от ООО Скат ДВ была получена партия товара.
+            Груз у перевозчика был принят без замечаний. Во время приёмки товара по количеству
+            и качеству был выявлен брак.
+        </div>
+        <table class="defection">
+            <thead>
+                <tr>
+                    <th>Наименование оборудования</th>
+                    <th>Серийный номер</th>
+                    <th>Характер брака</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {{ defection.offering }}
+                    </td>
+                    <td>
+                        {{ defection.serial_number }}
+                    </td>
+                    <td>{{ defection.get_kind_display }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="sign">
+            Подписи членов комиссии:<br>
+            ______________ / ___________________<br>
+            ______________ / ___________________<br>
+            ______________ / ___________________<br>
+            ______________ / ___________________<br>
+        </div>
+    </div>
+</body>
+
+</html>
