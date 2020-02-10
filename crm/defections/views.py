@@ -14,8 +14,6 @@ from .forms import DefectionForm
 from accounts.models import Account
 from shipments.models import ShipmentOffering
 
-from django.conf import settings
-
 
 def index(request, account_extid):
     accounts = Account.objects.filter(extid=account_extid.upper())
