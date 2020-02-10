@@ -14,6 +14,8 @@ from .forms import DefectionForm
 from accounts.models import Account
 from shipments.models import ShipmentOffering
 
+from django.conf import settings
+
 
 def index(request, account_extid):
     accounts = Account.objects.filter(extid=account_extid.upper())
@@ -79,7 +81,6 @@ def new_defection(request, account_extid):
             new_defection = form.save(commit=False)
             new_defection.account = account
             new_defection.save()
-            notify(new_defection)
 
             files = request.FILES.getlist('damage_photo')
             for f in files:
@@ -88,6 +89,24 @@ def new_defection(request, account_extid):
                 photo.title = 'Фото повреждения'
                 photo.file = f
                 photo.save()
+
+            files = request.FILES.getlist('package_photo_outside')
+            for f in files:
+                photo = Photo()
+                photo.defection = new_defection
+                photo.title = 'Фото повреждения упаковки (снаружи)'
+                photo.file = f
+                photo.save()
+
+            files = request.FILES.getlist('package_photo_inside')
+            for f in files:
+                photo = Photo()
+                photo.defection = new_defection
+                photo.title = 'Фото повреждения упаковки (изнутри)'
+                photo.file = f
+                photo.save()
+
+            notify(request, new_defection)
 
             return HttpResponseRedirect(reverse('defections:index', args=[account_extid]))
 
@@ -105,13 +124,21 @@ def load_offerings(request):
     return render(request, 'defections/offering_list.html', {'offerings': offerings})
 
 
-def notify(defection):
+def notify(request, defection):
     subject = 'Новый акт обнаружения брака!'
+
+    photo_list = '\nПриложенные файлы:\n'
+    for photo in defection.photos.all():
+        url = request.build_absolute_uri(photo.file.url)
+        photo_list += f'{url}\n'
+
     message = f'''
         Контрагент: {defection.account}\n
         Документ отгрузки: {defection.shipment}\n
         Оборудование: {defection.offering}\n
-        Серийный номер: {defection.serial_number}'''
+        Серийный номер: {defection.serial_number}\n'''
+    message += photo_list
+    print(message)
 
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [
