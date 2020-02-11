@@ -136,12 +136,12 @@ def notify(request, defection):
         Оборудование: {defection.offering}\n
         Серийный номер: {defection.serial_number}\n'''
     message += photo_list
-    print(message)
 
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [
         'n.bayborodin@skatpower.ru',
-        'k.davydov@skatpower.ru',
     ]
+    if defection.account.owner.email:
+        recipient_list.append(defection.account.owner.email)
 
     send_mail(subject, message, email_from, recipient_list)

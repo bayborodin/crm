@@ -51,7 +51,7 @@ class Account(models.Model):
         User,
         verbose_name='Ответственный',
         on_delete=models.PROTECT,
-        null=True
+        null=True,
     )
 
     @classmethod
