@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
+
+from core.models import Profile
 
 
 # Account type model
@@ -44,6 +47,12 @@ class Account(models.Model):
     extid = models.CharField(max_length=36, db_index=True, null=True, verbose_name='Внешний код')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    owner = models.ForeignKey(
+        User,
+        verbose_name='Ответственный',
+        on_delete=models.PROTECT,
+        null=True
+    )
 
     @classmethod
     def from_tuple(cls, row):
@@ -59,6 +68,10 @@ class Account(models.Model):
         account_types = AccountType.objects.filter(extid=row[4])
         if account_types.exists():
             account.account_type = account_types[0]
+
+        owners = Profile.objects.filter(tsid=row[3])
+        if owners.exists():
+            account.owner = owners[0].user
 
         account.save()
 

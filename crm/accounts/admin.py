@@ -13,7 +13,7 @@ class LegalEntityInline(admin.StackedInline):
 
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ['name', 'account_type', 'created', 'updated']
+    list_display = ['name', 'account_type', 'owner', 'created', 'updated']
     list_filter = ['account_type']
     inlines = [LegalEntityInline]
 

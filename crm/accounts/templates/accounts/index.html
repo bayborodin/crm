@@ -15,7 +15,7 @@
             <tr>
                 <td>{{ account.id }}</td>
                 <td>{{ account.name }}</td>
-                <td>Иван Иванов</td>
+                <td>{{ account.owner.get_full_name}}</td>
             </tr>
             {% endfor %}
         </tbody>
