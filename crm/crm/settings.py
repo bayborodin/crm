@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'common',
     'core',
     'contracts',
+    'leads',
     'logistics',
     'offerings',
     'orders',
