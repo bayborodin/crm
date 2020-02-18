@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class LeadChannell(models.Model):
+class LeadChannel(models.Model):
     name = models.CharField(max_length=250, db_index=True, verbose_name='Наименование')
     description = models.CharField(max_length=250, verbose_name='Описание', blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -31,7 +31,7 @@ class LeadSource(models.Model):
 
 
 class Lead(models.Model):
-    channell = models.ForeignKey(LeadChannell, related_name='leads', verbose_name='Канал', on_delete=models.PROTECT)
+    channel = models.ForeignKey(LeadChannel, related_name='leads', verbose_name='Канал', on_delete=models.PROTECT)
     source = models.ForeignKey(LeadSource, related_name='leads', verbose_name='Источник', on_delete=models.PROTECT)
     inn = models.CharField(max_length=20, verbose_name='ИНН', blank=True)
     kpp = models.CharField(max_length=20, verbose_name='КПП', blank=True)

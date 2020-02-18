@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import Lead, LeadChannell, LeadSource
+from .models import Lead, LeadChannel, LeadSource
 
 
-class LeadChannellAdmin(admin.ModelAdmin):
+class LeadChannelAdmin(admin.ModelAdmin):
     list_display = ['name', 'created', 'updated']
 
 
@@ -12,9 +12,9 @@ class LeadSourceAdmin(admin.ModelAdmin):
 
 
 class LeadAdmin(admin.ModelAdmin):
-    list_display = ['id', 'created', 'channell', 'source']
+    list_display = ['id', 'created', 'channel', 'source']
 
 
-admin.site.register(LeadChannell, LeadChannellAdmin)
+admin.site.register(LeadChannel, LeadChannelAdmin)
 admin.site.register(LeadSource, LeadSourceAdmin)
 admin.site.register(Lead, LeadAdmin)
