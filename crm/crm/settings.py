@@ -42,12 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # External apps
+    # Third-Party Apps
     'bootstrap4',
     'crispy_forms',
+    'rest_framework',
 
-    # Project apps
+    # Project Apps
     'accounts',
+    'api',
     'common',
     'core',
     'contracts',

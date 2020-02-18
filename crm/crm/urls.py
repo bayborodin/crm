@@ -6,9 +6,12 @@ from django.views.generic import RedirectView
 from django.conf.urls.static import static
 from django.conf import settings
 
+from api import views
+
 urlpatterns = [
     path('', RedirectView.as_view(url='users/login/')),
     path('admin/', admin.site.urls),
+    path('api/', views.HelloView.as_view(), name='hello'),
     path('accounts/', include('accounts.urls')),
     path('logistics/', include('logistics.urls')),
     path('users/', include('django.contrib.auth.urls')),
