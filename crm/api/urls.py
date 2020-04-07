@@ -6,6 +6,14 @@ from . import views
 app_name = 'api'
 
 urlpatterns = [
-    path('leads/', views.LeadView.as_view(), name='leads'),
+    # authentication
     path('token-auth/', obtain_auth_token, name='token-auth'),
+
+    # leads
+    path('leads/', views.LeadView.as_view(), name='leads'),
+
+    # metrics
+    path('metrics/', views.MetricView.as_view(), name='metrics'),
+    path('data-sources/', views.MetricView.as_view(), name='data_sources'),
+    path('data_series/', views.DataSeriesView.as_view(), name='data_series'),
 ]

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from leads.models import Lead
+from metrics.models import Metric, DataSource, DataSeries
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -13,3 +14,24 @@ class LeadSerializer(serializers.ModelSerializer):
                   'first_person_position', 'bank_account', 'bank_name',
                   'bank_rcbic', 'bank_corr_account', 'contact_person',
                   'contact_phone', 'contact_email')
+
+
+class MetricSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Metric
+        fields = ('name')
+
+
+class DataSourceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DataSource
+        fields = ('name')
+
+
+class DataSeriesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DataSeries
+        fields = ('metric', 'dataSource', 'registrator', 'date', 'val', 'div')
