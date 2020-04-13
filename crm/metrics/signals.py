@@ -3,7 +3,7 @@ from datetime import datetime
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from .models import DataSeries, DayResult
+from .models import DayResult, DataSeries
 
 
 @receiver(post_save, sender=DataSeries)

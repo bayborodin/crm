@@ -59,8 +59,8 @@ class DataSeries(models.Model):
 
     class Meta:
         ordering = ['-created']
-        verbose_name = 'Значение аналитического показателя'
-        verbose_name_plural = 'Значения аналитических показателей'
+        verbose_name = 'Серия'
+        verbose_name_plural = 'Серии'
 
     def __str__(self):
         return f'{self.metric}-{self.date}-{self.val/self.div}'
