@@ -49,18 +49,18 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     # Project Apps
-    'accounts',
-    'api',
-    'common',
-    'core',
-    'contracts',
-    'defections',
-    'leads',
-    'logistics',
-    'metrics',
-    'offerings',
-    'orders',
-    'shipments',
+    'accounts.apps.AccountsConfig',
+    'api.apps.ApiConfig',
+    'common.apps.CommonConfig',
+    'core.apps.CoreConfig',
+    'contracts.apps.ContractsConfig',
+    'defections.apps.DefectionsConfig',
+    'leads.apps.LeadsConfig',
+    'logistics.apps.LogisticsConfig',
+    'metrics.apps.MetricsConfig',
+    'offerings.apps.OfferingsConfig',
+    'orders.apps.OrdersConfig',
+    'shipments.apps.ShipmentsConfig',
 ]
 
 MIDDLEWARE = [
