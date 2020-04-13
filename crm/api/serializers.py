@@ -20,14 +20,14 @@ class MetricSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Metric
-        fields = ('name')
+        fields = ('id', 'name',)
 
 
 class DataSourceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DataSource
-        fields = ('name')
+        fields = ('id', 'name',)
 
 
 class DataSeriesSerializer(serializers.ModelSerializer):

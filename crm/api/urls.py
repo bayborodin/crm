@@ -14,6 +14,6 @@ urlpatterns = [
 
     # metrics
     path('metrics/', views.MetricView.as_view(), name='metrics'),
-    path('data-sources/', views.MetricView.as_view(), name='data_sources'),
-    path('data_series/', views.DataSeriesView.as_view(), name='data_series'),
+    path('data-sources/', views.DataSourceView.as_view(), name='data_sources'),
+    path('data-series/', views.DataSeriesView.as_view(), name='data_series'),
 ]
