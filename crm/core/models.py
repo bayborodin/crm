@@ -7,6 +7,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     tsid = models.CharField(max_length=36, db_index=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='profile_image', blank=True)
 
     class Meta:
         ordering = ['user', ]

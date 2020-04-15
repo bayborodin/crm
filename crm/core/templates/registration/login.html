@@ -1,38 +1,56 @@
-{% extends "master.html" %}
+{% extends "base.html" %}
 
-{% block content %}
+{% block title %} Login {% endblock title %}
 
-{% if form.errors %}
-<p>Ошибка!.</p>
-{% endif %}
+{% block stylesheets %}
+{{ block.super }}
+<!-- Animate.css -->
+<link href="/static/vendor/animate.css/animate.min.css" rel="stylesheet">
+{% endblock stylesheets %}
 
-<div class="panel panel-default panel-login">
-    <div class="panel-heading login-heading">
-        <h3 class="login-title">SKAT CRM</h3>
-    </div>
-    <div class="panel-body">
-        <div class="form-group">
-            <form class="form-signin" method="post" action="{% url 'login' %}">
-                {% csrf_token %}
+{% block body_class %}login{% endblock body_class %}
 
-                <div class="input-group">
-                    <span class="input-group-addon" style="background-color:#f4791f; color:white"><span
-                            class="glyphicon glyphicon-user"></span></span>
-                    <input class="form-control" id="{{ form.username.id_for_label }}" maxlength="30"
-                        name="{{ form.username.html_name }}" placeholder="Логин" type="text" />
-                    {{ field.errors }}
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon" style="background-color:#f4791f; color:white"><span
-                            class="glyphicon glyphicon-lock"></span></span>
-                    <input class="form-control" id="{{ form.password.id_for_label }}" maxlength="30"
-                        name="{{ form.password.html_name }}" placeholder="Пароль" type="password" />
-                    {{ field.errors }}
-                </div>
-                <br>
-                <input class="btn btn-primary btn-block" type="submit" value="Вход" />
-            </form>
+{% block body %}
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <h1>SKAT CRM</h1>
+                    <div>
+                        <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}"
+                            class="form-control" placeholder="Username" required="" />
+                        {{ field.errors }}
+                    </div>
+                    <div>
+                        <input type="password" id="{{ form.password.id_for_label }}"
+                            name="{{ form.password.html_name }}" class="form-control" placeholder="Password"
+                            required="" />
+                        {{ field.errors }}
+                    </div>
+                    <div>
+                        <input class="btn btn-primary btn-block" type="submit" value="Вход" />
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <div>
+                            <p>©2020 SKAT All Rights Reserved.
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </section>
         </div>
+
     </div>
 </div>
-{% endblock %}
+{% endblock body %}

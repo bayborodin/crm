@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'core.apps.CoreConfig',
     'contracts.apps.ContractsConfig',
+    'dashboard.apps.DashboardConfig',
     'defections.apps.DefectionsConfig',
     'leads.apps.LeadsConfig',
     'logistics.apps.LogisticsConfig',
@@ -164,7 +165,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-LOGIN_REDIRECT_URL = '/accounts'
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
