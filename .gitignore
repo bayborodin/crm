@@ -126,7 +126,7 @@ dmypy.json
 .pyre/
 
 # Vendor files
-vendor/
+crm/assets/vendor/
 
 ### Linux ###
 *~
