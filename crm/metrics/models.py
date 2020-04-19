@@ -3,6 +3,10 @@ from datetime import datetime
 from django.db import models
 
 
+def current_year():
+    return datetime.today().year
+
+
 class Metric(models.Model):
     '''Измеряемые метрики'''
     name = models.CharField(
@@ -71,7 +75,8 @@ class DayResult(models.Model):
         Metric,
         related_name='day_results',
         verbose_name='Метрика',
-        on_delete=models.PROTECT)
+        on_delete=models.PROTECT
+    )
     date = models.DateField(verbose_name='Дата')
     cnt = models.IntegerField(verbose_name='Количество записей', default=0)
     val = models.IntegerField(verbose_name='Итог', default=0)
@@ -83,3 +88,24 @@ class DayResult(models.Model):
 
     def __str__(self):
         return f'{self.metric}-{self.date}-{self.cnt}-{self.val}'
+
+
+class WeekResult(models.Model):
+    metric = models.ForeignKey(
+        Metric,
+        related_name='week_results',
+        verbose_name='Метрика',
+        on_delete=models.PROTECT
+    )
+    year = models.IntegerField(verbose_name='Год', default=current_year)
+    week = models.IntegerField(verbose_name='Неделя')
+    cnt = models.IntegerField(verbose_name='Количество записей', default=0)
+    val = models.IntegerField(verbose_name='Итог', default=0)
+
+    class Meta:
+        ordering = ['-year', '-week', 'metric']
+        verbose_name = 'Итог за неделю'
+        verbose_name_plural = 'Итоги за неделю'
+
+    def __str__(self):
+        return f'{self.metric}-{self.year}-{self.week}-{self.cnt}-{self.val}'

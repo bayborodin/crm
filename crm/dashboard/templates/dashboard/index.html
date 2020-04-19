@@ -13,32 +13,67 @@
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-phone"></i> Входящие звонки</span>
             <div class="count">0</div>
-            <span class="count_bottom"><i class="green">0% </i> К прошлой неделе</span>
+            <span class="count_bottom"><i class="green">0% </i> к пред. неделе</span>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-shopping-cart"></i> Кол-во заказов</span>
-            <div class="count">0</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> К прошлой неделе</span>
+            <div class="count
+                        {% if orders_cnt_percent < 0 %}
+                            red
+                        {% elif orders_cnt_percent > 20 %}
+                            green
+                        {% else %}
+                            gray
+                        {% endif %}">
+                {{ orders_cnt }}</div>
+            <span class="count_bottom">
+                <i class="
+                            {% if orders_cnt_percent < 0 %}
+                                red
+                            {% elif orders_cnt_percent > 0 %}
+                                green
+                            {% else %}
+                                gray
+                            {% endif %}">
+                    {% if orders_cnt_percent > 0 %}
+                    <i class="fa fa-sort-asc"></i>
+                    {% elif orders_cnt_percent < 0 %}
+                    <i class="fa fa-sort-desc"></i>
+                    {% endif %}
+                    {{ orders_cnt_percent }}%
+                </i> к пред. неделе</span>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-shopping-cart"></i> Сумма заказов</span>
-            <div class="count green">0</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> К прошлой неделе</span>
+            <div
+                class="count {% if orders_sum_percent < 0 %}red{% elif orders_sum_percent > 20 %}green{% else %}gray{% endif %}">
+                {{ orders_sum }}
+            </div>
+            <span class="count_bottom">
+                <i
+                    class="{% if orders_sum_percent < 0 %}red{% elif orders_sum_percent > 0 %}green{% else %}gray{% endif %}">
+                    {% if orders_sum_percent > 0 %}
+                    <i class="fa fa-sort-asc"></i>
+                    {% elif orders_sum_percent < 0 %}
+                    <i class="fa fa-sort-desc"></i>
+                    {% endif %}
+                    {{ orders_sum_percent }}% </i> к
+                пред. неделе</span>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-truck"></i> Кол-во отгрузок</span>
             <div class="count">0</div>
-            <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>0% </i> К прошлой неделе</span>
+            <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>0% </i> к пред. неделе</span>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-truck"></i> Сумма отгрузок</span>
             <div class="count">0</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> К прошлой неделе</span>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> к пред. неделе</span>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-credit-card"></i> Сумма платежей</span>
             <div class="count">0</div>
-            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> К прошлой неделе</span>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> к пред. неделе</span>
         </div>
     </div>
     <!-- /top tiles -->
