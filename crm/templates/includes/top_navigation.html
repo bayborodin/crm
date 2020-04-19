@@ -8,7 +8,8 @@
             <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                     aria-expanded="false">
-                    <img src="{{ user.profile.image.url }}" alt="">{{user.get_full_name}}
+                    <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{{ HTTP_HOST }}/static/img/user.png{% endif %}"
+                        alt="">{{user.get_full_name}}
                     <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
