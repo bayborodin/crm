@@ -8,7 +8,7 @@ from .models import DayResult, DataSeries, WeekResult
 @receiver(post_save, sender=DataSeries)
 def count_day_result(sender, instance, **kwargs):
     metric = instance.metric
-    record_date = instance.date.date()
+    record_date = instance.date
 
     try:
         day_result = DayResult.objects.get(metric=metric, date=record_date)
@@ -24,7 +24,7 @@ def count_day_result(sender, instance, **kwargs):
 def count_week_result(sender, instance, **kwargs):
     metric = instance.metric
 
-    record_date = instance.date.date()
+    record_date = instance.date
     year = record_date.year
     week = record_date.isocalendar()[1]
 
