@@ -54,7 +54,7 @@ class DataSeries(models.Model):
         max_length=250,
         verbose_name='Регистратор',
         blank=True)
-    date = models.DateTimeField(default=datetime.now, blank=True, verbose_name='Дата')
+    date = models.DateField(default=datetime.now, blank=True, verbose_name='Дата')
     val = models.IntegerField(verbose_name='Значение')
     div = models.IntegerField(default=1, verbose_name='K')
 

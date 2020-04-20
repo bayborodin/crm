@@ -10,7 +10,7 @@ from .serializers import MetricSerializer, DataSourceSerializer, DataSeriesSeria
 
 
 class LeadView(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         leads = Lead.objects.all()
