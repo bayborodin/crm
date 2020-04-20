@@ -16,6 +16,9 @@ from decouple import config
 from decouple import Csv
 from dj_database_url import parse as db_url
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -175,3 +178,13 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 }
+
+sentry_sdk.init(
+    dsn="https://ca42afcc94b64da9858979f0c64c8796@o380340.ingest.sentry.io/5206026",
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+    environment=config('ENVIRONMENT', default='Development')
+)

@@ -3,6 +3,7 @@ autopep8==1.4.4
 beautifulsoup4==4.8.2
 cairocffi==1.1.0
 CairoSVG==2.4.2
+certifi==2020.4.5.1
 cffi==1.13.2
 coverage==5.0.2
 cssselect2==0.2.2
@@ -25,9 +26,11 @@ pyflakes==2.1.1
 Pyphen==0.9.5
 python-decouple==3.1
 pytz==2019.2
+sentry-sdk==0.14.3
 six==1.14.0
 soupsieve==1.9.5
 sqlparse==0.3.0
 tinycss2==1.0.2
+urllib3==1.25.9
 WeasyPrint==51
 webencodings==0.5.1
