@@ -6,8 +6,8 @@ from .models import Account
 
 def index(request):
     """The main page for the accounts application"""
-    account_list = Account.objects.order_by('name')
-    page = request.GET.get('page', 1)
+    account_list = Account.objects.order_by("name")
+    page = request.GET.get("page", 1)
 
     paginator = Paginator(account_list, 20)
     try:
@@ -17,6 +17,6 @@ def index(request):
     except EmptyPage:
         accounts = paginator.page(paginator.num_pages)
 
-    context = {'collection': accounts}
+    context = {"collection": accounts}
 
-    return render(request, 'accounts/index.html', context)
+    return render(request, "accounts/index.html", context)

@@ -13,7 +13,7 @@ class LeadView(APIView):
     # permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        leads = Lead.objects.all()
+        leads = Lead.objects.filter(delete_mark=False)
         serializer = LeadSerializer(leads, many=True)
 
         context = {"leads": serializer.data}
@@ -21,7 +21,7 @@ class LeadView(APIView):
         return Response(context)
 
     def post(self, request):
-        lead = request.data.get('lead')
+        lead = request.data.get("lead")
         serializer = LeadSerializer(data=lead)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -32,7 +32,6 @@ class LeadView(APIView):
 
 
 class MetricView(APIView):
-
     def get(self, request):
         metrics = Metric.objects.all()
         serializer = MetricSerializer(metrics, many=True)
@@ -43,7 +42,6 @@ class MetricView(APIView):
 
 
 class DataSourceView(APIView):
-
     def get(self, request):
         data_sources = DataSource.objects.all()
         serializer = DataSourceSerializer(data_sources, many=True)
@@ -65,7 +63,7 @@ class DataSeriesView(APIView):
         return Response(context)
 
     def post(self, request):
-        data_series = request.data.get('data_series')
+        data_series = request.data.get("data_series")
         serializer = DataSeriesSerializer(data=data_series)
         if serializer.is_valid(raise_exception=True):
             serializer.save()

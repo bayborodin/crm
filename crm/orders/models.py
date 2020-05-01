@@ -12,32 +12,25 @@ from offerings.models import Offering
 # Order model
 class Order(models.Model):
     extid = models.CharField(
-        max_length=36,
-        db_index=True,
-        null=True,
-        verbose_name='Внешний код'
+        max_length=36, db_index=True, null=True, verbose_name="Внешний код"
     )
 
-    order_number = models.CharField(
-        max_length=11,
-        db_index=True,
-        verbose_name='Номер'
-    )
+    order_number = models.CharField(max_length=11, db_index=True, verbose_name="Номер")
 
-    date = models.DateField(verbose_name='Дата')
+    date = models.DateField(verbose_name="Дата")
 
     legal_entity = models.ForeignKey(
         LegalEntity,
-        related_name='orders',
-        verbose_name='Юридическое лицо',
-        on_delete=models.PROTECT
+        related_name="orders",
+        verbose_name="Юридическое лицо",
+        on_delete=models.PROTECT,
     )
 
     total = models.DecimalField(
         max_digits=9,
         decimal_places=2,
-        verbose_name='Сумма всего',
-        default=Decimal(0.00)
+        verbose_name="Сумма всего",
+        default=Decimal(0.00),
     )
 
     created = models.DateTimeField(auto_now_add=True)
@@ -49,16 +42,16 @@ class Order(models.Model):
         orders = Order.objects.filter(extid=row[1])
         if orders.exists():
             order = orders[0]
-            res = 'Обновлён заказ'
+            res = "Обновлён заказ"
         else:
             order = Order(extid=row[1])
-            res = 'Создан новый заказ'
+            res = "Создан новый заказ"
 
         legal_entities = LegalEntity.objects.filter(extid=row[4])
         if legal_entities.exists():
             order.legal_entity = legal_entities[0]
         else:
-            raise ValueError(f'Order has unknown client id ({row[4]}).')
+            raise ValueError(f"Order has unknown client id ({row[4]}).")
 
         order.order_number = row[3]
         order.date = parse_date(row[2])
@@ -69,55 +62,45 @@ class Order(models.Model):
         return res
 
     class Meta:
-        ordering = ['date']
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
+        ordering = ["date"]
+        verbose_name = "Заказ"
+        verbose_name_plural = "Заказы"
 
     def __str__(self):
-        return f'Заказ {self.order_number} от {self.date} ({self.legal_entity})'
+        return f"Заказ {self.order_number} от {self.date} ({self.legal_entity})"
 
 
 class OrderOffering(models.Model):
     order = models.ForeignKey(
-        Order,
-        related_name='offerings',
-        verbose_name='Товары',
-        on_delete=models.CASCADE
+        Order, related_name="offerings", verbose_name="Товары", on_delete=models.CASCADE
     )
 
     extid = models.CharField(
-        max_length=36,
-        db_index=True,
-        null=True,
-        verbose_name='Внешний код'
+        max_length=36, db_index=True, null=True, verbose_name="Внешний код"
     )
 
     offering = models.ForeignKey(
-        Offering,
-        verbose_name='Номенклатура',
-        on_delete=models.PROTECT
+        Offering, verbose_name="Номенклатура", on_delete=models.PROTECT
     )
 
     quantity = models.IntegerField(
-        verbose_name='Количество',
-        default=0,
-        validators=[MinValueValidator(0)]
+        verbose_name="Количество", default=0, validators=[MinValueValidator(0)]
     )
 
     price = models.DecimalField(
-        verbose_name='Цена',
+        verbose_name="Цена",
         max_digits=9,
         decimal_places=2,
         default=Decimal(0.00),
-        validators=[MinValueValidator(0.00)]
+        validators=[MinValueValidator(0.00)],
     )
 
     amount = models.DecimalField(
-        verbose_name='Сумма',
+        verbose_name="Сумма",
         max_digits=9,
         decimal_places=2,
         default=Decimal(0.00),
-        validators=[MinValueValidator(0.00)]
+        validators=[MinValueValidator(0.00)],
     )
 
     @classmethod
@@ -125,19 +108,19 @@ class OrderOffering(models.Model):
         order_rows = OrderOffering.objects.filter(extid=row[1])
         if order_rows.exists():
             order_row = order_rows[0]
-            res = 'Updated an order string.'
+            res = "Updated an order string."
         else:
             order_row = OrderOffering(extid=row[1])
-            res = 'Created a new order string.'
+            res = "Created a new order string."
 
         orders = Order.objects.filter(extid=row[2])
         if not orders.exists():
-            raise ValueError(f'Order string has unknown order ID ({row[2]}).')
+            raise ValueError(f"Order string has unknown order ID ({row[2]}).")
         order_row.order = orders[0]
 
         offerings = Offering.objects.filter(extid=row[3])
         if not offerings.exists():
-            raise ValueError(f'Order string has unknown offering ID ({row[3]}).')
+            raise ValueError(f"Order string has unknown offering ID ({row[3]}).")
         order_row.offering = offerings[0]
 
         order_row.quantity = int(row[4])
@@ -149,9 +132,9 @@ class OrderOffering(models.Model):
         return res
 
     class Meta:
-        ordering = ['id']
-        verbose_name = 'Товар в заказе'
-        verbose_name_plural = 'Товары в заказе'
+        ordering = ["id"]
+        verbose_name = "Товар в заказе"
+        verbose_name_plural = "Товары в заказе"
 
     def __str__(self):
-        return f'{self.offering} {self.amount} руб. ({self.price}x{self.quantity})'
+        return f"{self.offering} {self.amount} руб. ({self.price}x{self.quantity})"
