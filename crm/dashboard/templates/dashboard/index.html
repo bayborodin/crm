@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_tags %}
 
 {% block title %} Обзор {% endblock title %}
 
@@ -44,10 +45,10 @@
                 </i> к пред. неделе</span>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-shopping-cart"></i> Сумма заказов</span>
+            <span class="count_top"><i class="fa fa-shopping-cart"></i> Сумма заказов, т.р.</span>
             <div
                 class="count {% if orders_sum_percent < 0 %}red{% elif orders_sum_percent > 20 %}green{% else %}gray{% endif %}">
-                {{ orders_sum }}
+                {{ orders_sum|thousands }}
             </div>
             <span class="count_bottom">
                 <i
@@ -66,7 +67,7 @@
             <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>0% </i> к пред. неделе</span>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-truck"></i> Сумма отгрузок</span>
+            <span class="count_top"><i class="fa fa-truck"></i> Сумма отгрузок, т.р.</span>
             <div class="count">0</div>
             <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> к пред. неделе</span>
         </div>
