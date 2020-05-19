@@ -95,6 +95,50 @@ def index(request):
             * 100
         )
 
+    # МЕТРИКА - ПЛАТЕЖИ
+    payments_cnt_cur_week = 0  # кол-во оплат на этой неделе
+    payments_sum_cur_week = 0  # сумма оплат на этой неделе
+    payments_cnt_prev_week = 0  # кол-во оплат на предыдущей неделе
+    payments_sum_prev_week = 0  # сумма оплат на предыдущей неделе
+
+    payment_metric = Metric.objects.get(name="Поступление ДС")
+
+    payment_statistics_current = WeekResult.objects.filter(
+        metric=payment_metric, year=today.year, week=today.isocalendar()[1],
+    )
+
+    payment_statistics_previous = WeekResult.objects.filter(
+        metric=payment_metric,
+        year=previous_week_day.year,
+        week=previous_week_day.isocalendar()[1],
+    )
+
+    if payment_statistics_current.exists():
+        payments_cnt_cur_week = payment_statistics_current[0].cnt
+        payments_sum_cur_week = payment_statistics_current[0].val
+
+    if payment_statistics_previous.exists():
+        payments_cnt_prev_week = payment_statistics_previous[0].cnt
+        payments_sum_prev_week = payment_statistics_previous[0].val
+
+    if payments_cnt_prev_week == 0:
+        payments_cnt_percent = "__"
+    else:
+        payments_cnt_percent = round(
+            (payments_cnt_cur_week - payments_cnt_prev_week)
+            / payments_cnt_prev_week
+            * 100
+        )
+
+    if payments_sum_prev_week == 0:
+        payments_sum_percent = "__"
+    else:
+        payments_sum_percent = round(
+            (payments_sum_cur_week - payments_sum_prev_week)
+            / payments_sum_prev_week
+            * 100
+        )
+
     # КОНТЕКСТ
     context = {
         "section": "dashboard",
@@ -106,6 +150,10 @@ def index(request):
         "shipments_cnt_percent": shipments_cnt_percent,
         "shipments_sum": shipments_sum_cur_week,
         "shipments_sum_percent": shipments_sum_percent,
+        "payments_cnt": payments_cnt_cur_week,
+        "payments_cnt_percent": payments_cnt_percent,
+        "payments_sum": payments_sum_cur_week,
+        "payments_sum_percent": payments_sum_percent,
     }
 
     return render(request, "dashboard/index.html", context)
