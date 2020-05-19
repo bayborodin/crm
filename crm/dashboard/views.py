@@ -9,7 +9,8 @@ from metrics.models import Metric, WeekResult
 @login_required
 def index(request):
     today = datetime.today()
-    previous_week_day = today + timedelta(days=-7)
+    week_ago = today + timedelta(days=-7)
+    week_day = today.weekday() + 1
 
     # МЕТРИКА - ЗАКАЗЫ
     orders_cnt_cur_week = 0  # кол-во заказов на этой неделе
@@ -24,9 +25,7 @@ def index(request):
     )
 
     order_statistics_previous = WeekResult.objects.filter(
-        metric=order_metric,
-        year=previous_week_day.year,
-        week=previous_week_day.isocalendar()[1],
+        metric=order_metric, year=week_ago.year, week=week_ago.isocalendar()[1],
     )
 
     if order_statistics_current.exists():
@@ -41,14 +40,18 @@ def index(request):
         orders_cnt_percent = "__"
     else:
         orders_cnt_percent = round(
-            (orders_cnt_cur_week - orders_cnt_prev_week) / orders_cnt_prev_week * 100
+            (orders_cnt_cur_week / week_day - orders_cnt_prev_week / 7)
+            / (orders_cnt_prev_week / 7)
+            * 100
         )
 
     if orders_sum_prev_week == 0:
         orders_sum_percent = "__"
     else:
         orders_sum_percent = round(
-            (orders_sum_cur_week - orders_sum_prev_week) / orders_sum_prev_week * 100
+            (orders_sum_cur_week / week_day - orders_sum_prev_week / 7)
+            / (orders_sum_prev_week / 7)
+            * 100
         )
 
     # МЕТРИКА - ОТГРУЗКИ
@@ -64,9 +67,7 @@ def index(request):
     )
 
     shipment_statistics_previous = WeekResult.objects.filter(
-        metric=shipment_metric,
-        year=previous_week_day.year,
-        week=previous_week_day.isocalendar()[1],
+        metric=shipment_metric, year=week_ago.year, week=week_ago.isocalendar()[1],
     )
 
     if shipment_statistics_current.exists():
@@ -81,8 +82,8 @@ def index(request):
         shipments_cnt_percent = "__"
     else:
         shipments_cnt_percent = round(
-            (shipments_cnt_cur_week - shipments_cnt_prev_week)
-            / shipments_cnt_prev_week
+            (shipments_cnt_cur_week / week_day - shipments_cnt_prev_week / 7)
+            / (shipments_cnt_prev_week / 7)
             * 100
         )
 
@@ -90,8 +91,8 @@ def index(request):
         shipments_sum_percent = "__"
     else:
         shipments_sum_percent = round(
-            (shipments_sum_cur_week - shipments_sum_prev_week)
-            / shipments_sum_prev_week
+            (shipments_sum_cur_week / week_day - shipments_sum_prev_week / 7)
+            / (shipments_sum_prev_week / 7)
             * 100
         )
 
@@ -108,9 +109,7 @@ def index(request):
     )
 
     payment_statistics_previous = WeekResult.objects.filter(
-        metric=payment_metric,
-        year=previous_week_day.year,
-        week=previous_week_day.isocalendar()[1],
+        metric=payment_metric, year=week_ago.year, week=week_ago.isocalendar()[1],
     )
 
     if payment_statistics_current.exists():
@@ -125,8 +124,8 @@ def index(request):
         payments_cnt_percent = "__"
     else:
         payments_cnt_percent = round(
-            (payments_cnt_cur_week - payments_cnt_prev_week)
-            / payments_cnt_prev_week
+            (payments_cnt_cur_week / week_day - payments_cnt_prev_week / 7)
+            / (payments_cnt_prev_week / 7)
             * 100
         )
 
@@ -134,8 +133,8 @@ def index(request):
         payments_sum_percent = "__"
     else:
         payments_sum_percent = round(
-            (payments_sum_cur_week - payments_sum_prev_week)
-            / payments_sum_prev_week
+            (payments_sum_cur_week / week_day - payments_sum_prev_week / 7)
+            / (payments_sum_prev_week / 7)
             * 100
         )
 
