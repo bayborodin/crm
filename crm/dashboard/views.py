@@ -5,14 +5,26 @@ from django.contrib.auth.decorators import login_required
 
 from metrics.models import Metric, WeekResult
 
+WORK_WEEK_LENGTH = 5
+
+
+def get_metrics_rate(prev_val, cur_val):
+    """Compare the metrics value with the previous week"""
+    week_day = datetime.today().weekday() + 1
+    if week_day > WORK_WEEK_LENGTH:
+        week_day = WORK_WEEK_LENGTH
+
+    return round(
+        (cur_val / week_day - prev_val / WORK_WEEK_LENGTH)
+        / (prev_val / WORK_WEEK_LENGTH)
+        * 100
+    )
+
 
 @login_required
 def index(request):
     today = datetime.today()
     week_ago = today + timedelta(days=-7)
-    week_day = today.weekday() + 1
-    if week_day > 5:
-        week_day = 5
 
     # МЕТРИКА - ЗАКАЗЫ
     orders_cnt_cur_week = 0  # кол-во заказов на этой неделе
@@ -41,20 +53,12 @@ def index(request):
     if orders_cnt_prev_week == 0:
         orders_cnt_percent = "__"
     else:
-        orders_cnt_percent = round(
-            (orders_cnt_cur_week / week_day - orders_cnt_prev_week / 5)
-            / (orders_cnt_prev_week / 5)
-            * 100
-        )
+        orders_cnt_percent = get_metrics_rate(orders_cnt_prev_week, orders_cnt_cur_week)
 
     if orders_sum_prev_week == 0:
         orders_sum_percent = "__"
     else:
-        orders_sum_percent = round(
-            (orders_sum_cur_week / week_day - orders_sum_prev_week / 5)
-            / (orders_sum_prev_week / 5)
-            * 100
-        )
+        orders_sum_percent = get_metrics_rate(orders_sum_prev_week, orders_sum_cur_week)
 
     # МЕТРИКА - ОТГРУЗКИ
     shipments_cnt_cur_week = 0  # кол-во отгрузок на этой неделе
@@ -83,19 +87,15 @@ def index(request):
     if shipments_cnt_prev_week == 0:
         shipments_cnt_percent = "__"
     else:
-        shipments_cnt_percent = round(
-            (shipments_cnt_cur_week / week_day - shipments_cnt_prev_week / 5)
-            / (shipments_cnt_prev_week / 5)
-            * 100
+        shipments_cnt_percent = get_metrics_rate(
+            shipments_cnt_prev_week, shipments_cnt_cur_week
         )
 
     if shipments_sum_prev_week == 0:
         shipments_sum_percent = "__"
     else:
-        shipments_sum_percent = round(
-            (shipments_sum_cur_week / week_day - shipments_sum_prev_week / 5)
-            / (shipments_sum_prev_week / 5)
-            * 100
+        shipments_sum_percent = get_metrics_rate(
+            shipments_sum_prev_week, shipments_sum_cur_week
         )
 
     # МЕТРИКА - ПЛАТЕЖИ
@@ -125,19 +125,15 @@ def index(request):
     if payments_cnt_prev_week == 0:
         payments_cnt_percent = "__"
     else:
-        payments_cnt_percent = round(
-            (payments_cnt_cur_week / week_day - payments_cnt_prev_week / 5)
-            / (payments_cnt_prev_week / 5)
-            * 100
+        payments_cnt_percent = get_metrics_rate(
+            payments_cnt_prev_week, payments_cnt_cur_week
         )
 
     if payments_sum_prev_week == 0:
         payments_sum_percent = "__"
     else:
-        payments_sum_percent = round(
-            (payments_sum_cur_week / week_day - payments_sum_prev_week / 5)
-            / (payments_sum_prev_week / 5)
-            * 100
+        payments_sum_percent = get_metrics_rate(
+            payments_sum_prev_week, payments_sum_cur_week
         )
 
     # КОНТЕКСТ
