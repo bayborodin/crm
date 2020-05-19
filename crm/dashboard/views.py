@@ -11,6 +11,8 @@ def index(request):
     today = datetime.today()
     week_ago = today + timedelta(days=-7)
     week_day = today.weekday() + 1
+    if week_day > 5:
+        week_day = 5
 
     # МЕТРИКА - ЗАКАЗЫ
     orders_cnt_cur_week = 0  # кол-во заказов на этой неделе
@@ -40,8 +42,8 @@ def index(request):
         orders_cnt_percent = "__"
     else:
         orders_cnt_percent = round(
-            (orders_cnt_cur_week / week_day - orders_cnt_prev_week / 7)
-            / (orders_cnt_prev_week / 7)
+            (orders_cnt_cur_week / week_day - orders_cnt_prev_week / 5)
+            / (orders_cnt_prev_week / 5)
             * 100
         )
 
@@ -49,8 +51,8 @@ def index(request):
         orders_sum_percent = "__"
     else:
         orders_sum_percent = round(
-            (orders_sum_cur_week / week_day - orders_sum_prev_week / 7)
-            / (orders_sum_prev_week / 7)
+            (orders_sum_cur_week / week_day - orders_sum_prev_week / 5)
+            / (orders_sum_prev_week / 5)
             * 100
         )
 
@@ -82,8 +84,8 @@ def index(request):
         shipments_cnt_percent = "__"
     else:
         shipments_cnt_percent = round(
-            (shipments_cnt_cur_week / week_day - shipments_cnt_prev_week / 7)
-            / (shipments_cnt_prev_week / 7)
+            (shipments_cnt_cur_week / week_day - shipments_cnt_prev_week / 5)
+            / (shipments_cnt_prev_week / 5)
             * 100
         )
 
@@ -91,8 +93,8 @@ def index(request):
         shipments_sum_percent = "__"
     else:
         shipments_sum_percent = round(
-            (shipments_sum_cur_week / week_day - shipments_sum_prev_week / 7)
-            / (shipments_sum_prev_week / 7)
+            (shipments_sum_cur_week / week_day - shipments_sum_prev_week / 5)
+            / (shipments_sum_prev_week / 5)
             * 100
         )
 
@@ -124,8 +126,8 @@ def index(request):
         payments_cnt_percent = "__"
     else:
         payments_cnt_percent = round(
-            (payments_cnt_cur_week / week_day - payments_cnt_prev_week / 7)
-            / (payments_cnt_prev_week / 7)
+            (payments_cnt_cur_week / week_day - payments_cnt_prev_week / 5)
+            / (payments_cnt_prev_week / 5)
             * 100
         )
 
@@ -133,8 +135,8 @@ def index(request):
         payments_sum_percent = "__"
     else:
         payments_sum_percent = round(
-            (payments_sum_cur_week / week_day - payments_sum_prev_week / 7)
-            / (payments_sum_prev_week / 7)
+            (payments_sum_cur_week / week_day - payments_sum_prev_week / 5)
+            / (payments_sum_prev_week / 5)
             * 100
         )
 
