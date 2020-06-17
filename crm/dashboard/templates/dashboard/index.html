@@ -13,8 +13,31 @@
     <div class="row tile_count">
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-phone"></i> Входящие звонки</span>
-            <div class="count">0</div>
-            <span class="count_bottom"><i class="green">0% </i> к пред. неделе</span>
+            <div class="count
+                        {% if calls_cnt_percent < 0 %}
+                            red
+                        {% elif calls_cnt_percent > 20 %}
+                            green
+                        {% else %}
+                            gray
+                        {% endif %}">
+                {{ calls_cnt }}</div>
+            <span class="count_bottom">
+                <i class="
+                                {% if calls_cnt_percent < 0 %}
+                                    red
+                                {% elif calls_cnt_percent > 0 %}
+                                    green
+                                {% else %}
+                                    gray
+                                {% endif %}">
+                    {% if calls_cnt_percent > 0 %}
+                    <i class="fa fa-sort-asc"></i>
+                    {% elif calls_cnt_percent < 0 %}
+                    <i class="fa fa-sort-desc"></i>
+                    {% endif %}
+                    {{ calls_cnt_percent }}%
+                </i> к пред. неделе</span>
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
             <span class="count_top"><i class="fa fa-shopping-cart"></i> Кол-во заказов</span>

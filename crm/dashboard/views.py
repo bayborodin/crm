@@ -136,6 +136,31 @@ def index(request):
             payments_sum_prev_week, payments_sum_cur_week
         )
 
+    # МЕТРИКА - ЗВОНКИ
+    calls_cnt_cur_week = 0  # кол-во звонков на этой неделе
+    calls_cnt_prev_week = 0  # кол-во звонков на предыдущей неделе
+
+    calls_metric = Metric.objects.get(name="Звонок")
+
+    call_statistics_current = WeekResult.objects.filter(
+        metric=calls_metric, year=today.year, week=today.isocalendar()[1],
+    )
+
+    call_statistics_previous = WeekResult.objects.filter(
+        metric=calls_metric, year=week_ago.year, week=week_ago.isocalendar()[1],
+    )
+
+    if call_statistics_current.exists():
+        calls_cnt_cur_week = call_statistics_current[0].cnt
+
+    if call_statistics_previous.exists():
+        calls_cnt_prev_week = call_statistics_previous[0].cnt
+
+    if calls_cnt_prev_week == 0:
+        calls_cnt_percent = "__"
+    else:
+        calls_cnt_percent = get_metrics_rate(calls_cnt_prev_week, calls_cnt_cur_week)
+
     # КОНТЕКСТ
     context = {
         "section": "dashboard",
@@ -151,6 +176,8 @@ def index(request):
         "payments_cnt_percent": payments_cnt_percent,
         "payments_sum": payments_sum_cur_week,
         "payments_sum_percent": payments_sum_percent,
+        "calls_cnt": calls_cnt_cur_week,
+        "calls_cnt_percent": calls_cnt_percent,
     }
 
     return render(request, "dashboard/index.html", context)
