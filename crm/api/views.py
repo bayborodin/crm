@@ -31,6 +31,28 @@ class LeadView(APIView):
         return Response(context)
 
 
+class CallView(APIView):
+    def post(self, request):
+        print(request.data)
+
+        application_token = request.data["auth[application_token]"]
+        if application_token != "latrp9uooafyba3g8vsli25u7udosjnc":
+            context = {"error": "unknown application token"}
+            return Response(context)
+
+        call_type = int(request.data["data[CALL_TYPE]"])
+        if call_type > 1:
+            ds = DataSeries()
+            ds.metric = Metric.objects.get(name="Звонок")
+            ds.dataSource = DataSource.objects.get(name="Bitrix24")
+            ds.registrator = request.data["data[CALLER_ID]"]
+            ds.val = 1
+            ds.save()
+
+        context = {"success": "call created successfully."}
+        return Response(context)
+
+
 class MetricView(APIView):
     def get(self, request):
         metrics = Metric.objects.all()
