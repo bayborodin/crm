@@ -3,7 +3,7 @@ from django.db import models
 
 # Communication type model
 class CommunicationType(models.Model):
-    tsid = models.CharField(max_length=36, db_index=True, blank=True)
+    extid = models.CharField(max_length=36, db_index=True, blank=True)
     name = models.CharField(max_length=250)
     code = models.CharField(max_length=6)
     is_phone = models.BooleanField(default=False)
@@ -11,14 +11,14 @@ class CommunicationType(models.Model):
     @classmethod
     def from_tuple(cls, row):
         communication_type, created = CommunicationType.objects.get_or_create(
-            tsid=row[1]
+            extid=row[1]
         )
         if created:
             res = "Создан новый Тип Контрагента"
         else:
             res = "Обновлен тип контрагента"
 
-        communication_type.tsid = row[1]
+        communication_type.extid = row[1]
         communication_type.name = row[2]
         communication_type.code = row[3]
         communication_type.is_phone = row[4] == "1"
@@ -37,18 +37,18 @@ class CommunicationType(models.Model):
 
 # Country model
 class Country(models.Model):
-    tsid = models.CharField(max_length=36, db_index=True, blank=True)
+    extid = models.CharField(max_length=36, db_index=True, blank=True)
     name = models.CharField(max_length=250)
 
     @classmethod
     def from_tuple(cls, row):
-        country, created = Country.objects.get_or_create(tsid=row[1])
+        country, created = Country.objects.get_or_create(extid=row[1])
         if created:
             res = "Создана новая страна"
         else:
             res = "Обновлена страна"
 
-        country.tsid = row[1]
+        country.extid = row[1]
         country.name = row[2]
         country.save()
 
@@ -65,7 +65,7 @@ class Country(models.Model):
 
 # State model
 class State(models.Model):
-    tsid = models.CharField(max_length=36, db_index=True, blank=True)
+    extid = models.CharField(max_length=36, db_index=True, blank=True)
     name = models.CharField(max_length=250)
     country = models.ForeignKey(
         Country, related_name="states", verbose_name="Страна", on_delete=models.PROTECT
@@ -73,13 +73,13 @@ class State(models.Model):
 
     @classmethod
     def from_tuple(cls, row):
-        state, created = State.objects.get_or_create(tsid=row[1])
+        state, created = State.objects.get_or_create(extid=row[1])
         if created:
             res = "Created a new state"
         else:
             res = "Updated an existed state"
 
-        state.tsid = row[1]
+        state.extid = row[1]
         state.name = row[2]
 
         countries = Country.objects.filter(extid=row[3])
