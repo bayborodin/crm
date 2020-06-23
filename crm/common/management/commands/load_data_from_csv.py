@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 
 from accounts.models import Account, LegalEntity
 from accounts.models import AccountType
-from common.models import CommunicationType, Country
+from common.models import CommunicationType, Country, State
 from logistics.models import DeliveryPrice
 from offerings.models import OfferingGroup, Offering
 from orders.models import Order, OrderOffering
@@ -63,6 +63,7 @@ class Command(BaseCommand):
             "shipments": Shipment,
             "shipment_offerings": ShipmentOffering,
             "countries": Country,
+            "states": State,
         }
 
         # parse csv file
@@ -92,7 +93,8 @@ class Command(BaseCommand):
                 except (ValueError, IndexError) as e:
                     # если данные не корректны - игнорируем их
                     print(
-                        f"Ошибка создания объекта {object_class} из строки: {row} ({str(e)})"
+                        f"Ошибка создания объекта {object_class} из строки: "
+                        f"{row} ({str(e)})",
                     )
                     # continue
                 except (NotImplementedError):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CommunicationType, Country
+from .models import CommunicationType, Country, State
 
 
 # CommunicationType model admin
@@ -19,3 +19,11 @@ class CountryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Country, CountryAdmin)
+
+
+# State model admin
+class StateAdmin(admin.ModelAdmin):
+    list_display = ["name", "country"]
+
+
+admin.site.register(State, StateAdmin)

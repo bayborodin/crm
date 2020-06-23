@@ -61,3 +61,41 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# State model
+class State(models.Model):
+    tsid = models.CharField(max_length=36, db_index=True, blank=True)
+    name = models.CharField(max_length=250)
+    country = models.ForeignKey(
+        Country, related_name="states", verbose_name="Страна", on_delete=models.PROTECT
+    )
+
+    @classmethod
+    def from_tuple(cls, row):
+        state, created = State.objects.get_or_create(tsid=row[1])
+        if created:
+            res = "Created a new state"
+        else:
+            res = "Updated an existed state"
+
+        state.tsid = row[1]
+        state.name = row[2]
+
+        countries = Country.objects.filter(extid=row[3])
+        if countries.exists():
+            state.country = countries[0]
+        else:
+            raise ValueError("Unknown ciuntry ID in the state data.")
+
+        state.save()
+
+        return res
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Регион"
+        verbose_name_plural = "Регионы"
+
+    def __str__(self):
+        return self.name
