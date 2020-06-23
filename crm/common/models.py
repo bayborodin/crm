@@ -68,7 +68,11 @@ class State(models.Model):
     extid = models.CharField(max_length=36, db_index=True, blank=True)
     name = models.CharField(max_length=250)
     country = models.ForeignKey(
-        Country, related_name="states", verbose_name="Страна", on_delete=models.PROTECT
+        Country,
+        related_name="states",
+        verbose_name="Страна",
+        on_delete=models.PROTECT,
+        null=True,
     )
 
     @classmethod
