@@ -58,6 +58,7 @@ class Account(models.Model):
         related_name="parent_account",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     @classmethod
@@ -112,7 +113,9 @@ class LegalEntity(models.Model):
 
     inn = models.CharField(max_length=12, db_index=True, verbose_name="ИНН")
 
-    kpp = models.CharField(max_length=9, db_index=True, verbose_name="КПП")
+    kpp = models.CharField(
+        max_length=9, db_index=True, verbose_name="КПП", null=True, blank=True
+    )
 
     code_1c = models.CharField(max_length=9, db_index=True, verbose_name="Код в 1С")
 
