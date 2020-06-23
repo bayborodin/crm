@@ -52,6 +52,13 @@ class Account(models.Model):
     owner = models.ForeignKey(
         User, verbose_name="Ответственный", on_delete=models.PROTECT, null=True,
     )
+    primary_legal_entity = models.ForeignKey(
+        "LegalEntity",
+        verbose_name="Основное юр. лицо",
+        related_name="parent_account",
+        on_delete=models.PROTECT,
+        null=True,
+    )
 
     @classmethod
     def from_tuple(cls, row):
