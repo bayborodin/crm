@@ -158,7 +158,8 @@ class City(models.Model):
             raise ValueError("Unknown state ID in the city data.")
 
         if row[5]:
-            city.phone_code = row[5]
+            phone_code = row[5] if len(row[5]) <= 5 else row[5][:5]
+            city.phone_code = phone_code
 
         if row[6]:
             city.kladr_code = row[6]
