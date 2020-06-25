@@ -24,9 +24,23 @@ class AccountForm(forms.ModelForm):
 
 class AccountAdmin(admin.ModelAdmin):
     form = AccountForm
-    list_display = ["name", "account_type", "owner", "created", "updated"]
+    list_display = [
+        "name",
+        "get_inn",
+        "account_type",
+        "owner",
+        "created",
+        "updated",
+    ]
     list_filter = ["account_type", "owner"]
+    search_fields = ["name", "primary_legal_entity__inn"]
     inlines = [LegalEntityInline]
+
+    def get_inn(self, obj):
+        if obj.primary_legal_entity:
+            return obj.primary_legal_entity.inn
+
+    get_inn.short_description = "ИНН"
 
 
 admin.site.register(AccountType, AccountTypeAdmin)

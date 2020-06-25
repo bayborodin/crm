@@ -143,6 +143,11 @@ class LegalEntity(models.Model):
 
         legal_entity.save()
 
+        if row[19] == "1":
+            account = legal_entity.account
+            account.primary_legal_entity = legal_entity
+            account.save()
+
         return res
 
     class Meta:
