@@ -146,6 +146,14 @@ class LegalEntity(models.Model):
         else:
             raise ValueError("Unknown account ID in lecal entity data.")
 
+        countries = Country.objects.filter(extid=row[17])
+        if countries.exists():
+            legal_entity.country = countries[0]
+
+        cities = City.objects.filter(extid=row[18])
+        if cities.exists():
+            legal_entity.city = cities[0]
+
         legal_entity.name = row[3]
         legal_entity.short_name = row[4]
         legal_entity.inn = row[10][:12]  # inn length is 12 symbols
