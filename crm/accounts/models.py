@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from core.models import Profile
+from common.models import Country, City
 
 
 # Account type model
@@ -97,27 +98,37 @@ class LegalEntity(models.Model):
     extid = models.CharField(
         max_length=36, db_index=True, null=True, verbose_name="Внешний код"
     )
-
     account = models.ForeignKey(
         Account,
         related_name="legal_entities",
         verbose_name="Контрагент",
         on_delete=models.PROTECT,
     )
-
     name = models.CharField(max_length=250, db_index=True, verbose_name="Наименование")
-
     short_name = models.CharField(
         max_length=250, db_index=True, verbose_name="Сокращенное наименование"
     )
-
     inn = models.CharField(max_length=12, db_index=True, verbose_name="ИНН")
-
     kpp = models.CharField(
         max_length=9, db_index=True, verbose_name="КПП", null=True, blank=True
     )
-
     code_1c = models.CharField(max_length=9, db_index=True, verbose_name="Код в 1С")
+    country = models.ForeignKey(
+        Country,
+        related_name="nation_legal_entities",
+        verbose_name="Страна",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+    city = models.ForeignKey(
+        City,
+        related_name="domestic_legal_entities",
+        verbose_name="Город",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
 
     @classmethod
     def from_tuple(cls, row):

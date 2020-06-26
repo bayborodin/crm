@@ -27,6 +27,7 @@ class AccountAdmin(admin.ModelAdmin):
     list_display = [
         "name",
         "get_inn",
+        "get_city",
         "account_type",
         "owner",
         "created",
@@ -41,6 +42,12 @@ class AccountAdmin(admin.ModelAdmin):
             return obj.primary_legal_entity.inn
 
     get_inn.short_description = "ИНН"
+
+    def get_city(self, obj):
+        if obj.primary_legal_entity:
+            return obj.primary_legal_entity.city
+
+    get_city.short_description = "Город"
 
 
 admin.site.register(AccountType, AccountTypeAdmin)
