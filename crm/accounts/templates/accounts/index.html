@@ -35,7 +35,9 @@
                                     {% for account in collection %}
                                     <tr>
                                         <td>{{ account.id }}</td>
-                                        <td><a href="#">{{ account.name }}</a></td>
+                                        <td><a
+                                                href="{% url 'accounts:detail' account_id=account.id %}">{{ account.name }}</a>
+                                        </td>
                                         <td>{{ account.primary_legal_entity.city|default_if_none:"" }}</td>
                                         <td>{{ account.owner.get_full_name}}</td>
                                     </tr>

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>
+                    {% if account_name %}
+                    {{ account_name }} (редактирование)
+                    {% else %}
+                    Новая компания
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <form method="POST" class="form-horizontal form-label-left">
+                            {% csrf_token %}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                    for="{{ form.name.id_for_label }}">Наименование
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                    for="{{ form.owner.id_for_label }}">Ответственный
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    {{ form.owner }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
