@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %} Лиды {% endblock title %}
+
+{% block stylesheets %}
+{{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Лиды</h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="data-table">
+                            <table class="table table-accounts">
+                                <thead>
+                                    <tr>
+                                        <th>Код</th>
+                                        <th>Канал</th>
+                                        <th>Источник</th>
+                                        <th>Дата</th>
+                                        <th>Телефон</th>
+                                        <th>Email</th>
+                                        <th>Контакт</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for lead in collection %}
+                                    <tr>
+                                        <td>{{ lead.id }}</td>
+                                        <td>{{ lead.channel }}</td>
+                                        <td>{{ lead.source }}</td>
+                                        <td>{{ lead.created }}</td>
+                                        <td>{{ lead.contact_phone }}</td>
+                                        <td>{{ lead.contact_email }}</td>
+                                        <td>{{ lead.contact_person }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% include 'includes/pagination.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+{{ block.super }}
+{% endblock javascripts %}
