@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from metrics.models import Metric, WeekResult
+from crm.metrics.models import Metric, WeekResult
 
 WORK_WEEK_LENGTH = 5
 
@@ -15,14 +15,14 @@ def get_metrics_rate(prev_val, cur_val):
         week_day = WORK_WEEK_LENGTH
 
     return round(
-        (cur_val / week_day - prev_val / WORK_WEEK_LENGTH)
-        / (prev_val / WORK_WEEK_LENGTH)
-        * 100
+        (cur_val / week_day - prev_val / WORK_WEEK_LENGTH) /
+        (prev_val / WORK_WEEK_LENGTH) * 100,
     )
 
 
 @login_required
 def index(request):
+    """Prepare and return dashboard data."""
     today = datetime.today()
     week_ago = today + timedelta(days=-7)
 
@@ -35,7 +35,7 @@ def index(request):
     order_metric = Metric.objects.get(name='Заказ')
 
     order_statistics_current = WeekResult.objects.filter(
-        metric=order_metric, year=today.year, week=today.isocalendar()[1]
+        metric=order_metric, year=today.year, week=today.isocalendar()[1],
     )
 
     order_statistics_previous = WeekResult.objects.filter(
@@ -54,13 +54,15 @@ def index(request):
         orders_cnt_percent = '__'
     else:
         orders_cnt_percent = get_metrics_rate(
-            orders_cnt_prev_week, orders_cnt_cur_week)
+            orders_cnt_prev_week, orders_cnt_cur_week,
+        )
 
     if orders_sum_prev_week == 0:
         orders_sum_percent = '__'
     else:
         orders_sum_percent = get_metrics_rate(
-            orders_sum_prev_week, orders_sum_cur_week)
+            orders_sum_prev_week, orders_sum_cur_week,
+        )
 
     # МЕТРИКА - ОТГРУЗКИ
     shipments_cnt_cur_week = 0  # кол-во отгрузок на этой неделе
@@ -71,7 +73,7 @@ def index(request):
     shipment_metric = Metric.objects.get(name='Отгрузка')
 
     shipment_statistics_current = WeekResult.objects.filter(
-        metric=shipment_metric, year=today.year, week=today.isocalendar()[1]
+        metric=shipment_metric, year=today.year, week=today.isocalendar()[1],
     )
 
     shipment_statistics_previous = WeekResult.objects.filter(
@@ -95,7 +97,7 @@ def index(request):
         )
 
     if shipments_sum_prev_week == 0:
-        shipments_sum_percent = "__"
+        shipments_sum_percent = '__'
     else:
         shipments_sum_percent = get_metrics_rate(
             shipments_sum_prev_week, shipments_sum_cur_week,
