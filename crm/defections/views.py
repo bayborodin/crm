@@ -2,19 +2,20 @@ import tempfile
 
 from django.conf import settings
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from weasyprint import HTML
 
-from .models import Defection, Photo
-from .forms import DefectionForm
-from accounts.models import Account
-from shipments.models import ShipmentOffering
+from crm.accounts.models import Account
+from crm.defections.forms import DefectionForm
+from crm.defections.models import Defection, Photo
+from crm.shipments.models import ShipmentOffering
 
 
 def index(request, account_extid):
+    """List the account's defections records."""
     accounts = Account.objects.filter(extid=account_extid.upper())
     if accounts.exists():
         account = accounts[0]
@@ -35,17 +36,21 @@ def defection(request, account_extid, defection_id):
 
 
 def pdf(request, account_extid, defection_id):
-    """Формирует PDF форму акта обнаружения брака."""
+    """Generate a PDF for a defection report."""
     # Model data
     defection = Defection.objects.get(id=defection_id)
 
     # Render
     buyer_legal_entity = defection.shipment.buyer
     seller_name = defection.shipment.seller.name
-    seller_name = seller_name.replace('Общество с ограниченной ответственностью',
-                                      'Общества с ограниченной ответственностью')
-    seller_name = seller_name.replace('Индивидуальный предприниматель',
-                                      'Индивидуального предпринимателя')
+    seller_name = seller_name.replace(
+        'Общество с ограниченной ответственностью',
+        'Общества с ограниченной ответственностью',
+    )
+    seller_name = seller_name.replace(
+        'Индивидуальный предприниматель',
+        'Индивидуального предпринимателя',
+    )
     context = {
         'defection': defection,
         'buyer_legal_entity': buyer_legal_entity,
@@ -53,14 +58,14 @@ def pdf(request, account_extid, defection_id):
     }
     html_string = render_to_string('defections/pdf.html', context)
     html = HTML(string=html_string)
-    result = html.write_pdf()
+    pdf_document = html.write_pdf()
 
     # Create HTTP response
     response = HttpResponse(content_type='application/pdf;')
     response['Content-Disposition'] = 'inline; filename=defection.pdf'
     response['Content-Transfer-Encoding'] = 'binary'
     with tempfile.NamedTemporaryFile(delete=True) as output:
-        output.write(result)
+        output.write(pdf_document)
         output.flush()
         output = open(output.name, 'rb')
         response.write(output.read())
@@ -69,6 +74,7 @@ def pdf(request, account_extid, defection_id):
 
 
 def new_defection(request, account_extid):
+    """Create a new defection from a form data."""
     account = Account.objects.get(extid=account_extid.upper())
     if request.method != 'POST':
         form = DefectionForm(account)
@@ -80,49 +86,56 @@ def new_defection(request, account_extid):
             new_defection.save()
 
             files = request.FILES.getlist('damage_photo')
-            for file_name in files:
+            for damage_photo in files:
                 photo = Photo()
                 photo.defection = new_defection
                 photo.title = 'Фото повреждения'
-                photo.file = file_name
+                photo.file = damage_photo
                 photo.save()
 
             files = request.FILES.getlist('package_photo_outside')
-            for file_name in files:
+            for outside_photo in files:
                 photo = Photo()
                 photo.defection = new_defection
                 photo.title = 'Фото повреждения упаковки (снаружи)'
-                photo.file = file_name
+                photo.file = outside_photo
                 photo.save()
 
             files = request.FILES.getlist('package_photo_inside')
-            for file_name in files:
+            for inside_photo in files:
                 photo = Photo()
                 photo.defection = new_defection
                 photo.title = 'Фото повреждения упаковки (изнутри)'
-                photo.file = file_name
+                photo.file = inside_photo
                 photo.save()
 
             notify(request, new_defection)
 
-            return HttpResponseRedirect(reverse('defections:index', args=[account_extid]))
+            return HttpResponseRedirect(
+                reverse('defections:index', args=[account_extid])
+            )
 
     context = {'form': form, 'extid': account_extid, 'account': account}
     return render(request, 'defections/new_defection.html', context)
 
 
 def load_offerings(request):
+    """Load offerings for a shipment with a given id."""
     shipment_id = request.GET.get('shipment')
     shipment_offerings = ShipmentOffering.objects.filter(
-        shipment_id=shipment_id)
+        shipment_id=shipment_id,
+    )
     offerings = []
     for row in shipment_offerings:
         offerings.append(row.offering)
 
-    return render(request, 'defections/offering_list.html', {'offerings': offerings})
+    return render(
+        request, 'defections/offering_list.html', {'offerings': offerings},
+    )
 
 
 def notify(request, defection):
+    """Send an email nitification about a new defection."""
     subject = 'Новый акт обнаружения брака!'
 
     photo_list = '\nПриложенные файлы:\n'
