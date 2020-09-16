@@ -10,7 +10,7 @@ class Defection(models.Model):
         Account,
         related_name='defections',
         verbose_name='Контрагент',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
     )
 
     shipment = models.ForeignKey(
@@ -18,7 +18,7 @@ class Defection(models.Model):
         related_name='defections',
         verbose_name='Отгрузка',
         on_delete=models.PROTECT,
-        null=True
+        null=True,
     )
 
     offering = models.ForeignKey(
@@ -26,13 +26,13 @@ class Defection(models.Model):
         related_name='defections',
         verbose_name='Номенклатура',
         on_delete=models.PROTECT,
-        null=True
+        null=True,
     )
 
     serial_number = models.CharField(
         max_length=20,
         null=True,
-        verbose_name='Серийный номер'
+        verbose_name='Серийный номер',
     )
 
     SHORTAGE = 'SH'

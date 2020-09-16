@@ -1,12 +1,11 @@
 import tempfile
 
-from django.core.mail import send_mail
 from django.conf import settings
-from django.shortcuts import render
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse
-
 from weasyprint import HTML
 
 from .models import Defection, Photo
@@ -28,7 +27,7 @@ def index(request, account_extid):
 
 
 def defection(request, account_extid, defection_id):
-    '''Выводит акт обнаружения брака для просмотра'''
+    """Выводит акт обнаружения брака для просмотра."""
     defection = Defection.objects.get(id=defection_id)
     account = Account.objects.get(extid=account_extid.upper())
     context = {'defection': defection, 'account': account}
@@ -36,7 +35,7 @@ def defection(request, account_extid, defection_id):
 
 
 def pdf(request, account_extid, defection_id):
-    '''Формирует PDF форму акта обнаружения брака'''
+    """Формирует PDF форму акта обнаружения брака."""
     # Model data
     defection = Defection.objects.get(id=defection_id)
 
@@ -81,27 +80,27 @@ def new_defection(request, account_extid):
             new_defection.save()
 
             files = request.FILES.getlist('damage_photo')
-            for f in files:
+            for file_name in files:
                 photo = Photo()
                 photo.defection = new_defection
                 photo.title = 'Фото повреждения'
-                photo.file = f
+                photo.file = file_name
                 photo.save()
 
             files = request.FILES.getlist('package_photo_outside')
-            for f in files:
+            for file_name in files:
                 photo = Photo()
                 photo.defection = new_defection
                 photo.title = 'Фото повреждения упаковки (снаружи)'
-                photo.file = f
+                photo.file = file_name
                 photo.save()
 
             files = request.FILES.getlist('package_photo_inside')
-            for f in files:
+            for file_name in files:
                 photo = Photo()
                 photo.defection = new_defection
                 photo.title = 'Фото повреждения упаковки (изнутри)'
-                photo.file = f
+                photo.file = file_name
                 photo.save()
 
             notify(request, new_defection)
@@ -114,7 +113,8 @@ def new_defection(request, account_extid):
 
 def load_offerings(request):
     shipment_id = request.GET.get('shipment')
-    shipment_offerings = ShipmentOffering.objects.filter(shipment_id=shipment_id)
+    shipment_offerings = ShipmentOffering.objects.filter(
+        shipment_id=shipment_id)
     offerings = []
     for row in shipment_offerings:
         offerings.append(row.offering)

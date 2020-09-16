@@ -14,15 +14,13 @@ django-bootstrap4==1.1.1
 django-crispy-forms==1.8.1
 djangorestframework==3.11.0
 entrypoints==0.3
-flake8==3.7.8
+flake8
 gunicorn==19.9.0
 html5lib==1.0.1
 mccabe==0.6.1
-Pillow==6.2.0
+Pillow==7.2.0
 psycopg2-binary==2.8.3
-pycodestyle==2.5.0
 pycparser==2.19
-pyflakes==2.1.1
 Pyphen==0.9.5
 python-decouple==3.1
 pytz==2019.2
