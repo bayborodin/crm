@@ -113,7 +113,7 @@ class LegalEntity(models.Model):
     short_name = models.CharField(
         max_length=250, db_index=True, verbose_name='Сокращенное наименование'
     )
-    inn = models.CharField(max_length=12, db_index=True, verbose_name='ИНН")
+    inn = models.CharField(max_length=12, db_index=True, verbose_name='ИНН')
     kpp = models.CharField(
         max_length=9, db_index=True, verbose_name='КПП', null=True, blank=True
     )
