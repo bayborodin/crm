@@ -12,13 +12,13 @@ from shipments.models import Shipment, ShipmentOffering
 
 
 class Command(BaseCommand):
-    help = "Display current time"
+    help = 'Display current time'
 
     def get_ftp_connection(self):
-        server = "212.19.5.226"
-        username = "User3"
-        password = "DhtvtYy0"
-        remote_path = "connect"
+        server = '212.19.5.226'
+        username = 'User3'
+        password = 'DhtvtYy0'
+        remote_path = 'connect'
 
         ftp_connection = ftplib.FTP(server, username, password)
         ftp_connection.cwd(remote_path)
@@ -34,8 +34,8 @@ class Command(BaseCommand):
             file_list = ftp.nlst()
         except ftplib.error_perm as resp:
             str_resp = str(resp)
-            if str_resp == "550 No files found":
-                print("No files in this directory")
+            if str_resp == '550 No files found':
+                print('No files in this directory')
             else:
                 raise
         ftp.close()
@@ -45,38 +45,39 @@ class Command(BaseCommand):
     def handle(self, *args, **kvargs):
         file_name = self.get_filename()
         ftp = self.get_ftp_connection()
-        ftp.retrbinary("RETR " + file_name, open(f"/tmp/{file_name}", "wb").write)
+        ftp.retrbinary('RETR ' + file_name,
+                       open(f'/tmp/{file_name}', 'wb').write)
         ftp.close()
 
         # oбъявим словарь, ключи которого - тип объекта(object_type),
         # а значения - класс, объект которого будем создавать
         create_strategy = {
-            "accounts": Account,
-            "account_types": AccountType,
-            "communication_types": CommunicationType,
-            "delivery_prices": DeliveryPrice,
-            "legal_entities": LegalEntity,
-            "offering_groups": OfferingGroup,
-            "offerings": Offering,
-            "orders": Order,
-            "order_details": OrderOffering,
-            "shipments": Shipment,
-            "shipment_offerings": ShipmentOffering,
-            "countries": Country,
-            "states": State,
-            "cities": City,
+            'accounts': Account,
+            'account_types': AccountType,
+            'communication_types': CommunicationType,
+            'delivery_prices': DeliveryPrice,
+            'legal_entities': LegalEntity,
+            'offering_groups': OfferingGroup,
+            'offerings': Offering,
+            'orders': Order,
+            'order_details': OrderOffering,
+            'shipments': Shipment,
+            'shipment_offerings': ShipmentOffering,
+            'countries': Country,
+            'states': State,
+            'cities': City,
         }
 
         # parse csv file
-        with open(f"/tmp/{file_name}", "r") as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=";")
+        with open(f'/tmp/{file_name}', 'r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=';')
             # обрабатываем csv-файл
             for row in csv_reader:
                 try:
                     object_type = row[0]
                 except IndexError:
                     # игнорируем пустую строку
-                    print("Пустая строка - игнорируем!")
+                    print('Пустая строка - игнорируем!')
                     continue
 
                 try:
@@ -84,7 +85,7 @@ class Command(BaseCommand):
                     object_class = create_strategy[object_type]
                 except KeyError:
                     # если тип данных не известен, игнорируем строку
-                    print(f"Неизвестный тип данных: {object_type}")
+                    print(f'Неизвестный тип данных: {object_type}')
                     continue
 
                 try:
@@ -94,9 +95,10 @@ class Command(BaseCommand):
                 except (ValueError, IndexError) as e:
                     # если данные не корректны - игнорируем их
                     print(
-                        f"Ошибка создания объекта {object_class} из строки: "
-                        f"{row} ({str(e)})",
+                        f'Ошибка создания объекта {object_class} из строки: '
+                        f'{row} ({str(e)})',
                     )
                     # continue
                 except (NotImplementedError):
-                    print(f"Создание объекта {object_class} из CSV не реализовано!")
+                    print(
+                        f'Создание объекта {object_class} из CSV не реализовано!')

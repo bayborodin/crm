@@ -35,21 +35,21 @@ class CallView(APIView):
     def post(self, request):
         print(request.data)
 
-        application_token = request.data["auth[application_token]"]
-        if application_token != "latrp9uooafyba3g8vsli25u7udosjnc":
-            context = {"error": "unknown application token"}
+        application_token = request.data['auth[application_token]']
+        if application_token != 'latrp9uooafyba3g8vsli25u7udosjnc':
+            context = {'error': 'unknown application token'}
             return Response(context)
 
-        call_type = int(request.data["data[CALL_TYPE]"])
+        call_type = int(request.data['data[CALL_TYPE]'])
         if call_type > 1:
             ds = DataSeries()
-            ds.metric = Metric.objects.get(name="Звонок")
-            ds.dataSource = DataSource.objects.get(name="Bitrix24")
-            ds.registrator = request.data["data[CALLER_ID]"]
+            ds.metric = Metric.objects.get(name='Звонок')
+            ds.dataSource = DataSource.objects.get(name='Bitrix24')
+            ds.registrator = request.data['data[CALLER_ID]']
             ds.val = 1
             ds.save()
 
-        context = {"success": "call created successfully."}
+        context = {'success': 'call created successfully.'}
         return Response(context)
 
 
@@ -58,7 +58,7 @@ class MetricView(APIView):
         metrics = Metric.objects.all()
         serializer = MetricSerializer(metrics, many=True)
 
-        context = {"metrics": serializer.data}
+        context = {'metrics': serializer.data}
 
         return Response(context)
 
@@ -68,7 +68,7 @@ class DataSourceView(APIView):
         data_sources = DataSource.objects.all()
         serializer = DataSourceSerializer(data_sources, many=True)
 
-        context = {"data_sources": serializer.data}
+        context = {'data_sources': serializer.data}
 
         return Response(context)
 
@@ -80,16 +80,16 @@ class DataSeriesView(APIView):
         data_series = DataSeries.objects.all()
         serializer = DataSeriesSerializer(data_series, many=True)
 
-        context = {"data_series": serializer.data}
+        context = {'data_series': serializer.data}
 
         return Response(context)
 
     def post(self, request):
-        data_series = request.data.get("data_series")
+        data_series = request.data.get('data_series')
         serializer = DataSeriesSerializer(data=data_series)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
-        context = {"success": "Data Series  created successfully."}
+        context = {'success': 'Data Series  created successfully.'}
 
         return Response(context)
