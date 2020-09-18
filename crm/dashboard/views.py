@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from crm.metrics.models import Metric, WeekResult
+from metrics.models import Metric, WeekResult
 
 WORK_WEEK_LENGTH = 5
 

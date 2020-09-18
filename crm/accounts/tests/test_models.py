@@ -4,7 +4,7 @@ from accounts.models import AccountType
 
 class AccountTypeTest(TestCase):
 
-    def create_account_type(self, name="test account type", tsid="000-00-000-000"):
+    def create_account_type(self, name='test account type', tsid='000-00-000-000'):
         return AccountType.objects.create(name=name, tsid=tsid)
 
     def test_account_type_creation(self):

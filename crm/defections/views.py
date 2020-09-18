@@ -8,10 +8,10 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from weasyprint import HTML
 
-from crm.accounts.models import Account
-from crm.defections.forms import DefectionForm
-from crm.defections.models import Defection, Photo
-from crm.shipments.models import ShipmentOffering
+from accounts.models import Account
+from .forms import DefectionForm
+from .models import Defection, Photo
+from shipments.models import ShipmentOffering
 
 
 def index(request, account_extid):

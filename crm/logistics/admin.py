@@ -11,8 +11,9 @@ class DeliveryPriceTypeAdmin(admin.ModelAdmin):
 
 
 class DeliveryPriceAdmin(admin.ModelAdmin):
-    list_display = ['code', 'delivery_company', 'departure', 'destination', 'weight_from', 'weight_to',
-                    'volume_from', 'volume_to', 'price_type', 'base_price', 'expedition_price']
+    list_display = ['code', 'delivery_company', 'departure', 'destination',
+                    'weight_from', 'weight_to', 'volume_from', 'volume_to',
+                    'price_type', 'base_price', 'expedition_price']
     list_filter = ['delivery_company', 'departure', 'destination', 'price_type']
 
 

@@ -4,32 +4,32 @@ from .models import Metric, DataSeries, DataSource, DayResult, WeekResult
 
 
 class MetricAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ['name']
 
 
 class DataSourceAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ['name']
 
 
 class DataSeriesAdmin(admin.ModelAdmin):
     list_display = [
-        "metric",
-        "dataSource",
-        "registrator",
-        "date",
-        "val",
-        "div",
-        "created",
+        'metric',
+        'dataSource',
+        'registrator',
+        'date',
+        'val',
+        'div',
+        'created',
     ]
-    list_filter = ["metric", "date"]
+    list_filter = ['metric', 'date']
 
 
 class DayResultAdmin(admin.ModelAdmin):
-    list_display = ["metric", "date", "cnt", "val"]
+    list_display = ['metric', 'date', 'cnt', 'val']
 
 
 class WeekResultAdmin(admin.ModelAdmin):
-    list_display = ["metric", "year", "week", "cnt", "val"]
+    list_display = ['metric', 'year', 'week', 'cnt', 'val']
 
 
 admin.site.register(Metric, MetricAdmin)

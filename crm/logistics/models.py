@@ -5,10 +5,12 @@ from common.utils import parse_float
 
 
 class DeliveryCompany(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name='Наименование')
-    description = models.CharField(max_length=250, verbose_name='Описание', blank=True)
+    name = models.CharField(max_length=100, db_index=True,
+                            verbose_name='Наименование')
+    description = models.CharField(
+        max_length=250, verbose_name='Описание', blank=True)
 
-    class Meta:
+    class Meta(object):
         ordering = ['name']
         verbose_name = 'Транспортная компания'
         verbose_name_plural = 'Транспортные компании'
@@ -18,10 +20,12 @@ class DeliveryCompany(models.Model):
 
 
 class DeliveryPriceType(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name='Наименование')
-    description = models.CharField(max_length=250, verbose_name='Описание', blank=True)
+    name = models.CharField(max_length=100, db_index=True,
+                            verbose_name='Наименование')
+    description = models.CharField(
+        max_length=250, verbose_name='Описание', blank=True)
 
-    class Meta:
+    class Meta(object):
         ordering = ['name']
         verbose_name = 'Тип тарифа транспортной компании'
         verbose_name_plural = 'Типы тарифов транспортных компаний'
@@ -34,7 +38,8 @@ class DeliveryPrice(models.Model):
     code = models.CharField(max_length=6, db_index=True, verbose_name='Код')
     delivery_company = models.ForeignKey(DeliveryCompany, related_name='prices',
                                          verbose_name='Транспортная компания',
-                                         on_delete=models.PROTECT, null=True)
+                                         on_delete=models.PROTECT, null=True,
+                                         )
     departure = models.CharField(max_length=250, db_index=True,
                                  verbose_name='Пункт отправления')
     destination = models.CharField(max_length=250, db_index=True,
@@ -52,9 +57,10 @@ class DeliveryPrice(models.Model):
                                    on_delete=models.PROTECT, null=True)
     base_price = models.DecimalField(max_digits=10, decimal_places=2,
                                      default=0.00, verbose_name='Базовый тариф')
-    expedition_price = models.DecimalField(max_digits=10, decimal_places=2,
-                                           default=0.00,
-                                           verbose_name='Тариф экспедирования')
+    expedition_price = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0.00,
+        verbose_name='Тариф экспедирования',
+    )
 
     @classmethod
     def get_float(cls, numstr):
@@ -62,7 +68,8 @@ class DeliveryPrice(models.Model):
 
     @classmethod
     def from_tuple(cls, row):
-        delivery_price, created = DeliveryPrice.objects.get_or_create(code=row[1])
+        delivery_price, created = DeliveryPrice.objects.get_or_create(
+            code=row[1])
         if created:
             res = 'Создан новый Тариф транспортной компании'
         else:
@@ -89,7 +96,7 @@ class DeliveryPrice(models.Model):
 
         return res
 
-    class Meta:
+    class Meta(object):
         ordering = ['delivery_company', 'departure', 'destination',
                     'price_type', 'weight_from', 'weight_to', 'volume_from', 'volume_to']
         verbose_name = 'Тариф транспортной компании'
