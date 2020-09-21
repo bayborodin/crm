@@ -8,6 +8,8 @@ DEFAULT_DECIMAL = 0.0
 
 
 class OfferingGroup(models.Model):
+    """Offering group model."""
+
     extid = models.CharField(
         max_length=36, db_index=True, null=True, verbose_name='Внешний код'
     )
@@ -46,6 +48,8 @@ class OfferingGroup(models.Model):
 
 
 class Offering(models.Model):
+    """Offering model."""
+
     extid = models.CharField(
         max_length=36, db_index=True, null=True, verbose_name='Внешний код'
     )
