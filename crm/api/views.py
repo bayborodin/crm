@@ -1,12 +1,15 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from api.serializers import (
+    DataSeriesSerializer,
+    DataSourceSerializer,
+    LeadSerializer,
+    MetricSerializer,
+)
 from leads.models import Lead
-from metrics.models import Metric, DataSource, DataSeries
-
-from .serializers import LeadSerializer
-from .serializers import MetricSerializer, DataSourceSerializer, DataSeriesSerializer
+from metrics.models import DataSeries, DataSource, Metric
 
 
 class LeadView(APIView):
