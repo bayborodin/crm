@@ -1,7 +1,9 @@
+from django.db.models import fields
 from rest_framework import serializers
 
 from leads.models import Lead
 from metrics.models import DataSeries, DataSource, Metric
+from offerings.models import SparePart
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -9,7 +11,7 @@ class LeadSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = Lead
-        fields = (
+        fields = (  # noqa: F811
             'channel',
             'source',
             'inn',
@@ -65,3 +67,15 @@ class DataSeriesSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = DataSeries
         fields = ('metric', 'dataSource', 'registrator', 'date', 'val', 'div')
+
+
+class SparePartSerializer(serializers.HyperlinkedModelSerializer):
+    """Spare part model serializer."""
+
+    class Meta(object):
+        model = SparePart
+        fields = (  # noqa: F811
+            'pk', 'name', 'mark', 'code_1c', 'description', 'tags', 'equipment',
+            'net_weight', 'gross_weight', 'length', 'width', 'height',
+        )
+        read_only_fields = ('pk',)

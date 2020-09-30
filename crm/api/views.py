@@ -1,15 +1,18 @@
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+from rest_framework import viewsets
 
 from api.serializers import (
     DataSeriesSerializer,
     DataSourceSerializer,
     LeadSerializer,
-    MetricSerializer,
+    MetricSerializer, SparePartSerializer,
 )
 from leads.models import Lead
 from metrics.models import DataSeries, DataSource, Metric
+from offerings.models import SparePart
 
 
 class LeadView(APIView):
@@ -19,17 +22,17 @@ class LeadView(APIView):
         leads = Lead.objects.filter(delete_mark=False)
         serializer = LeadSerializer(leads, many=True)
 
-        context = {"leads": serializer.data}
+        context = {'leads': serializer.data}
 
         return Response(context)
 
     def post(self, request):
-        lead = request.data.get("lead")
+        lead = request.data.get('lead')
         serializer = LeadSerializer(data=lead)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
-        context = {"success": "Lead  created successfully."}
+        context = {'success': 'Lead  created successfully.'}
 
         return Response(context)
 
@@ -96,3 +99,11 @@ class DataSeriesView(APIView):
         context = {'success': 'Data Series  created successfully.'}
 
         return Response(context)
+
+
+class SparePartViewSet(viewsets.ModelViewSet):
+    """Spare Part API endpoint."""
+
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = SparePart.objects.all()
+    serializer_class = SparePartSerializer

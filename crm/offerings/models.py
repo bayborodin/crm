@@ -172,6 +172,7 @@ class Offering(models.Model):
         verbose_name_plural = 'Продукция'
 
     def __str__(self):
+        """Return the string represintation of the offering."""
         return self.name
 
 
@@ -183,24 +184,29 @@ class SparePart(models.Model):
         db_index=True,
         verbose_name='Наименование',
     )
+    mark = models.CharField(
+        max_length=_STRING_FIELD_MAX_LENGTH,
+        null=True,
+        verbose_name='Маркировка',
+    )
     code_1c = models.CharField(  # noqa: WPS114
         max_length=_CODE_1C_LENGTH,
         db_index=True,
         verbose_name='Код в 1С',
     )
     description = models.CharField(
+        null=True,
         max_length=_STRING_FIELD_MAX_LENGTH,
-        db_index=True,
         verbose_name='Описание',
     )
     tags = models.CharField(
         max_length=_STRING_FIELD_MAX_LENGTH,
-        db_index=True,
+        null=True,
         verbose_name='Теги',
     )
     equipment = models.CharField(
         max_length=_STRING_FIELD_MAX_LENGTH,
-        db_index=True,
+        null=True,
         verbose_name='Совместимое оборудование',
     )
     net_weight = models.DecimalField(
@@ -214,6 +220,18 @@ class SparePart(models.Model):
         decimal_places=3,
         verbose_name='Масса брутто, кг.',
         default=Decimal(DEFAULT_DECIMAL),
+    )
+    length = models.PositiveSmallIntegerField(
+        verbose_name='Длина, мм.',
+        default=0,
+    )
+    width = models.PositiveSmallIntegerField(
+        verbose_name='Ширина, мм.',
+        default=0,
+    )
+    height = models.PositiveSmallIntegerField(
+        verbose_name='Высота, мм.',
+        default=0,
     )
 
     def __str__(self):
