@@ -1,3 +1,5 @@
+import os
+
 from decimal import Decimal
 from typing import Final
 
@@ -186,7 +188,7 @@ class SparePart(models.Model):
     )
     mark = models.CharField(
         max_length=_STRING_FIELD_MAX_LENGTH,
-        null=True,
+        blank=True,
         verbose_name='Маркировка',
     )
     code_1c = models.CharField(  # noqa: WPS114
@@ -195,44 +197,54 @@ class SparePart(models.Model):
         verbose_name='Код в 1С',
     )
     description = models.CharField(
-        null=True,
+        blank=True,
         max_length=_STRING_FIELD_MAX_LENGTH,
         verbose_name='Описание',
     )
     tags = models.CharField(
         max_length=_STRING_FIELD_MAX_LENGTH,
-        null=True,
+        blank=True,
         verbose_name='Теги',
     )
     equipment = models.CharField(
         max_length=_STRING_FIELD_MAX_LENGTH,
-        null=True,
+        blank=True,
         verbose_name='Совместимое оборудование',
     )
     net_weight = models.DecimalField(
         max_digits=7,
         decimal_places=3,
         verbose_name='Масса нетто, кг.',
-        default=Decimal(DEFAULT_DECIMAL),
+        blank=True,
     )
     gross_weight = models.DecimalField(
         max_digits=7,
         decimal_places=3,
         verbose_name='Масса брутто, кг.',
-        default=Decimal(DEFAULT_DECIMAL),
+        blank=True,
     )
     length = models.PositiveSmallIntegerField(
         verbose_name='Длина, мм.',
-        default=0,
+        blank=True,
+
     )
     width = models.PositiveSmallIntegerField(
         verbose_name='Ширина, мм.',
-        default=0,
+        blank=True,
     )
     height = models.PositiveSmallIntegerField(
         verbose_name='Высота, мм.',
-        default=0,
+        blank=True,
     )
+    primary_image = models.FileField(
+        upload_to='galery/',
+        verbose_name='Основной вид',
+        blank=True,
+    )
+
+    def filename(self):
+        name = os.path.basename(self.primary_image.name)
+        return os.path.splitext(name)[0]
 
     def __str__(self):
         """Return the string representation of the spare part."""
@@ -242,3 +254,15 @@ class SparePart(models.Model):
         ordering = ['name']
         verbose_name = 'Запасная часть'
         verbose_name_plural = 'Запасные части'
+
+
+class SparePartImage(models.Model):
+    spare_part = models.ForeignKey(
+        SparePart,
+        related_name='images',
+        verbose_name='Изображение',
+        on_delete=models.CASCADE
+    )
+    title = models.CharField(max_length=255, blank=True)
+    file = models.ImageField(upload_to='galery/')
+    uploaded_at = models.DateField(auto_now_add=True)

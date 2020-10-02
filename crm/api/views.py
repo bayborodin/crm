@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework import viewsets
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from api.serializers import (
     DataSeriesSerializer,
@@ -12,7 +13,7 @@ from api.serializers import (
 )
 from leads.models import Lead
 from metrics.models import DataSeries, DataSource, Metric
-from offerings.models import SparePart
+from offerings.models import SparePart, SparePartImage
 
 
 class LeadView(APIView):
@@ -104,6 +105,7 @@ class DataSeriesView(APIView):
 class SparePartViewSet(viewsets.ModelViewSet):
     """Spare Part API endpoint."""
 
+    parser_classes = [MultiPartParser, FormParser]
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = SparePart.objects.all()
     serializer_class = SparePartSerializer
