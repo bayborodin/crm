@@ -1,8 +1,9 @@
 from django import forms
 
-from .models import Defection
 from offerings.models import Offering
 from shipments.models import Shipment, ShipmentOffering
+
+from .models import Defection
 
 
 class DefectionForm(forms.ModelForm):

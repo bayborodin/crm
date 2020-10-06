@@ -12,11 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-from decouple import config
-from decouple import Csv
-from dj_database_url import parse as db_url
-
 import sentry_sdk
+from decouple import Csv, config
+from dj_database_url import parse as db_url
 from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -173,9 +171,9 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-    ],
+    ),
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 }
 

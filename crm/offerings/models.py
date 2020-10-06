@@ -1,10 +1,14 @@
+import os
 from decimal import Decimal
+from typing import Final
 
 from django.db import models
 
 from common.utils import parse_float
 
 DEFAULT_DECIMAL = 0.0
+_STRING_FIELD_MAX_LENGTH: Final = 250
+_CODE_1C_LENGTH: Final = 12  # noqa: WPS114
 
 
 class OfferingGroup(models.Model):
@@ -169,4 +173,105 @@ class Offering(models.Model):
         verbose_name_plural = 'Продукция'
 
     def __str__(self):
+        """Return the string represintation of the offering."""
         return self.name
+
+
+class SparePart(models.Model):
+    """Spare part model."""
+
+    name = models.CharField(
+        max_length=_STRING_FIELD_MAX_LENGTH,
+        db_index=True,
+        verbose_name='Наименование',
+    )
+    mark = models.CharField(
+        max_length=_STRING_FIELD_MAX_LENGTH,
+        blank=True,
+        verbose_name='Маркировка',
+    )
+    code_1c = models.CharField(  # noqa: WPS114
+        max_length=_CODE_1C_LENGTH,
+        db_index=True,
+        unique=True,
+        verbose_name='Код в 1С',
+    )
+    description = models.CharField(
+        blank=True,
+        max_length=_STRING_FIELD_MAX_LENGTH,
+        verbose_name='Описание',
+    )
+    tags = models.CharField(
+        max_length=_STRING_FIELD_MAX_LENGTH,
+        blank=True,
+        verbose_name='Теги',
+    )
+    equipment = models.CharField(
+        max_length=_STRING_FIELD_MAX_LENGTH,
+        blank=True,
+        verbose_name='Совместимое оборудование',
+    )
+    net_weight = models.DecimalField(
+        max_digits=7,
+        decimal_places=3,
+        verbose_name='Масса нетто, кг.',
+        blank=True,
+    )
+    gross_weight = models.DecimalField(
+        max_digits=7,
+        decimal_places=3,
+        verbose_name='Масса брутто, кг.',
+        blank=True,
+    )
+    length = models.PositiveSmallIntegerField(
+        verbose_name='Длина, мм.',
+        blank=True,
+    )
+    width = models.PositiveSmallIntegerField(
+        verbose_name='Ширина, мм.',
+        blank=True,
+    )
+    height = models.PositiveSmallIntegerField(
+        verbose_name='Высота, мм.',
+        blank=True,
+    )
+    primary_image = models.FileField(
+        upload_to='galery/',
+        verbose_name='Основной вид',
+        blank=True,
+    )
+    quantity = models.IntegerField(
+        verbose_name='Остаток',
+        default=0,
+    )
+    retail_price = models.DecimalField(
+        max_digits=9,
+        decimal_places=2,
+        verbose_name='Розничная цена',
+        default=Decimal(DEFAULT_DECIMAL),
+    )
+
+    def filename(self):
+        name = os.path.basename(self.primary_image.name)
+        return os.path.splitext(name)[0]
+
+    def __str__(self):
+        """Return the string representation of the spare part."""
+        return self.name
+
+    class Meta(object):
+        ordering = ['name']
+        verbose_name = 'Запасная часть'
+        verbose_name_plural = 'Запасные части'
+
+
+class SparePartImage(models.Model):
+    spare_part = models.ForeignKey(
+        SparePart,
+        related_name='images',
+        verbose_name='Изображение',
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(max_length=255, blank=True)
+    file = models.ImageField(upload_to='galery/')
+    uploaded_at = models.DateField(auto_now_add=True)

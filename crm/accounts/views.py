@@ -1,8 +1,8 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Account
 from .forms import AccountForm
+from .models import Account
 
 
 def index(request):

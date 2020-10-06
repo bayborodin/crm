@@ -1,4 +1,5 @@
 from django.db import models
+
 from common.utils import parse_float
 
 # Delivery company model
