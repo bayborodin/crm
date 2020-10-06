@@ -1,14 +1,13 @@
 import os
 from decimal import Decimal
-from typing import Final
 
 from django.db import models
 
 from common.utils import parse_float
 
 DEFAULT_DECIMAL = 0.0
-_STRING_FIELD_MAX_LENGTH: Final = 250
-_CODE_1C_LENGTH: Final = 12  # noqa: WPS114
+_STRING_FIELD_MAX_LENGTH = 250
+_CODE_1C_LENGTH = 12  # noqa: WPS114
 
 
 class OfferingGroup(models.Model):
