@@ -68,12 +68,15 @@ class SparePartAdmin(admin.ModelAdmin):
         'height',
         'primary_image',
         get_picture_preview,
+        'quantity',
+        'retail_price',
     ]
 
     readonly_fields = [get_picture_preview]
 
     list_display = [
-        'code_1c', 'name', 'net_weight', 'gross_weight', get_picture_thumb,
+        'code_1c', 'name', 'net_weight', 'gross_weight', 'quantity',
+        'retail_price', get_picture_thumb,
     ]
     list_filter = ['code_1c', 'name']
     inlines = [SparePartImageInline]

@@ -9,9 +9,10 @@ from django.urls import reverse
 from weasyprint import HTML
 
 from accounts.models import Account
+from shipments.models import ShipmentOffering
+
 from .forms import DefectionForm
 from .models import Defection, Photo
-from shipments.models import ShipmentOffering
 
 
 def index(request, account_extid):

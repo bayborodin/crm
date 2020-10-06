@@ -1,5 +1,4 @@
 import os
-
 from decimal import Decimal
 from typing import Final
 
@@ -194,6 +193,7 @@ class SparePart(models.Model):
     code_1c = models.CharField(  # noqa: WPS114
         max_length=_CODE_1C_LENGTH,
         db_index=True,
+        unique=True,
         verbose_name='Код в 1С',
     )
     description = models.CharField(
@@ -226,7 +226,6 @@ class SparePart(models.Model):
     length = models.PositiveSmallIntegerField(
         verbose_name='Длина, мм.',
         blank=True,
-
     )
     width = models.PositiveSmallIntegerField(
         verbose_name='Ширина, мм.',
@@ -240,6 +239,16 @@ class SparePart(models.Model):
         upload_to='galery/',
         verbose_name='Основной вид',
         blank=True,
+    )
+    quantity = models.IntegerField(
+        verbose_name='Остаток',
+        default=0,
+    )
+    retail_price = models.DecimalField(
+        max_digits=9,
+        decimal_places=2,
+        verbose_name='Розничная цена',
+        default=Decimal(DEFAULT_DECIMAL),
     )
 
     def filename(self):
@@ -261,7 +270,7 @@ class SparePartImage(models.Model):
         SparePart,
         related_name='images',
         verbose_name='Изображение',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=255, blank=True)
     file = models.ImageField(upload_to='galery/')

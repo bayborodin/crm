@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import DeliveryCompany, DeliveryPriceType, DeliveryPrice
+
+from .models import DeliveryCompany, DeliveryPrice, DeliveryPriceType
 
 
 class DeliveryCompanyAdmin(admin.ModelAdmin):

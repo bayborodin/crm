@@ -4,8 +4,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 from accounts.models import LegalEntity
-from common.utils import parse_date
-from common.utils import parse_float
+from common.utils import parse_date, parse_float
 from offerings.models import Offering
 from orders.models import Order
 

@@ -1,7 +1,6 @@
-from os import name
 from django.urls import include, path
-from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
 
 from . import views
 
@@ -9,6 +8,7 @@ app_name = 'api'
 
 router = routers.DefaultRouter()
 router.register(r'parts', views.SparePartViewSet)
+router.register(r'part-images', views.SparePartImageViewSet)
 
 urlpatterns = [
     # authentication

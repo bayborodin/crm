@@ -1,5 +1,5 @@
 from django.db.models import fields
-from rest_framework import serializers
+from rest_framework import serializers, validators
 
 from leads.models import Lead
 from metrics.models import DataSeries, DataSource, Metric
@@ -74,9 +74,12 @@ class SparePartImageSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         """Spare part image serializer fields."""
-
         model = SparePartImage
-        fields = ('title', 'file')  # noqa: F811
+        fields = ('spare_part', 'title', 'file')  # noqa: F811
+
+        def to_representation(self, instance):
+            self.fields['spare_part'] = SparePartSerializer(read_only=True)
+            return super(SparePartImageSerializer, self).to_representation(instance)
 
 
 class SparePartSerializer(serializers.HyperlinkedModelSerializer):
@@ -89,6 +92,6 @@ class SparePartSerializer(serializers.HyperlinkedModelSerializer):
         fields = (  # noqa: F811
             'pk', 'name', 'mark', 'code_1c', 'description', 'tags', 'equipment',
             'net_weight', 'gross_weight', 'length', 'width', 'height',
-            'primary_image', 'images',
+            'primary_image', 'images', 'quantity', 'retail_price',
         )
         read_only_fields = ('pk',)
