@@ -1,5 +1,7 @@
 from decimal import Decimal
+
 from django.http import JsonResponse
+
 from .models import DeliveryPrice
 
 

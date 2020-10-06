@@ -1,7 +1,7 @@
-from django.contrib import admin
-from .models import AccountType, Account, LegalEntity
-
 from django import forms
+from django.contrib import admin
+
+from .models import Account, AccountType, LegalEntity
 
 
 # AccountType model admin

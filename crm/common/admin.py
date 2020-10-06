@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import CommunicationType, Country, State, City
+
+from .models import City, CommunicationType, Country, State
 
 
 # CommunicationType model admin

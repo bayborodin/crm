@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from common.models import City, Country
 from core.models import Profile
-from common.models import Country, City
 
 
 # Account type model

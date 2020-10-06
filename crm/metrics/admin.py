@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Metric, DataSeries, DataSource, DayResult, WeekResult
+from .models import DataSeries, DataSource, DayResult, Metric, WeekResult
 
 
 class MetricAdmin(admin.ModelAdmin):

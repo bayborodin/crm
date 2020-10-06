@@ -1,12 +1,12 @@
-import ftplib
 import csv
+import ftplib
+
 from django.core.management.base import BaseCommand
 
-from accounts.models import Account, LegalEntity
-from accounts.models import AccountType
-from common.models import CommunicationType, Country, State, City
+from accounts.models import Account, AccountType, LegalEntity
+from common.models import City, CommunicationType, Country, State
 from logistics.models import DeliveryPrice
-from offerings.models import OfferingGroup, Offering
+from offerings.models import Offering, OfferingGroup
 from orders.models import Order, OrderOffering
 from shipments.models import Shipment, ShipmentOffering
 
