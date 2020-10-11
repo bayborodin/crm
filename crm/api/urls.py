@@ -7,7 +7,7 @@ from . import views
 app_name = 'api'
 
 router = routers.DefaultRouter()
-router.register(r'parts', views.SparePartViewSet)
+router.register(r'parts', views.SparePartViewSet, basename='SparePart')
 router.register(r'part-images', views.SparePartImageViewSet)
 
 urlpatterns = [
