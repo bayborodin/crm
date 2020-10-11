@@ -1,3 +1,4 @@
+from django.db.models import query
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -112,8 +113,14 @@ class SparePartViewSet(viewsets.ModelViewSet):
 
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = SparePart.objects.all()
     serializer_class = SparePartSerializer
+
+    def get_queryset(self):
+        queryset = SparePart.objects.all()
+        code = self.request.query_params.get('code', None)
+        if code is not None:
+            queryset = queryset.filter(code_1c=code)
+        return queryset
 
 
 class SparePartImageViewSet(viewsets.ModelViewSet):

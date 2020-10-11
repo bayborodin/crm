@@ -19,7 +19,6 @@ gunicorn==19.9.0
 html5lib==1.0.1
 mccabe==0.6.1
 Pillow==7.2.0
-psycopg2-binary==2.8.3
 pycparser==2.19
 Pyphen==0.9.5
 python-decouple==3.1
@@ -32,4 +31,3 @@ tinycss2==1.0.2
 urllib3==1.25.9
 WeasyPrint==51
 webencodings==0.5.1
-typing
