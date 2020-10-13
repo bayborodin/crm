@@ -195,18 +195,15 @@ class SparePart(models.Model):
         unique=True,
         verbose_name='Код в 1С',
     )
-    description = models.CharField(
+    description = models.TextField(
         blank=True,
-        max_length=_STRING_FIELD_MAX_LENGTH,
         verbose_name='Описание',
     )
-    tags = models.CharField(
-        max_length=_STRING_FIELD_MAX_LENGTH,
+    tags = models.TextField(
         blank=True,
         verbose_name='Теги',
     )
-    equipment = models.CharField(
-        max_length=_STRING_FIELD_MAX_LENGTH,
+    equipment = models.TextField(
         blank=True,
         verbose_name='Совместимое оборудование',
     )
