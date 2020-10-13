@@ -1,4 +1,5 @@
 import os
+import logging
 from decimal import Decimal
 
 from django.db import models
@@ -9,6 +10,9 @@ from common.utils import parse_float
 DEFAULT_DECIMAL = 0.0
 _STRING_FIELD_MAX_LENGTH = 250
 _CODE_1C_LENGTH = 12  # noqa: WPS114
+
+
+logger = logging.getLogger(__name__)
 
 
 class OfferingGroup(models.Model):
@@ -301,8 +305,20 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
         return False
 
     new_file = instance.primary_image
+
+    # print(f'DBG!!! Old file: {old_file}')
+    # print(f'DBG!!! New file: {new_file}')
+    logger.debug(f'Old file: {old_file}')
+    logger.debug(f'New file: {new_file}')
+
     if not old_file == new_file:
+        # print('DBG!!! old_file != new_file')
+        logger.debug('old_file != new_file')
         if os.path.isfile(old_file.path):
+            # print('DBG!!! delete old_file')
+            logger.debug('Delete old file')
             os.remove(old_file.path)
     else:
+        # print('DBG!!! Update field to old_file')
+        logger.debug('Update field to old_file')
         instance.primary_image = old_file
