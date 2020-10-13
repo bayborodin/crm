@@ -2,6 +2,7 @@ import os
 from decimal import Decimal
 
 from django.db import models
+from django.dispatch import receiver
 
 from common.utils import parse_float
 
@@ -271,3 +272,35 @@ class SparePartImage(models.Model):
     title = models.CharField(max_length=255, blank=True)
     file = models.ImageField(upload_to='galery/')
     uploaded_at = models.DateField(auto_now_add=True)
+
+
+@receiver(models.signals.post_delete, sender=SparePart)
+def auto_delete_file_no_delete(sender, instance, **kwargs):
+    """
+    Delete files from filesystem
+    when corresponding SparePart object is deleted.
+    """
+    if instance.primary_image:
+        if os.path.isfile(instance.primary_image.path):
+            os.remove(instance.primary_image.path)
+
+
+@receiver(models.signals.pre_save, sender=SparePart)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Delete old file from filesystem
+    when corresponding SparePart object is updated
+    with new file.
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = SparePart.objects.get(pk=instance.pk).primary_image
+    except SparePart.DoesNotExist:
+        return False
+
+    new_file = instance.primary_image
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
