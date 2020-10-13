@@ -186,3 +186,30 @@ sentry_sdk.init(
     send_default_pii=True,
     environment=config('ENVIRONMENT', default='Development')
 )
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'crm_formatter': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{'
+        }
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/crm.log'),
+            'formatter': 'crm_formatter',
+        },
+    },
+    'loggers': {
+        'offerings': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }
+    }
+}
