@@ -93,5 +93,6 @@ class SparePartSerializer(serializers.HyperlinkedModelSerializer):
             'pk', 'name', 'mark', 'code_1c', 'description', 'tags', 'equipment',
             'net_weight', 'gross_weight', 'length', 'width', 'height',
             'primary_image', 'images', 'quantity', 'retail_price',
+            'aliexpress_code',
         )
         read_only_fields = ('pk',)

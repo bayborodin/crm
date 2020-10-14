@@ -251,6 +251,11 @@ class SparePart(models.Model):
         verbose_name='Розничная цена',
         default=Decimal(DEFAULT_DECIMAL),
     )
+    aliexpress_code = models.CharField(
+        max_length=_STRING_FIELD_MAX_LENGTH,
+        blank=True,
+        verbose_name='Код AliExpress',
+    )
 
     def filename(self):
         name = os.path.basename(self.primary_image.name)
@@ -306,19 +311,8 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 
     new_file = instance.primary_image
 
-    # print(f'DBG!!! Old file: {old_file}')
-    # print(f'DBG!!! New file: {new_file}')
-    logger.debug(f'Old file: {old_file}')
-    logger.debug(f'New file: {new_file}')
-
     if not old_file == new_file:
-        # print('DBG!!! old_file != new_file')
-        logger.debug('old_file != new_file')
         if os.path.isfile(old_file.path):
-            # print('DBG!!! delete old_file')
-            logger.debug('Delete old file')
             os.remove(old_file.path)
     else:
-        # print('DBG!!! Update field to old_file')
-        logger.debug('Update field to old_file')
         instance.primary_image = old_file
