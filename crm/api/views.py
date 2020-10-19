@@ -126,5 +126,12 @@ class SparePartViewSet(viewsets.ModelViewSet):
 class SparePartImageViewSet(viewsets.ModelViewSet):
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = SparePartImage.objects.all()
+    # queryset = SparePartImage.objects.all()
     serializer_class = SparePartImageSerializer
+
+    def get_queryset(self):
+        queryset = SparePartImage.objects.all()
+        spare_part = self.request.query_params.get('part', None)
+        if spare_part is not None:
+            queryset = queryset.filter(spare_part=spare_part)
+        return queryset
