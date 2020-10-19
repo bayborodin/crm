@@ -8,7 +8,8 @@ app_name = 'api'
 
 router = routers.DefaultRouter()
 router.register(r'parts', views.SparePartViewSet, basename='SparePart')
-router.register(r'part-images', views.SparePartImageViewSet)
+router.register(r'part-images', views.SparePartImageViewSet,
+                basename='SparePartImage')
 
 urlpatterns = [
     # authentication
