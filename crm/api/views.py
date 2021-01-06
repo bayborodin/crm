@@ -1,6 +1,4 @@
-from django.db.models import query
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import (
     IsAuthenticated,
@@ -23,8 +21,6 @@ from offerings.models import SparePart, SparePartImage
 
 
 class LeadView(APIView):
-    # permission_classes = (IsAuthenticated,)
-
     def get(self, request):
         leads = Lead.objects.filter(delete_mark=False)
         serializer = LeadSerializer(leads, many=True)
@@ -126,7 +122,6 @@ class SparePartViewSet(viewsets.ModelViewSet):
 class SparePartImageViewSet(viewsets.ModelViewSet):
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    # queryset = SparePartImage.objects.all()
     serializer_class = SparePartImageSerializer
 
     def get_queryset(self):

@@ -105,7 +105,7 @@ class LegalEntity(models.Model):
     account = models.ForeignKey(
         Account,
         related_name='legal_entities',
-        verbose_name='Контрагент',
+        verbose_name="Контрагент",
         on_delete=models.PROTECT,
     )
     name = models.CharField(max_length=250, db_index=True,
