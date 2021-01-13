@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('logistics', '0007_auto_20191116_0058'),
+        ("logistics", "0007_auto_20191116_0058"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='deliveryprice',
-            name='price_type',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.PROTECT, related_name='prices', to='logistics.DeliveryPriceType', verbose_name='Тип тарифа'),
+            model_name="deliveryprice",
+            name="price_type",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="prices",
+                to="logistics.DeliveryPriceType",
+                verbose_name="Тип тарифа",
+            ),
         ),
     ]

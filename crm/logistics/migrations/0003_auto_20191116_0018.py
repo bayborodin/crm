@@ -6,28 +6,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('logistics', '0002_auto_20191115_2137'),
+        ("logistics", "0002_auto_20191115_2137"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='deliveryprice',
-            name='volume_from',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Объем от'),
+            model_name="deliveryprice",
+            name="volume_from",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Объем от"
+            ),
         ),
         migrations.AlterField(
-            model_name='deliveryprice',
-            name='volume_to',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Объем до'),
+            model_name="deliveryprice",
+            name="volume_to",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Объем до"
+            ),
         ),
         migrations.AlterField(
-            model_name='deliveryprice',
-            name='weight_from',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Вес от'),
+            model_name="deliveryprice",
+            name="weight_from",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Вес от"
+            ),
         ),
         migrations.AlterField(
-            model_name='deliveryprice',
-            name='weight_to',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Вес до'),
+            model_name="deliveryprice",
+            name="weight_to",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Вес до"
+            ),
         ),
     ]

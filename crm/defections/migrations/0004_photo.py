@@ -7,18 +7,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('defections', '0003_defection_shipment'),
+        ("defections", "0003_defection_shipment"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Photo',
+            name="Photo",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, max_length=255)),
-                ('file', models.ImageField(upload_to='defections/%Y/%m/%d')),
-                ('uploaded_at', models.DateField(auto_now_add=True)),
-                ('defection', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='photos', to='defections.Defection', verbose_name='Изображение')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(blank=True, max_length=255)),
+                ("file", models.ImageField(upload_to="defections/%Y/%m/%d")),
+                ("uploaded_at", models.DateField(auto_now_add=True)),
+                (
+                    "defection",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="photos",
+                        to="defections.Defection",
+                        verbose_name="Изображение",
+                    ),
+                ),
             ],
         ),
     ]

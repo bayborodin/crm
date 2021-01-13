@@ -6,22 +6,48 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('orders', '0002_auto_20191228_1434'),
+        ("orders", "0002_auto_20191228_1434"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='OrderState',
+            name="OrderState",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('extid', models.CharField(db_index=True, max_length=36, null=True, verbose_name='Внешний код')),
-                ('name', models.CharField(db_index=True, max_length=250, verbose_name='Наименование')),
-                ('description', models.CharField(blank=True, max_length=250, verbose_name='Описание')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "extid",
+                    models.CharField(
+                        db_index=True,
+                        max_length=36,
+                        null=True,
+                        verbose_name="Внешний код",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=250, verbose_name="Наименование"
+                    ),
+                ),
+                (
+                    "description",
+                    models.CharField(
+                        blank=True, max_length=250, verbose_name="Описание"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Статус заказа',
-                'verbose_name_plural': 'Статусы заказов',
-                'ordering': ['name'],
+                "verbose_name": "Статус заказа",
+                "verbose_name_plural": "Статусы заказов",
+                "ordering": ["name"],
             },
         ),
     ]

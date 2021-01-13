@@ -8,35 +8,68 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='AccountType',
+            name="AccountType",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=250, verbose_name='Наименование')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=250, verbose_name="Наименование"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Категория',
-                'verbose_name_plural': 'Категории',
-                'ordering': ['name'],
+                "verbose_name": "Категория",
+                "verbose_name_plural": "Категории",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Account',
+            name="Account",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=250, verbose_name='Наименование')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('account_type', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='accounts', to='accounts.AccountType', verbose_name='Тип')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=250, verbose_name="Наименование"
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                ("updated", models.DateTimeField(auto_now=True)),
+                (
+                    "account_type",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="accounts",
+                        to="accounts.AccountType",
+                        verbose_name="Тип",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Контрагент',
-                'verbose_name_plural': 'Контрагенты',
-                'ordering': ['name'],
+                "verbose_name": "Контрагент",
+                "verbose_name_plural": "Контрагенты",
+                "ordering": ["name"],
             },
         ),
     ]

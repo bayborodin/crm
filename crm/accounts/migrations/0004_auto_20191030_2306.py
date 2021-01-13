@@ -6,17 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0003_auto_20190831_2303'),
+        ("accounts", "0003_auto_20190831_2303"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='accounttype',
-            options={'ordering': ['name'], 'verbose_name': 'Тип контрагента', 'verbose_name_plural': 'Типы контрагентов'},
+            name="accounttype",
+            options={
+                "ordering": ["name"],
+                "verbose_name": "Тип контрагента",
+                "verbose_name_plural": "Типы контрагентов",
+            },
         ),
         migrations.AlterField(
-            model_name='accounttype',
-            name='description',
-            field=models.CharField(blank=True, max_length=250, verbose_name='Описание'),
+            model_name="accounttype",
+            name="description",
+            field=models.CharField(blank=True, max_length=250, verbose_name="Описание"),
         ),
     ]

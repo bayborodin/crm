@@ -6,7 +6,7 @@ from .models import Account, AccountType, LegalEntity
 
 # AccountType model admin
 class AccountTypeAdmin(admin.ModelAdmin):
-    list_display = ['name', 'description']
+    list_display = ["name", "description"]
 
 
 class LegalEntityInline(admin.StackedInline):
@@ -17,7 +17,7 @@ class LegalEntityInline(admin.StackedInline):
 class AccountForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
-        self.fields['primary_legal_entity'].queryset = LegalEntity.objects.filter(
+        self.fields["primary_legal_entity"].queryset = LegalEntity.objects.filter(
             account=self.instance
         )
 
@@ -25,29 +25,29 @@ class AccountForm(forms.ModelForm):
 class AccountAdmin(admin.ModelAdmin):
     form = AccountForm
     list_display = [
-        'name',
-        'get_inn',
-        'get_city',
-        'account_type',
-        'owner',
-        'created',
-        'updated',
+        "name",
+        "get_inn",
+        "get_city",
+        "account_type",
+        "owner",
+        "created",
+        "updated",
     ]
-    list_filter = ['account_type', 'owner']
-    search_fields = ['name', 'primary_legal_entity__inn']
+    list_filter = ["account_type", "owner"]
+    search_fields = ["name", "primary_legal_entity__inn"]
     inlines = [LegalEntityInline]
 
     def get_inn(self, obj):
         if obj.primary_legal_entity:
             return obj.primary_legal_entity.inn
 
-    get_inn.short_description = 'ИНН'
+    get_inn.short_description = "ИНН"
 
     def get_city(self, obj):
         if obj.primary_legal_entity:
             return obj.primary_legal_entity.city
 
-    get_city.short_description = 'Город'
+    get_city.short_description = "Город"
 
 
 admin.site.register(AccountType, AccountTypeAdmin)

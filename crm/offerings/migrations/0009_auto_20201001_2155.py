@@ -6,23 +6,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0008_auto_20201001_2152'),
+        ("offerings", "0008_auto_20201001_2152"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sparepart',
-            name='height',
-            field=models.PositiveSmallIntegerField(blank=True, verbose_name='Высота, мм.'),
+            model_name="sparepart",
+            name="height",
+            field=models.PositiveSmallIntegerField(
+                blank=True, verbose_name="Высота, мм."
+            ),
         ),
         migrations.AlterField(
-            model_name='sparepart',
-            name='length',
-            field=models.PositiveSmallIntegerField(blank=True, verbose_name='Длина, мм.'),
+            model_name="sparepart",
+            name="length",
+            field=models.PositiveSmallIntegerField(
+                blank=True, verbose_name="Длина, мм."
+            ),
         ),
         migrations.AlterField(
-            model_name='sparepart',
-            name='width',
-            field=models.PositiveSmallIntegerField(blank=True, verbose_name='Ширина, мм.'),
+            model_name="sparepart",
+            name="width",
+            field=models.PositiveSmallIntegerField(
+                blank=True, verbose_name="Ширина, мм."
+            ),
         ),
     ]

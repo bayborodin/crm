@@ -7,18 +7,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0012_auto_20201002_2325'),
+        ("offerings", "0012_auto_20201002_2325"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='sparepart',
-            name='quantity',
-            field=models.IntegerField(default=0, verbose_name='Остаток'),
+            model_name="sparepart",
+            name="quantity",
+            field=models.IntegerField(default=0, verbose_name="Остаток"),
         ),
         migrations.AddField(
-            model_name='sparepart',
-            name='retail_price',
-            field=models.DecimalField(decimal_places=2, default=Decimal('0'), max_digits=9, verbose_name='Розничная цена'),
+            model_name="sparepart",
+            name="retail_price",
+            field=models.DecimalField(
+                decimal_places=2,
+                default=Decimal("0"),
+                max_digits=9,
+                verbose_name="Розничная цена",
+            ),
         ),
     ]

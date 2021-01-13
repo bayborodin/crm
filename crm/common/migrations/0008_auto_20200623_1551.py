@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('common', '0007_auto_20200623_1534'),
+        ("common", "0007_auto_20200623_1534"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='state',
-            name='country',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='states', to='common.Country', verbose_name='Страна'),
+            model_name="state",
+            name="country",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="states",
+                to="common.Country",
+                verbose_name="Страна",
+            ),
         ),
     ]

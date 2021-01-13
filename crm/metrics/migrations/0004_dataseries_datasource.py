@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('metrics', '0003_auto_20200407_1647'),
+        ("metrics", "0003_auto_20200407_1647"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='dataseries',
-            name='dataSource',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='series', to='metrics.DataSource', verbose_name='Источник'),
+            model_name="dataseries",
+            name="dataSource",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="series",
+                to="metrics.DataSource",
+                verbose_name="Источник",
+            ),
         ),
     ]

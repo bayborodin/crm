@@ -11,28 +11,97 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('accounts', '0006_auto_20191212_2045'),
+        ("accounts", "0006_auto_20191212_2045"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('extid', models.CharField(db_index=True, max_length=36, null=True, verbose_name='Внешний код')),
-                ('number_1c', models.CharField(db_index=True, max_length=12, verbose_name='Номер в 1С')),
-                ('date', models.DateField(verbose_name='Дата')),
-                ('amount', models.DecimalField(decimal_places=2, default=Decimal('0'), max_digits=8, verbose_name='Стоимость без доставки')),
-                ('delivery_amount', models.DecimalField(decimal_places=2, default=Decimal('0'), max_digits=8, verbose_name='Стоимость доставки')),
-                ('total_amount', models.DecimalField(decimal_places=2, default=Decimal('0'), max_digits=8, verbose_name='Стоимость с доставкой')),
-                ('total_weight', models.DecimalField(decimal_places=2, default=Decimal('0'), max_digits=6, verbose_name='Вес, всего')),
-                ('total_volume', models.DecimalField(decimal_places=2, default=Decimal('0'), max_digits=6, verbose_name='Объем, всего')),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='orders', to='accounts.Account', verbose_name='Клиент')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "extid",
+                    models.CharField(
+                        db_index=True,
+                        max_length=36,
+                        null=True,
+                        verbose_name="Внешний код",
+                    ),
+                ),
+                (
+                    "number_1c",
+                    models.CharField(
+                        db_index=True, max_length=12, verbose_name="Номер в 1С"
+                    ),
+                ),
+                ("date", models.DateField(verbose_name="Дата")),
+                (
+                    "amount",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=Decimal("0"),
+                        max_digits=8,
+                        verbose_name="Стоимость без доставки",
+                    ),
+                ),
+                (
+                    "delivery_amount",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=Decimal("0"),
+                        max_digits=8,
+                        verbose_name="Стоимость доставки",
+                    ),
+                ),
+                (
+                    "total_amount",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=Decimal("0"),
+                        max_digits=8,
+                        verbose_name="Стоимость с доставкой",
+                    ),
+                ),
+                (
+                    "total_weight",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=Decimal("0"),
+                        max_digits=6,
+                        verbose_name="Вес, всего",
+                    ),
+                ),
+                (
+                    "total_volume",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=Decimal("0"),
+                        max_digits=6,
+                        verbose_name="Объем, всего",
+                    ),
+                ),
+                (
+                    "customer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="orders",
+                        to="accounts.Account",
+                        verbose_name="Клиент",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Заказ',
-                'verbose_name_plural': 'Заказы',
-                'ordering': ['date'],
+                "verbose_name": "Заказ",
+                "verbose_name_plural": "Заказы",
+                "ordering": ["date"],
             },
         ),
     ]

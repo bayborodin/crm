@@ -1,0 +1,7 @@
+<p>Редактирование договора</p>
+<form action="{% url 'contracts:edit' contract.id %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Сохранить изменения</button>
+    <a href="{% url 'contracts:index' %}">Отмена</a>
+</form>

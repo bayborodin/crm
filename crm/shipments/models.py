@@ -37,11 +37,13 @@ class Shipment(models.Model):
     )
 
     order = models.ForeignKey(
-        Order, related_name="shipments", verbose_name="Заказ", on_delete=models.PROTECT,
+        Order,
+        related_name="shipments",
+        verbose_name="Заказ",
+        on_delete=models.PROTECT,
     )
 
-    number = models.CharField(
-        max_length=11, db_index=True, verbose_name="Номер")
+    number = models.CharField(max_length=11, db_index=True, verbose_name="Номер")
 
     date = models.DateField(verbose_name="Дата")
 
@@ -165,14 +167,12 @@ class ShipmentOffering(models.Model):
 
         shipments = Shipment.objects.filter(extid=row[2])
         if not shipments.exists():
-            raise ValueError(
-                f"Shipment string has unknown shipment ID ({row[2]}).")
+            raise ValueError(f"Shipment string has unknown shipment ID ({row[2]}).")
         shipment_offering.shipment = shipments[0]
 
         offerings = Offering.objects.filter(extid=row[3])
         if not offerings.exists():
-            raise ValueError(
-                f"Shipment string has unknown offering ID ({row[3]}).")
+            raise ValueError(f"Shipment string has unknown offering ID ({row[3]}).")
         shipment_offering.offering = offerings[0]
 
         shipment_offering.quantity = int(row[4])

@@ -6,27 +6,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0006_auto_20191212_2045'),
+        ("accounts", "0006_auto_20191212_2045"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='account',
-            name='tsid',
+            model_name="account",
+            name="tsid",
         ),
         migrations.RemoveField(
-            model_name='accounttype',
-            name='tsid',
+            model_name="accounttype",
+            name="tsid",
         ),
         migrations.AddField(
-            model_name='account',
-            name='extid',
-            field=models.CharField(db_index=True, max_length=36, null=True, verbose_name='Внешний код'),
+            model_name="account",
+            name="extid",
+            field=models.CharField(
+                db_index=True, max_length=36, null=True, verbose_name="Внешний код"
+            ),
         ),
         migrations.AddField(
-            model_name='accounttype',
-            name='extid',
-            field=models.CharField(db_index=True, default='na', max_length=36, verbose_name='Внешний код'),
+            model_name="accounttype",
+            name="extid",
+            field=models.CharField(
+                db_index=True, default="na", max_length=36, verbose_name="Внешний код"
+            ),
             preserve_default=False,
         ),
     ]

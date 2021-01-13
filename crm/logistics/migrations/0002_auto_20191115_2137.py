@@ -6,18 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('logistics', '0001_initial'),
+        ("logistics", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='deliveryprice',
-            options={'ordering': ['delivery_company', 'departure', 'destination', 'price_type', 'weight_from', 'weight_to', 'volume_from', 'volume_to'], 'verbose_name': 'Тариф транспортной компании', 'verbose_name_plural': 'Тарифы транспортных компаний'},
+            name="deliveryprice",
+            options={
+                "ordering": [
+                    "delivery_company",
+                    "departure",
+                    "destination",
+                    "price_type",
+                    "weight_from",
+                    "weight_to",
+                    "volume_from",
+                    "volume_to",
+                ],
+                "verbose_name": "Тариф транспортной компании",
+                "verbose_name_plural": "Тарифы транспортных компаний",
+            },
         ),
         migrations.AddField(
-            model_name='deliveryprice',
-            name='code',
-            field=models.CharField(db_index=True, default='000000', max_length=6, verbose_name='Код'),
+            model_name="deliveryprice",
+            name="code",
+            field=models.CharField(
+                db_index=True, default="000000", max_length=6, verbose_name="Код"
+            ),
             preserve_default=False,
         ),
     ]

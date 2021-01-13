@@ -7,19 +7,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0003_auto_20200114_1302'),
-        ('defections', '0005_defection_kind'),
+        ("offerings", "0003_auto_20200114_1302"),
+        ("defections", "0005_defection_kind"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='defection',
-            name='offering',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='defections', to='offerings.Offering', verbose_name='Номенклатура'),
+            model_name="defection",
+            name="offering",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="defections",
+                to="offerings.Offering",
+                verbose_name="Номенклатура",
+            ),
         ),
         migrations.AlterField(
-            model_name='defection',
-            name='kind',
-            field=models.CharField(choices=[('SH', 'Некомплект'), ('TG', 'Транспортный бой'), ('OT', 'Другое')], default='SH', max_length=2, verbose_name='Характер брака'),
+            model_name="defection",
+            name="kind",
+            field=models.CharField(
+                choices=[
+                    ("SH", "Некомплект"),
+                    ("TG", "Транспортный бой"),
+                    ("OT", "Другое"),
+                ],
+                default="SH",
+                max_length=2,
+                verbose_name="Характер брака",
+            ),
         ),
     ]

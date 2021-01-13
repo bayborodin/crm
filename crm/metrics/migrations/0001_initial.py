@@ -8,37 +8,70 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Indicator',
+            name="Indicator",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=250, verbose_name='Наименование')),
-                ('description', models.CharField(blank=True, max_length=250, verbose_name='Описание')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=250, verbose_name="Наименование"
+                    ),
+                ),
+                (
+                    "description",
+                    models.CharField(
+                        blank=True, max_length=250, verbose_name="Описание"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Индикатор KPI',
-                'verbose_name_plural': 'Индикаторы KPI',
-                'ordering': ['name'],
+                "verbose_name": "Индикатор KPI",
+                "verbose_name_plural": "Индикаторы KPI",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Metric',
+            name="Metric",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.DateField(auto_now_add=True)),
-                ('val', models.PositiveIntegerField(default=0)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('indicator', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='metrics', to='metrics.Indicator', verbose_name='Метрика')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("date", models.DateField(auto_now_add=True)),
+                ("val", models.PositiveIntegerField(default=0)),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                ("updated", models.DateTimeField(auto_now=True)),
+                (
+                    "indicator",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="metrics",
+                        to="metrics.Indicator",
+                        verbose_name="Метрика",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Метрика',
-                'verbose_name_plural': 'Метрики',
-                'ordering': ['date', 'indicator'],
+                "verbose_name": "Метрика",
+                "verbose_name_plural": "Метрики",
+                "ordering": ["date", "indicator"],
             },
         ),
     ]

@@ -6,23 +6,23 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('common', '0006_auto_20200623_1528'),
+        ("common", "0006_auto_20200623_1528"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='communicationtype',
-            old_name='tsid',
-            new_name='extid',
+            model_name="communicationtype",
+            old_name="tsid",
+            new_name="extid",
         ),
         migrations.RenameField(
-            model_name='country',
-            old_name='ext',
-            new_name='extid',
+            model_name="country",
+            old_name="ext",
+            new_name="extid",
         ),
         migrations.RenameField(
-            model_name='state',
-            old_name='tsid',
-            new_name='extid',
+            model_name="state",
+            old_name="tsid",
+            new_name="extid",
         ),
     ]

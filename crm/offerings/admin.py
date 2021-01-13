@@ -12,10 +12,10 @@ def get_picture_preview(obj):
             f"<a href='{src}' target='_blank'><img src='{src}'\
                 alt='{title}' style='max-width: 200px; max-height: 200px;'></a>"
         )
-    return '(выберите картинку для просмотра)'
+    return "(выберите картинку для просмотра)"
 
 
-get_picture_preview.short_description = 'Предпросмотр'
+get_picture_preview.short_description = "Предпросмотр"
 
 
 def get_picture_thumb(obj):
@@ -28,7 +28,7 @@ def get_picture_thumb(obj):
         )
 
 
-get_picture_thumb.short_description = 'Фото'
+get_picture_thumb.short_description = "Фото"
 
 
 class SparePartImageInline(admin.StackedInline):
@@ -39,46 +39,56 @@ class SparePartImageInline(admin.StackedInline):
 class OfferingGroupAdmin(admin.ModelAdmin):
     """Offering group admin."""
 
-    list_display = ['name', 'enabled']
+    list_display = ["name", "enabled"]
 
 
 class OfferingAdmin(admin.ModelAdmin):
     """Offering admin."""
 
     list_display = [
-        'code_1c', 'name', 'group', 'bulk_price', 'retail_price', 'enabled',
+        "code_1c",
+        "name",
+        "group",
+        "bulk_price",
+        "retail_price",
+        "enabled",
     ]
-    list_filter = ['group', 'enabled']
+    list_filter = ["group", "enabled"]
 
 
 class SparePartAdmin(admin.ModelAdmin):
     """Spare part admin."""
 
     fields = [
-        'code_1c',
-        'name',
-        'mark',
-        'description',
-        'tags',
-        'equipment',
-        'net_weight',
-        'gross_weight',
-        'length',
-        'width',
-        'height',
-        'primary_image',
+        "code_1c",
+        "name",
+        "mark",
+        "description",
+        "tags",
+        "equipment",
+        "net_weight",
+        "gross_weight",
+        "length",
+        "width",
+        "height",
+        "primary_image",
         get_picture_preview,
-        'quantity',
-        'retail_price',
+        "quantity",
+        "retail_price",
     ]
 
     readonly_fields = [get_picture_preview]
 
     list_display = [
-        'code_1c', 'name', 'net_weight', 'gross_weight', 'quantity',
-        'retail_price', get_picture_thumb,
+        "code_1c",
+        "name",
+        "net_weight",
+        "gross_weight",
+        "quantity",
+        "retail_price",
+        get_picture_thumb,
     ]
-    list_filter = ['code_1c', 'name']
+    list_filter = ["code_1c", "name"]
     inlines = [SparePartImageInline]
 
 

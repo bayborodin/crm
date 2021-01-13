@@ -8,13 +8,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('metrics', '0009_weekresult'),
+        ("metrics", "0009_weekresult"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='dataseries',
-            name='date',
-            field=models.DateField(blank=True, default=datetime.datetime.now, verbose_name='Дата'),
+            model_name="dataseries",
+            name="date",
+            field=models.DateField(
+                blank=True, default=datetime.datetime.now, verbose_name="Дата"
+            ),
         ),
     ]

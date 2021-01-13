@@ -9,24 +9,48 @@ import metrics.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('metrics', '0008_auto_20200416_0021'),
+        ("metrics", "0008_auto_20200416_0021"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='WeekResult',
+            name="WeekResult",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year', models.IntegerField(default=metrics.models.current_year, verbose_name='Год')),
-                ('week', models.IntegerField(verbose_name='Неделя')),
-                ('cnt', models.IntegerField(default=0, verbose_name='Количество записей')),
-                ('val', models.IntegerField(default=0, verbose_name='Итог')),
-                ('metric', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='week_results', to='metrics.Metric', verbose_name='Метрика')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "year",
+                    models.IntegerField(
+                        default=metrics.models.current_year, verbose_name="Год"
+                    ),
+                ),
+                ("week", models.IntegerField(verbose_name="Неделя")),
+                (
+                    "cnt",
+                    models.IntegerField(default=0, verbose_name="Количество записей"),
+                ),
+                ("val", models.IntegerField(default=0, verbose_name="Итог")),
+                (
+                    "metric",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="week_results",
+                        to="metrics.Metric",
+                        verbose_name="Метрика",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Итог за неделю',
-                'verbose_name_plural': 'Итоги за неделю',
-                'ordering': ['-year', '-week', 'metric'],
+                "verbose_name": "Итог за неделю",
+                "verbose_name_plural": "Итоги за неделю",
+                "ordering": ["-year", "-week", "metric"],
             },
         ),
     ]

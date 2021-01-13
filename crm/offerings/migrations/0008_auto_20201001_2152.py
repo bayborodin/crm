@@ -6,35 +6,46 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0007_sparepart_primary_image'),
+        ("offerings", "0007_sparepart_primary_image"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sparepart',
-            name='description',
-            field=models.CharField(blank=True, default='', max_length=250, verbose_name='Описание'),
+            model_name="sparepart",
+            name="description",
+            field=models.CharField(
+                blank=True, default="", max_length=250, verbose_name="Описание"
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='sparepart',
-            name='equipment',
-            field=models.CharField(blank=True, default='', max_length=250, verbose_name='Совместимое оборудование'),
+            model_name="sparepart",
+            name="equipment",
+            field=models.CharField(
+                blank=True,
+                default="",
+                max_length=250,
+                verbose_name="Совместимое оборудование",
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='sparepart',
-            name='mark',
-            field=models.CharField(blank=True, max_length=250, verbose_name='Маркировка'),
+            model_name="sparepart",
+            name="mark",
+            field=models.CharField(
+                blank=True, max_length=250, verbose_name="Маркировка"
+            ),
         ),
         migrations.AlterField(
-            model_name='sparepart',
-            name='primary_image',
-            field=models.FileField(blank=True, upload_to='galery/', verbose_name='Основной вид'),
+            model_name="sparepart",
+            name="primary_image",
+            field=models.FileField(
+                blank=True, upload_to="galery/", verbose_name="Основной вид"
+            ),
         ),
         migrations.AlterField(
-            model_name='sparepart',
-            name='tags',
-            field=models.CharField(blank=True, max_length=250, verbose_name='Теги'),
+            model_name="sparepart",
+            name="tags",
+            field=models.CharField(blank=True, max_length=250, verbose_name="Теги"),
         ),
     ]

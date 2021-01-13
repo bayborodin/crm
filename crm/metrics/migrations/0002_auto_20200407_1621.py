@@ -10,63 +10,91 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('metrics', '0001_initial'),
+        ("metrics", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DataSeries',
+            name="DataSeries",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('registrator', models.CharField(blank=True, max_length=250, verbose_name='Регистратор')),
-                ('date', models.DateTimeField(blank=True, default=datetime.datetime.now, verbose_name='Дата')),
-                ('val', models.IntegerField(verbose_name='Значение')),
-                ('div', models.IntegerField(default=1, verbose_name='K')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "registrator",
+                    models.CharField(
+                        blank=True, max_length=250, verbose_name="Регистратор"
+                    ),
+                ),
+                (
+                    "date",
+                    models.DateTimeField(
+                        blank=True, default=datetime.datetime.now, verbose_name="Дата"
+                    ),
+                ),
+                ("val", models.IntegerField(verbose_name="Значение")),
+                ("div", models.IntegerField(default=1, verbose_name="K")),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                ("updated", models.DateTimeField(auto_now=True)),
             ],
             options={
-                'verbose_name': 'Значение аналитического показателя',
-                'verbose_name_plural': 'Значения аналитических показателей',
-                'ordering': ['-created'],
+                "verbose_name": "Значение аналитического показателя",
+                "verbose_name_plural": "Значения аналитических показателей",
+                "ordering": ["-created"],
             },
         ),
         migrations.AlterModelOptions(
-            name='metric',
-            options={'verbose_name': 'Метрика', 'verbose_name_plural': 'метрики'},
+            name="metric",
+            options={"verbose_name": "Метрика", "verbose_name_plural": "метрики"},
         ),
         migrations.RemoveField(
-            model_name='metric',
-            name='created',
+            model_name="metric",
+            name="created",
         ),
         migrations.RemoveField(
-            model_name='metric',
-            name='date',
+            model_name="metric",
+            name="date",
         ),
         migrations.RemoveField(
-            model_name='metric',
-            name='indicator',
+            model_name="metric",
+            name="indicator",
         ),
         migrations.RemoveField(
-            model_name='metric',
-            name='updated',
+            model_name="metric",
+            name="updated",
         ),
         migrations.RemoveField(
-            model_name='metric',
-            name='val',
+            model_name="metric",
+            name="val",
         ),
         migrations.AddField(
-            model_name='metric',
-            name='name',
-            field=models.CharField(db_index=True, default=django.utils.timezone.now, max_length=250, verbose_name='Наименование'),
+            model_name="metric",
+            name="name",
+            field=models.CharField(
+                db_index=True,
+                default=django.utils.timezone.now,
+                max_length=250,
+                verbose_name="Наименование",
+            ),
             preserve_default=False,
         ),
         migrations.DeleteModel(
-            name='Indicator',
+            name="Indicator",
         ),
         migrations.AddField(
-            model_name='dataseries',
-            name='metric',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='series', to='metrics.Metric', verbose_name='Метрика'),
+            model_name="dataseries",
+            name="metric",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="series",
+                to="metrics.Metric",
+                verbose_name="Метрика",
+            ),
         ),
     ]

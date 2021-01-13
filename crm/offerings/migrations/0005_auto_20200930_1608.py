@@ -6,28 +6,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0004_sparepart'),
+        ("offerings", "0004_sparepart"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='sparepart',
-            name='height',
-            field=models.PositiveSmallIntegerField(default=0, verbose_name='Высота, мм.'),
+            model_name="sparepart",
+            name="height",
+            field=models.PositiveSmallIntegerField(
+                default=0, verbose_name="Высота, мм."
+            ),
         ),
         migrations.AddField(
-            model_name='sparepart',
-            name='length',
-            field=models.PositiveSmallIntegerField(default=0, verbose_name='Длина, мм.'),
+            model_name="sparepart",
+            name="length",
+            field=models.PositiveSmallIntegerField(
+                default=0, verbose_name="Длина, мм."
+            ),
         ),
         migrations.AddField(
-            model_name='sparepart',
-            name='mark',
-            field=models.CharField(max_length=250, null=True, verbose_name='Маркировка'),
+            model_name="sparepart",
+            name="mark",
+            field=models.CharField(
+                max_length=250, null=True, verbose_name="Маркировка"
+            ),
         ),
         migrations.AddField(
-            model_name='sparepart',
-            name='width',
-            field=models.PositiveSmallIntegerField(default=0, verbose_name='Ширина, мм.'),
+            model_name="sparepart",
+            name="width",
+            field=models.PositiveSmallIntegerField(
+                default=0, verbose_name="Ширина, мм."
+            ),
         ),
     ]

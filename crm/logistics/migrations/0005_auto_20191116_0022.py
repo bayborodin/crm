@@ -6,23 +6,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('logistics', '0004_auto_20191116_0021'),
+        ("logistics", "0004_auto_20191116_0021"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='deliveryprice',
-            name='volume_from',
-            field=models.DecimalField(decimal_places=2, default=0.0, max_digits=10, verbose_name='Объем от'),
+            model_name="deliveryprice",
+            name="volume_from",
+            field=models.DecimalField(
+                decimal_places=2, default=0.0, max_digits=10, verbose_name="Объем от"
+            ),
         ),
         migrations.AlterField(
-            model_name='deliveryprice',
-            name='volume_to',
-            field=models.DecimalField(decimal_places=2, default=0.0, max_digits=10, verbose_name='Объем до'),
+            model_name="deliveryprice",
+            name="volume_to",
+            field=models.DecimalField(
+                decimal_places=2, default=0.0, max_digits=10, verbose_name="Объем до"
+            ),
         ),
         migrations.AlterField(
-            model_name='deliveryprice',
-            name='weight_to',
-            field=models.DecimalField(decimal_places=2, default=0.0, max_digits=10, verbose_name='Вес до'),
+            model_name="deliveryprice",
+            name="weight_to",
+            field=models.DecimalField(
+                decimal_places=2, default=0.0, max_digits=10, verbose_name="Вес до"
+            ),
         ),
     ]

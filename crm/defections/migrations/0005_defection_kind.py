@@ -6,13 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('defections', '0004_photo'),
+        ("defections", "0004_photo"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='defection',
-            name='kind',
-            field=models.CharField(choices=[('SH', 'Некомплект'), ('TG', 'Транспортный бой'), ('OT', 'Другое')], default='SH', max_length=2),
+            model_name="defection",
+            name="kind",
+            field=models.CharField(
+                choices=[
+                    ("SH", "Некомплект"),
+                    ("TG", "Транспортный бой"),
+                    ("OT", "Другое"),
+                ],
+                default="SH",
+                max_length=2,
+            ),
         ),
     ]
