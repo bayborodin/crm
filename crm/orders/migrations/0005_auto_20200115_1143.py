@@ -6,46 +6,48 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('orders', '0004_order_state'),
+        ("orders", "0004_order_state"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='order',
-            old_name='total_amount',
-            new_name='total',
+            model_name="order",
+            old_name="total_amount",
+            new_name="total",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='amount',
+            model_name="order",
+            name="amount",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='delivery_amount',
+            model_name="order",
+            name="delivery_amount",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='number_1c',
+            model_name="order",
+            name="number_1c",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='state',
+            model_name="order",
+            name="state",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='total_volume',
+            model_name="order",
+            name="total_volume",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='total_weight',
+            model_name="order",
+            name="total_weight",
         ),
         migrations.AddField(
-            model_name='order',
-            name='order_number',
-            field=models.CharField(db_index=True, default='Б/Н', max_length=11, verbose_name='Номер'),
+            model_name="order",
+            name="order_number",
+            field=models.CharField(
+                db_index=True, default="Б/Н", max_length=11, verbose_name="Номер"
+            ),
             preserve_default=False,
         ),
         migrations.DeleteModel(
-            name='OrderState',
+            name="OrderState",
         ),
     ]

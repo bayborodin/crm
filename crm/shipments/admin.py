@@ -9,8 +9,8 @@ class ShipmentOfferingInline(admin.TabularInline):
 
 
 class ShipmentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'date', 'number', 'buyer', 'total']
-    list_filter = ['date']
+    list_display = ["id", "date", "number", "buyer", "total"]
+    list_filter = ["date"]
     inlines = [ShipmentOfferingInline]
 
 

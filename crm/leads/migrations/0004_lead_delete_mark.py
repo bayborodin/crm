@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('leads', '0003_auto_20200218_2239'),
+        ("leads", "0003_auto_20200218_2239"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='lead',
-            name='delete_mark',
-            field=models.BooleanField(default=False, verbose_name='Пометка на удаление'),
+            model_name="lead",
+            name="delete_mark",
+            field=models.BooleanField(
+                default=False, verbose_name="Пометка на удаление"
+            ),
         ),
     ]

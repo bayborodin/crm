@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0010_account_owner'),
+        ("accounts", "0010_account_owner"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='account',
-            name='primary_legal_entity',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='parent_account', to='accounts.LegalEntity', verbose_name='Основное юр. лицо'),
+            model_name="account",
+            name="primary_legal_entity",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="parent_account",
+                to="accounts.LegalEntity",
+                verbose_name="Основное юр. лицо",
+            ),
         ),
     ]

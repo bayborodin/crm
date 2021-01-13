@@ -1,4 +1,3 @@
-
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -16,7 +15,7 @@ def count_day_result(sender, instance, **kwargs):
         day_result = DayResult(metric=metric, date=record_date)
 
     day_result.cnt += 1
-    day_result.val += (instance.val // instance.div)
+    day_result.val += instance.val // instance.div
     day_result.save()
 
 
@@ -34,5 +33,5 @@ def count_week_result(sender, instance, **kwargs):
         week_result = WeekResult(metric=metric, year=year, week=week)
 
     week_result.cnt += 1
-    week_result.val += (instance.val // instance.div)
+    week_result.val += instance.val // instance.div
     week_result.save()

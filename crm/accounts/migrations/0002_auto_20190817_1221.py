@@ -6,12 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ("accounts", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='accounttype',
-            options={'ordering': ['name'], 'verbose_name': 'Тип', 'verbose_name_plural': 'Типы'},
+            name="accounttype",
+            options={
+                "ordering": ["name"],
+                "verbose_name": "Тип",
+                "verbose_name_plural": "Типы",
+            },
         ),
     ]

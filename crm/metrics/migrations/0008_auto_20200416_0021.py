@@ -6,12 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('metrics', '0007_dayresult'),
+        ("metrics", "0007_dayresult"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='dataseries',
-            options={'ordering': ['-created'], 'verbose_name': 'Серия', 'verbose_name_plural': 'Серии'},
+            name="dataseries",
+            options={
+                "ordering": ["-created"],
+                "verbose_name": "Серия",
+                "verbose_name_plural": "Серии",
+            },
         ),
     ]

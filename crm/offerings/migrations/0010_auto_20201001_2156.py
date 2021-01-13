@@ -6,18 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0009_auto_20201001_2155'),
+        ("offerings", "0009_auto_20201001_2155"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sparepart',
-            name='gross_weight',
-            field=models.DecimalField(blank=True, decimal_places=3, max_digits=7, verbose_name='Масса брутто, кг.'),
+            model_name="sparepart",
+            name="gross_weight",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=3,
+                max_digits=7,
+                verbose_name="Масса брутто, кг.",
+            ),
         ),
         migrations.AlterField(
-            model_name='sparepart',
-            name='net_weight',
-            field=models.DecimalField(blank=True, decimal_places=3, max_digits=7, verbose_name='Масса нетто, кг.'),
+            model_name="sparepart",
+            name="net_weight",
+            field=models.DecimalField(
+                blank=True,
+                decimal_places=3,
+                max_digits=7,
+                verbose_name="Масса нетто, кг.",
+            ),
         ),
     ]

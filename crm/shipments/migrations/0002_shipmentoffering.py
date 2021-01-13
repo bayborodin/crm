@@ -10,26 +10,82 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0003_auto_20200114_1302'),
-        ('shipments', '0001_initial'),
+        ("offerings", "0003_auto_20200114_1302"),
+        ("shipments", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ShipmentOffering',
+            name="ShipmentOffering",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('extid', models.CharField(db_index=True, max_length=36, null=True, verbose_name='Внешний код')),
-                ('quantity', models.IntegerField(default=0, validators=[django.core.validators.MinValueValidator(0)], verbose_name='Количество')),
-                ('price', models.DecimalField(decimal_places=2, default=Decimal('0'), max_digits=9, validators=[django.core.validators.MinValueValidator(0.0)], verbose_name='Цена')),
-                ('amount', models.DecimalField(decimal_places=2, default=Decimal('0'), max_digits=9, validators=[django.core.validators.MinValueValidator(0.0)], verbose_name='Сумма')),
-                ('offering', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='offerings.Offering', verbose_name='Номенклатура')),
-                ('shipment', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='offerings', to='shipments.Shipment', verbose_name='Отгрузка')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "extid",
+                    models.CharField(
+                        db_index=True,
+                        max_length=36,
+                        null=True,
+                        verbose_name="Внешний код",
+                    ),
+                ),
+                (
+                    "quantity",
+                    models.IntegerField(
+                        default=0,
+                        validators=[django.core.validators.MinValueValidator(0)],
+                        verbose_name="Количество",
+                    ),
+                ),
+                (
+                    "price",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=Decimal("0"),
+                        max_digits=9,
+                        validators=[django.core.validators.MinValueValidator(0.0)],
+                        verbose_name="Цена",
+                    ),
+                ),
+                (
+                    "amount",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=Decimal("0"),
+                        max_digits=9,
+                        validators=[django.core.validators.MinValueValidator(0.0)],
+                        verbose_name="Сумма",
+                    ),
+                ),
+                (
+                    "offering",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="offerings.Offering",
+                        verbose_name="Номенклатура",
+                    ),
+                ),
+                (
+                    "shipment",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="offerings",
+                        to="shipments.Shipment",
+                        verbose_name="Отгрузка",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Товар в отгрузке',
-                'verbose_name_plural': 'Товары в отгрузке',
-                'ordering': ['id'],
+                "verbose_name": "Товар в отгрузке",
+                "verbose_name_plural": "Товары в отгрузке",
+                "ordering": ["id"],
             },
         ),
     ]

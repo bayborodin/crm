@@ -9,23 +9,48 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('accounts', '0013_auto_20200626_1010'),
+        ("accounts", "0013_auto_20200626_1010"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Contract',
+            name="Contract",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('contract_number', models.CharField(blank=True, db_index=True, max_length=10, null=True, verbose_name='Номер')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='contracts', to='accounts.Account', verbose_name='Контрагент')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "contract_number",
+                    models.CharField(
+                        blank=True,
+                        db_index=True,
+                        max_length=10,
+                        null=True,
+                        verbose_name="Номер",
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                ("updated", models.DateTimeField(auto_now=True)),
+                (
+                    "account",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="contracts",
+                        to="accounts.Account",
+                        verbose_name="Контрагент",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Договор',
-                'verbose_name_plural': 'Договоры',
-                'ordering': ('created', 'updated'),
+                "verbose_name": "Договор",
+                "verbose_name_plural": "Договоры",
+                "ordering": ("created", "updated"),
             },
         ),
     ]

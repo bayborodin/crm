@@ -6,19 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0002_auto_20190817_1221'),
+        ("accounts", "0002_auto_20190817_1221"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='accounttype',
-            name='description',
-            field=models.CharField(blank=True, max_length=250, verbose_name='Описение'),
+            model_name="accounttype",
+            name="description",
+            field=models.CharField(blank=True, max_length=250, verbose_name="Описение"),
         ),
         migrations.AddField(
-            model_name='accounttype',
-            name='tsid',
-            field=models.CharField(db_index=True, default='', max_length=36, verbose_name='Внешний код'),
+            model_name="accounttype",
+            name="tsid",
+            field=models.CharField(
+                db_index=True, default="", max_length=36, verbose_name="Внешний код"
+            ),
             preserve_default=False,
         ),
     ]

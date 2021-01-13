@@ -1,0 +1,7 @@
+<p>Новый договор</p>
+<form action="{% url 'contracts:new' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Добавить договор</button>
+    <a href="{% url 'contracts:index' %}">Отмена</a>
+</form>

@@ -7,18 +7,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0010_auto_20201001_2156'),
+        ("offerings", "0010_auto_20201001_2156"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SparePartImage',
+            name="SparePartImage",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, max_length=255)),
-                ('file', models.ImageField(upload_to='galery/')),
-                ('uploaded_at', models.DateField(auto_now_add=True)),
-                ('spare_part', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='offerings.SparePart', verbose_name='Изображение')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(blank=True, max_length=255)),
+                ("file", models.ImageField(upload_to="galery/")),
+                ("uploaded_at", models.DateField(auto_now_add=True)),
+                (
+                    "spare_part",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="images",
+                        to="offerings.SparePart",
+                        verbose_name="Изображение",
+                    ),
+                ),
             ],
         ),
     ]

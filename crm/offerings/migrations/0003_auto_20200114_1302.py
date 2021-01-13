@@ -8,13 +8,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('offerings', '0002_auto_20200114_1251'),
+        ("offerings", "0002_auto_20200114_1251"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='offering',
-            name='weight',
-            field=models.DecimalField(decimal_places=3, default=Decimal('0'), max_digits=7, verbose_name='Вес'),
+            model_name="offering",
+            name="weight",
+            field=models.DecimalField(
+                decimal_places=3, default=Decimal("0"), max_digits=7, verbose_name="Вес"
+            ),
         ),
     ]

@@ -6,21 +6,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('common', '0003_auto_20191030_2306'),
+        ("common", "0003_auto_20191030_2306"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Country',
+            name="Country",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tsid', models.CharField(blank=True, db_index=True, max_length=36)),
-                ('name', models.CharField(max_length=250)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("tsid", models.CharField(blank=True, db_index=True, max_length=36)),
+                ("name", models.CharField(max_length=250)),
             ],
             options={
-                'verbose_name': 'Страна',
-                'verbose_name_plural': 'Страны',
-                'ordering': ['name'],
+                "verbose_name": "Страна",
+                "verbose_name_plural": "Страны",
+                "ordering": ["name"],
             },
         ),
     ]

@@ -7,18 +7,30 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CommunicationType',
+            name="CommunicationType",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tsid', models.CharField(blank=True, db_index=True, editable=False, max_length=36)),
-                ('name', models.CharField(max_length=250)),
-                ('code', models.CharField(max_length=6)),
-                ('is_phone', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "tsid",
+                    models.CharField(
+                        blank=True, db_index=True, editable=False, max_length=36
+                    ),
+                ),
+                ("name", models.CharField(max_length=250)),
+                ("code", models.CharField(max_length=6)),
+                ("is_phone", models.BooleanField(default=False)),
             ],
         ),
     ]

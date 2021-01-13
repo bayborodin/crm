@@ -7,18 +7,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0011_account_primary_legal_entity'),
+        ("accounts", "0011_account_primary_legal_entity"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='account',
-            name='primary_legal_entity',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='parent_account', to='accounts.LegalEntity', verbose_name='Основное юр. лицо'),
+            model_name="account",
+            name="primary_legal_entity",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="parent_account",
+                to="accounts.LegalEntity",
+                verbose_name="Основное юр. лицо",
+            ),
         ),
         migrations.AlterField(
-            model_name='legalentity',
-            name='kpp',
-            field=models.CharField(blank=True, db_index=True, max_length=9, null=True, verbose_name='КПП'),
+            model_name="legalentity",
+            name="kpp",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=9, null=True, verbose_name="КПП"
+            ),
         ),
     ]

@@ -12,31 +12,31 @@ class LeadSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Lead
         fields = (  # noqa: F811
-            'channel',
-            'source',
-            'inn',
-            'kpp',
-            'company_name',
-            'city',
-            'address',
-            'sale_channels',
-            'sale_regions',
-            'sale_points',
-            'web_address',
-            'comment',
-            'first_person',
-            'first_person_position',
-            'bank_account',
-            'bank_name',
-            'bank_rcbic',
-            'bank_corr_account',
-            'contact_person',
-            'contact_phone',
-            'contact_email',
-            'pk',
+            "channel",
+            "source",
+            "inn",
+            "kpp",
+            "company_name",
+            "city",
+            "address",
+            "sale_channels",
+            "sale_regions",
+            "sale_points",
+            "web_address",
+            "comment",
+            "first_person",
+            "first_person_position",
+            "bank_account",
+            "bank_name",
+            "bank_rcbic",
+            "bank_corr_account",
+            "contact_person",
+            "contact_phone",
+            "contact_email",
+            "pk",
         )
 
-        read_only_fields = ('pk',)
+        read_only_fields = ("pk",)
 
 
 class MetricSerializer(serializers.ModelSerializer):
@@ -45,8 +45,8 @@ class MetricSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Metric
         fields = (
-            'id',
-            'name',
+            "id",
+            "name",
         )
 
 
@@ -56,8 +56,8 @@ class DataSourceSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = DataSource
         fields = (
-            'id',
-            'name',
+            "id",
+            "name",
         )
 
 
@@ -66,7 +66,7 @@ class DataSeriesSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = DataSeries
-        fields = ('metric', 'dataSource', 'registrator', 'date', 'val', 'div')
+        fields = ("metric", "dataSource", "registrator", "date", "val", "div")
 
 
 class SparePartImageSerializer(serializers.ModelSerializer):
@@ -74,11 +74,12 @@ class SparePartImageSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         """Spare part image serializer fields."""
+
         model = SparePartImage
-        fields = ('spare_part', 'title', 'file')  # noqa: F811
+        fields = ("spare_part", "title", "file")  # noqa: F811
 
         def to_representation(self, instance):
-            self.fields['spare_part'] = SparePartSerializer(read_only=True)
+            self.fields["spare_part"] = SparePartSerializer(read_only=True)
             return super(SparePartImageSerializer, self).to_representation(instance)
 
 
@@ -90,9 +91,22 @@ class SparePartSerializer(serializers.HyperlinkedModelSerializer):
     class Meta(object):
         model = SparePart
         fields = (  # noqa: F811
-            'pk', 'name', 'mark', 'code_1c', 'description', 'tags', 'equipment',
-            'net_weight', 'gross_weight', 'length', 'width', 'height',
-            'primary_image', 'images', 'quantity', 'retail_price',
-            'aliexpress_code',
+            "pk",
+            "name",
+            "mark",
+            "code_1c",
+            "description",
+            "tags",
+            "equipment",
+            "net_weight",
+            "gross_weight",
+            "length",
+            "width",
+            "height",
+            "primary_image",
+            "images",
+            "quantity",
+            "retail_price",
+            "aliexpress_code",
         )
-        read_only_fields = ('pk',)
+        read_only_fields = ("pk",)

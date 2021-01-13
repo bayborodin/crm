@@ -9,16 +9,18 @@ class Profile(models.Model):
 
     tsid = models.CharField(max_length=36, db_index=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='profile_image', blank=True)
+    image = models.ImageField(upload_to="profile_image", blank=True)
 
     class Meta(object):
-        ordering = ['user', ]
-        verbose_name = 'Профиль пользователя'
-        verbose_name_plural = 'Профили пользователей'
+        ordering = [
+            "user",
+        ]
+        verbose_name = "Профиль пользователя"
+        verbose_name_plural = "Профили пользователей"
 
     def __str__(self):
         """User profile string representation."""
-        return 'Профиль пользователя {0}'.format(self.user)
+        return "Профиль пользователя {0}".format(self.user)
 
 
 @receiver(post_save, sender=User)

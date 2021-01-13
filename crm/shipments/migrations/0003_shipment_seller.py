@@ -7,14 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0009_auto_20200120_1126'),
-        ('shipments', '0002_shipmentoffering'),
+        ("accounts", "0009_auto_20200120_1126"),
+        ("shipments", "0002_shipmentoffering"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='shipment',
-            name='seller',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='sales', to='accounts.LegalEntity', verbose_name='Поставщик'),
+            model_name="shipment",
+            name="seller",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="sales",
+                to="accounts.LegalEntity",
+                verbose_name="Поставщик",
+            ),
         ),
     ]

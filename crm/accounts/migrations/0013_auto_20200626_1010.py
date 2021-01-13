@@ -7,19 +7,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('common', '0010_auto_20200623_1623'),
-        ('accounts', '0012_auto_20200623_2216'),
+        ("common", "0010_auto_20200623_1623"),
+        ("accounts", "0012_auto_20200623_2216"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='legalentity',
-            name='city',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='domestic_legal_entities', to='common.City', verbose_name='Город'),
+            model_name="legalentity",
+            name="city",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="domestic_legal_entities",
+                to="common.City",
+                verbose_name="Город",
+            ),
         ),
         migrations.AddField(
-            model_name='legalentity',
-            name='country',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='nation_legal_entities', to='common.Country', verbose_name='Страна'),
+            model_name="legalentity",
+            name="country",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="nation_legal_entities",
+                to="common.Country",
+                verbose_name="Страна",
+            ),
         ),
     ]

@@ -6,12 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('common', '0002_auto_20190827_2132'),
+        ("common", "0002_auto_20190827_2132"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='communicationtype',
-            options={'ordering': ['name'], 'verbose_name': 'Тип средства связи', 'verbose_name_plural': 'Типы средств связи'},
+            name="communicationtype",
+            options={
+                "ordering": ["name"],
+                "verbose_name": "Тип средства связи",
+                "verbose_name_plural": "Типы средств связи",
+            },
         ),
     ]
