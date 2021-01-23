@@ -42,226 +42,20 @@
                             <a class="btn btn-success" href="{% url 'accounts:edit' account_id=account.id %}"><i
                                     class="fa fa-edit m-right-xs"></i> Редактировать</a>
                             <br>
-
-                            <h4>Рейтинг</h4>
-                            <ul class="list-unstyled user_data">
-                                <li>
-                                    <p>Отгрузки</p>
-                                    <div class="progress progress_sm">
-                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"
-                                            aria-valuenow="49" style="width: 50%;"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>Платежная дисциплина</p>
-                                    <div class="progress progress_sm">
-                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="70"
-                                            aria-valuenow="69" style="width: 70%;"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p>Товарная матрица</p>
-                                    <div class="progress progress_sm">
-                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="30"
-                                            aria-valuenow="29" style="width: 30%;"></div>
-                                    </div>
-                                </li>
-                            </ul>
-
                         </div>
                         <div class="col-md-9 col-sm-9 ">
-                            <div class="profile_title">
-                                <div class="col-md-6">
-                                    <h2>Объем закупок</h2>
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="reportrange" class="pull-right"
-                                        style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
-                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                        <span>June 11, 2020 - July 10, 2020</span> <b class="caret"></b>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="graph_bar"
-                                style="width: 100%; height: 280px; position: relative; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                <svg height="280" version="1.1" width="706" xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    style="overflow: hidden; position: relative;">
-                                    <desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël
-                                        @@VERSION</desc>
-                                    <defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><text
-                                        x="42.53125" y="213.293638648625" text-anchor="end" font-family="sans-serif"
-                                        font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">0</tspan>
-                                    </text>
-                                    <path fill="none" stroke="#aaaaaa" d="M55.03125,213.293638648625H681"
-                                        stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                    </path><text x="42.53125" y="166.22022898646875" text-anchor="end"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal">
-                                        <tspan dy="4.243666486468754"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">750</tspan>
-                                    </text>
-                                    <path fill="none" stroke="#aaaaaa" d="M55.03125,166.22022898646875H681"
-                                        stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                    </path><text x="42.53125" y="119.1468193243125" text-anchor="end"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal">
-                                        <tspan dy="4.248381824312503"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">1,500</tspan>
-                                    </text>
-                                    <path fill="none" stroke="#aaaaaa" d="M55.03125,119.1468193243125H681"
-                                        stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                    </path><text x="42.53125" y="72.07340966215625" text-anchor="end"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal">
-                                        <tspan dy="4.253097162156251"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2,250</tspan>
-                                    </text>
-                                    <path fill="none" stroke="#aaaaaa" d="M55.03125,72.07340966215625H681"
-                                        stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                    </path><text x="42.53125" y="25" text-anchor="end" font-family="sans-serif"
-                                        font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal">
-                                        <tspan dy="4.25" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">3,000
-                                        </tspan>
-                                    </text>
-                                    <path fill="none" stroke="#aaaaaa" d="M55.03125,25H681" stroke-width="0.5"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text
-                                        x="649.7015625" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-24.4622,427.889)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Other</tspan>
-                                    </text><text x="587.1046875" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-57.1008,406.9087)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 6S Plus
-                                        </tspan>
-                                    </text><text x="524.5078125" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-57.4901,363.3527)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 6S</tspan>
-                                    </text><text x="461.9109375" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-76.4591,332.8008)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 6 Plus</tspan>
-                                    </text><text x="399.3140625" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-76.8534,289.2538)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 6</tspan>
-                                    </text><text x="336.7171875" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-91.4528,255.6368)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 5S</tspan>
-                                    </text><text x="274.1203125" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-99.4962,217.4402)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 5</tspan>
-                                    </text><text x="211.5234375" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-117.9197,186.5119)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 3GS</tspan>
-                                    </text><text x="148.9265625" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-125.4127,147.9299)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 4S</tspan>
-                                    </text><text x="86.3296875" y="225.793638648625" text-anchor="middle"
-                                        font-family="sans-serif" font-size="12px" stroke="none" fill="#888888"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;"
-                                        font-weight="normal"
-                                        transform="matrix(0.8192,-0.5736,0.5736,0.8192,-133.456,109.7333)">
-                                        <tspan dy="4.254576148625006"
-                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">iPhone 4</tspan>
-                                    </text>
-                                    <rect x="62.855859375" y="189.44311108646585" width="46.947656249999994"
-                                        height="23.850527562159158" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="125.452734375" y="172.18286087700855" width="46.947656249999994"
-                                        height="41.110777771616455" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="188.049609375" y="196.0333884391677" width="46.947656249999994"
-                                        height="17.260250209457297" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="250.64648437499997" y="114.69053654296171" width="46.947656249999994"
-                                        height="98.6031021056633" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="313.243359375" y="172.18286087700855" width="46.947656249999994"
-                                        height="41.110777771616455" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="375.840234375" y="78.09880609891226" width="46.947656249999994"
-                                        height="135.19483254971274" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="438.437109375" y="141.49099777728267" width="46.947656249999994"
-                                        height="71.80264087134233" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="501.033984375" y="64.47889956999504" width="46.947656249999994"
-                                        height="148.81473907862997" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="563.630859375" y="120.96699116458255" width="46.947656249999994"
-                                        height="92.32664748404245" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                    <rect x="626.227734375" y="127.24344578620338" width="46.947656249999994"
-                                        height="86.05019286242162" rx="0" ry="0" fill="#26b99a" stroke="none"
-                                        fill-opacity="1"
-                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill-opacity: 1;"></rect>
-                                </svg>
-                            </div>
-
                             <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                    <li role="presentation" class="active"><a href="#tab_content1" id="home-tab"
-                                            role="tab" data-toggle="tab" aria-expanded="true" class="active"
+                                    <li role="presentation" class=""><a href="#tab_content1" id="home-tab" role="tab"
+                                            data-toggle="tab" aria-expanded="true" class=""
                                             aria-selected="true">Недавние события</a>
                                     </li>
                                     <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab"
                                             data-toggle="tab" aria-expanded="false">Платежные реквизиты</a>
                                     </li>
-                                    <li role="presentation" class=""><a href="#tab_content3" role="tab"
-                                            id="profile-tab2" data-toggle="tab" aria-expanded="false">Договоры</a>
+                                    <li role="presentation" class="active"><a href="#tab_contracts" role="tab"
+                                            id="profile-tab2" data-toggle="tab" aria-expanded="false"
+                                            class="active">Договоры</a>
                                     </li>
                                     <li role="presentation" class=""><a href="#tab_content3" role="tab"
                                             id="profile-tab2" data-toggle="tab" aria-expanded="false">Контакты</a>
@@ -271,86 +65,9 @@
                                     </li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content">
-                                    <div role="tabpanel" class="tab-pane active" id="tab_content1"
-                                        aria-labelledby="home-tab">
+                                    <div role="tabpanel" class="tab-pane" id="tab_content1" aria-labelledby="home-tab">
 
                                         <ul class="messages">
-                                            <li>
-                                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                                <div class="message_date">
-                                                    <h3 class="date text-info">24</h3>
-                                                    <p class="month">May</p>
-                                                </div>
-                                                <div class="message_wrapper">
-                                                    <h4 class="heading">Desmond Davison</h4>
-                                                    <blockquote class="message">Raw denim you probably haven't heard of
-                                                        them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher
-                                                        retro keffiyeh dreamcatcher synth.</blockquote>
-                                                    <br>
-                                                    <p class="url">
-                                                        <span class="fs1 text-info" aria-hidden="true"
-                                                            data-icon=""></span>
-                                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance
-                                                            Test.doc </a>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                                <div class="message_date">
-                                                    <h3 class="date text-error">21</h3>
-                                                    <p class="month">May</p>
-                                                </div>
-                                                <div class="message_wrapper">
-                                                    <h4 class="heading">Brian Michaels</h4>
-                                                    <blockquote class="message">Raw denim you probably haven't heard of
-                                                        them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher
-                                                        retro keffiyeh dreamcatcher synth.</blockquote>
-                                                    <br>
-                                                    <p class="url">
-                                                        <span class="fs1" aria-hidden="true" data-icon=""></span>
-                                                        <a href="#" data-original-title="">Download</a>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                                <div class="message_date">
-                                                    <h3 class="date text-info">24</h3>
-                                                    <p class="month">May</p>
-                                                </div>
-                                                <div class="message_wrapper">
-                                                    <h4 class="heading">Desmond Davison</h4>
-                                                    <blockquote class="message">Raw denim you probably haven't heard of
-                                                        them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher
-                                                        retro keffiyeh dreamcatcher synth.</blockquote>
-                                                    <br>
-                                                    <p class="url">
-                                                        <span class="fs1 text-info" aria-hidden="true"
-                                                            data-icon=""></span>
-                                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance
-                                                            Test.doc </a>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                                <div class="message_date">
-                                                    <h3 class="date text-error">21</h3>
-                                                    <p class="month">May</p>
-                                                </div>
-                                                <div class="message_wrapper">
-                                                    <h4 class="heading">Brian Michaels</h4>
-                                                    <blockquote class="message">Raw denim you probably haven't heard of
-                                                        them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher
-                                                        retro keffiyeh dreamcatcher synth.</blockquote>
-                                                    <br>
-                                                    <p class="url">
-                                                        <span class="fs1" aria-hidden="true" data-icon=""></span>
-                                                        <a href="#" data-original-title="">Download</a>
-                                                    </p>
-                                                </div>
-                                            </li>
                                         </ul>
 
                                     </div>
@@ -423,6 +140,35 @@
                                             </tbody>
                                         </table>
 
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane active" id="tab_contracts"
+                                        aria-labelledby="profile-tab">
+
+                                        <table class="data table table-striped no-margin">
+                                            <thead>
+                                                <tr>
+                                                    <th>Номер</th>
+                                                    <th>Тип</th>
+                                                    <th>Состояние</th>
+                                                    <th>Ответственный</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for contract in contracts %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{% url 'contracts:edit' contract_id=contract.id %}">
+                                                            {{contract.contract_number }}
+                                                        </a>
+                                                    </td>
+                                                    <td>{{ contract.type }}</td>
+                                                    <td>{{ contract.state }}</td>
+                                                    <td>{{ contract.owner }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <a href="{% url 'contracts:new' %}">Создать договор</a>
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade" id="tab_content3"
                                         aria-labelledby="profile-tab">

@@ -1,7 +1,70 @@
-<p>Редактирование договора</p>
-<form action="{% url 'contracts:edit' contract.id %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Сохранить изменения</button>
-    <a href="{% url 'contracts:index' %}">Отмена</a>
-</form>
+{% extends "base.html" %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>
+                    Редактирование договора
+                </h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left" action="{% url 'contracts:edit' contract.id %}"
+                            method="POST">
+                            {% csrf_token %}
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                    for="{{ form.contract_number.id_for_label }}">Номер:
+                                </label>
+                                <div class="col-md-2 col-sm-2 ">
+                                    {{ form.contract_number }}
+                                </div>
+                                <label class="col-form-label col-md-3 col-sm-3"
+                                    for="{{ form.is_virtual.id_for_label }}">Без бумажной копии:
+                                </label>
+                                <div class="col-md-1 col-sm-1 ">
+                                    {{ form.is_virtual }}
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                    for="{{ form.contract_number.id_for_label }}">Контрагент:
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    {{ form.account }}
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                    for="{{ form.contract_number.id_for_label }}">Тип:
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    {{ form.type }}
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                    for="{{ form.contract_number.id_for_label }}">Состояние:
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    {{ form.state }}
+                                </div>
+                            </div>
+                            <button type="submit" name="submit" class="btn btn-success">Сохранить изменения</button>
+                            <a href="{{request.META.HTTP_REFERER|escape}}" class="btn btn-warning">Отмена</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

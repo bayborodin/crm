@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from offerings.models import Offering, OfferingGroup, SparePart, SparePartImage
+from offerings.models import (
+    Offering,
+    OfferingGroup,
+    SparePart,
+    SparePartImage,
+    SparePartIntegration,
+)
 
 
 def get_picture_preview(obj):
@@ -33,6 +39,11 @@ get_picture_thumb.short_description = "Фото"
 
 class SparePartImageInline(admin.StackedInline):
     model = SparePartImage
+    extra = 0
+
+
+class SparePartIntegrationInline(admin.StackedInline):
+    model = SparePartIntegration
     extra = 0
 
 
@@ -89,7 +100,7 @@ class SparePartAdmin(admin.ModelAdmin):
         get_picture_thumb,
     ]
     list_filter = ["code_1c", "name"]
-    inlines = [SparePartImageInline]
+    inlines = (SparePartImageInline, SparePartIntegrationInline)
 
 
 admin.site.register(OfferingGroup, OfferingGroupAdmin)

@@ -5,6 +5,7 @@ from decimal import Decimal
 from django.db import models
 from django.dispatch import receiver
 
+from api.models import Integration
 from common.utils import parse_float
 
 DEFAULT_DECIMAL = 0.0
@@ -278,6 +279,31 @@ class SparePartImage(models.Model):
     title = models.CharField(max_length=255, blank=True)
     file = models.ImageField(upload_to="galery/")
     uploaded_at = models.DateField(auto_now_add=True)
+
+
+class SparePartIntegration(models.Model):
+    spare_part = models.ForeignKey(
+        SparePart,
+        related_name="integrations",
+        verbose_name="Запасная часть",
+        on_delete=models.CASCADE,
+    )
+    integration = models.ForeignKey(
+        Integration,
+        verbose_name="Интеграция",
+        on_delete=models.CASCADE,
+    )
+    external_code = models.CharField(
+        max_length=36, db_index=True, null=True, verbose_name="Внешний код"
+    )
+
+    class Meta(object):
+        ordering = ("integration",)
+        verbose_name = "Интеграция"
+        verbose_name_plural = "Интеграции"
+
+    def __str__(self):
+        return f"{self.spare_part} ({self.integration.code})"
 
 
 @receiver(models.signals.post_delete, sender=SparePart)

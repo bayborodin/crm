@@ -60,6 +60,6 @@ def edit(request, account_id):
 @login_required
 def detail(request, account_id):
     account = get_object_or_404(Account, pk=account_id)
-    context = {"account": account}
+    context = {"account": account, "contracts": account.contracts.all()}
 
     return render(request, "accounts/detail.html", context)

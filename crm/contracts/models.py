@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -67,6 +68,15 @@ class Contract(models.Model):
     owner = models.ForeignKey(
         User, verbose_name="Ответственный", on_delete=models.PROTECT, null=True
     )
+    is_virtual = models.BooleanField(verbose_name="Виртуальный")
+    credit_limit = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Кредит-лимит (руб.)",
+        default=Decimal(0.0),
+    )
+    grace_period = models.IntegerField(verbose_name="Отсрочка платежа, дней", default=0)
+
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
