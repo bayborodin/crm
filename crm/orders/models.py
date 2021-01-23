@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models.base import Model
 from django.utils.dateparse import parse_date
 
 from accounts.models import LegalEntity
@@ -9,32 +10,48 @@ from common.utils import parse_float
 from offerings.models import Offering
 
 
+class OrderChannel(models.Model):
+    name = models.CharField(max_length=250, db_index=True, verbose_name="Название")
+    description = models.CharField(
+        max_length=250, verbose_name="Описание", blank=True, null=True
+    )
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Канал продаж"
+        verbose_name_plural = "Каналы продаж"
+
+    def __str__(self):
+        return self.name
+
+
 # Order model
 class Order(models.Model):
     extid = models.CharField(
         max_length=36, db_index=True, null=True, verbose_name="Внешний код"
     )
-
     order_number = models.CharField(max_length=11, db_index=True, verbose_name="Номер")
-
     date = models.DateField(verbose_name="Дата")
-
     legal_entity = models.ForeignKey(
         LegalEntity,
         related_name="orders",
         verbose_name="Юридическое лицо",
         on_delete=models.PROTECT,
     )
-
     total = models.DecimalField(
         max_digits=9,
         decimal_places=2,
         verbose_name="Сумма всего",
         default=Decimal(0.00),
     )
+    channel = models.ForeignKey(
+        OrderChannel,
+        verbose_name="Канал продаж",
+        on_delete=models.PROTECT,
+        null=True,
+    )
 
     created = models.DateTimeField(auto_now_add=True)
-
     updated = models.DateTimeField(auto_now=True)
 
     @classmethod
@@ -74,19 +91,15 @@ class OrderOffering(models.Model):
     order = models.ForeignKey(
         Order, related_name="offerings", verbose_name="Товары", on_delete=models.CASCADE
     )
-
     extid = models.CharField(
         max_length=36, db_index=True, null=True, verbose_name="Внешний код"
     )
-
     offering = models.ForeignKey(
         Offering, verbose_name="Номенклатура", on_delete=models.PROTECT
     )
-
     quantity = models.IntegerField(
         verbose_name="Количество", default=0, validators=[MinValueValidator(0)]
     )
-
     price = models.DecimalField(
         verbose_name="Цена",
         max_digits=9,
@@ -94,7 +107,6 @@ class OrderOffering(models.Model):
         default=Decimal(0.00),
         validators=[MinValueValidator(0.00)],
     )
-
     amount = models.DecimalField(
         verbose_name="Сумма",
         max_digits=9,

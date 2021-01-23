@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Integration
+
+
+class IntegrationAdmin(admin.ModelAdmin):
+    list_display = ("code", "name", "description")
+
+
+admin.site.register(Integration, IntegrationAdmin)

@@ -32,7 +32,7 @@ def index(request):
 def new(request):
     """Create a new contract or etit an existing one."""
     if request.method != "POST":
-        form = ContractForm()
+        form = ContractForm(initial={"contract_number": "123"})
     else:
         form = ContractForm(request.POST)
         if form.is_valid():
