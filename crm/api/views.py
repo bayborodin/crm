@@ -7,11 +7,13 @@ from rest_framework.views import APIView
 from api.serializers import (
     DataSeriesSerializer,
     DataSourceSerializer,
+    IntegrationSerializer,
     LeadSerializer,
     MetricSerializer,
     SparePartImageSerializer,
     SparePartSerializer,
 )
+from api.models import Integration
 from leads.models import Lead
 from metrics.models import DataSeries, DataSource, Metric
 from offerings.models import SparePart, SparePartImage
@@ -127,3 +129,13 @@ class SparePartImageViewSet(viewsets.ModelViewSet):
         if spare_part is not None:
             queryset = queryset.filter(spare_part=spare_part)
         return queryset
+
+
+class IntegrationView(APIView):
+    def get(self, request):
+        integrations = Integration.objects.all()
+        serializer = IntegrationSerializer(integrations, many=True)
+
+        context = {"integrations": serializer.data}
+
+        return Response(context)

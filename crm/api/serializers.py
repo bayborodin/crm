@@ -1,9 +1,10 @@
 from django.db.models import fields
 from rest_framework import serializers, validators
 
+from api.models import Integration
 from leads.models import Lead
 from metrics.models import DataSeries, DataSource, Metric
-from offerings.models import SparePart, SparePartImage
+from offerings.models import SparePart, SparePartImage, SparePartIntegration
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -69,6 +70,13 @@ class DataSeriesSerializer(serializers.ModelSerializer):
         fields = ("metric", "dataSource", "registrator", "date", "val", "div")
 
 
+class IntegrationSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Integration
+        fields = ("pk", "code", "name", "description")
+        read_only_fields = ("pk", "code", "name", "description")
+
+
 class SparePartImageSerializer(serializers.ModelSerializer):
     """Spare part image model serializer."""
 
@@ -83,10 +91,27 @@ class SparePartImageSerializer(serializers.ModelSerializer):
             return super(SparePartImageSerializer, self).to_representation(instance)
 
 
+class SparePartIntegrationSerializer(serializers.ModelSerializer):
+    """Spare part integration model serializer."""
+
+    class Meta(object):
+        """Spare part integration serializer fields."""
+
+        model = SparePartIntegration
+        fields = ("integration", "external_code")
+
+        def to_representation(self, instance):
+            self.fields["spare_part"] = SparePartSerializer(read_only=True)
+            return super(SparePartIntegrationSerializer, self).to_representation(
+                instance
+            )
+
+
 class SparePartSerializer(serializers.HyperlinkedModelSerializer):
     """Spare part model serializer."""
 
     images = SparePartImageSerializer(many=True, read_only=True)
+    integrations = SparePartIntegrationSerializer(many=True, read_only=True)
 
     class Meta(object):
         model = SparePart
@@ -107,6 +132,6 @@ class SparePartSerializer(serializers.HyperlinkedModelSerializer):
             "images",
             "quantity",
             "retail_price",
-            "aliexpress_code",
+            "integrations",
         )
         read_only_fields = ("pk",)
