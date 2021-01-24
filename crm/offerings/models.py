@@ -249,11 +249,6 @@ class SparePart(models.Model):
         verbose_name="Розничная цена",
         default=Decimal(DEFAULT_DECIMAL),
     )
-    aliexpress_code = models.CharField(
-        max_length=_STRING_FIELD_MAX_LENGTH,
-        blank=True,
-        verbose_name="Код AliExpress",
-    )
 
     def filename(self):
         name = os.path.basename(self.primary_image.name)

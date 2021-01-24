@@ -11,14 +11,12 @@ router.register(r"parts", views.SparePartViewSet, basename="SparePart")
 router.register(r"part-images", views.SparePartImageViewSet, basename="SparePartImage")
 
 urlpatterns = [
-    # authentication
-    path("token-auth/", obtain_auth_token, name="token-auth"),
-    # leads
-    path("leads/", views.LeadView.as_view(), name="leads"),
-    # metrics
-    path("metrics/", views.MetricView.as_view(), name="metrics"),
-    path("data-sources/", views.DataSourceView.as_view(), name="data_sources"),
-    path("data-series/", views.DataSeriesView.as_view(), name="data_series"),
     path("calls/", views.CallView.as_view(), name="calls"),
+    path("data-series/", views.DataSeriesView.as_view(), name="data_series"),
+    path("data-sources/", views.DataSourceView.as_view(), name="data_sources"),
+    path("integrations/", views.IntegrationView.as_view(), name="integrations"),
+    path("leads/", views.LeadView.as_view(), name="leads"),
+    path("metrics/", views.MetricView.as_view(), name="metrics"),
+    path("token-auth/", obtain_auth_token, name="token-auth"),
     path("", include(router.urls)),
 ]
