@@ -135,14 +135,20 @@ class SparePartImageViewSet(viewsets.ModelViewSet):
 
 class SparePartIntegrationViewSet(viewsets.ModelViewSet):
     parser_classes = [MultiPartParser, FormParser]
-    # permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = SparePartIntegrationSerializer
 
     def get_queryset(self):
         queryset = SparePartIntegration.objects.all()
+
         spare_part = self.request.query_params.get("part", None)
         if spare_part is not None:
             queryset = queryset.filter(spare_part=spare_part)
+
+        integration = self.request.query_params.get("integration", None)
+        if integration is not None:
+            queryset = queryset.filter(integration=integration)
+
         return queryset
 
 
