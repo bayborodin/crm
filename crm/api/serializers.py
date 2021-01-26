@@ -98,7 +98,7 @@ class SparePartIntegrationSerializer(serializers.ModelSerializer):
         """Spare part integration serializer fields."""
 
         model = SparePartIntegration
-        fields = ("integration", "external_code")
+        fields = ("spare_part", "integration", "external_code")
 
         def to_representation(self, instance):
             self.fields["spare_part"] = SparePartSerializer(read_only=True)
