@@ -1,3 +1,4 @@
+from django.db.models import query
 from rest_framework import viewsets
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
@@ -11,12 +12,13 @@ from api.serializers import (
     LeadSerializer,
     MetricSerializer,
     SparePartImageSerializer,
+    SparePartIntegrationSerializer,
     SparePartSerializer,
 )
 from api.models import Integration
 from leads.models import Lead
 from metrics.models import DataSeries, DataSource, Metric
-from offerings.models import SparePart, SparePartImage
+from offerings.models import SparePart, SparePartImage, SparePartIntegration
 
 
 class LeadView(APIView):
@@ -128,6 +130,25 @@ class SparePartImageViewSet(viewsets.ModelViewSet):
         spare_part = self.request.query_params.get("part", None)
         if spare_part is not None:
             queryset = queryset.filter(spare_part=spare_part)
+        return queryset
+
+
+class SparePartIntegrationViewSet(viewsets.ModelViewSet):
+    parser_classes = [MultiPartParser, FormParser]
+    permission_classes = (IsAuthenticated,)
+    serializer_class = SparePartIntegrationSerializer
+
+    def get_queryset(self):
+        queryset = SparePartIntegration.objects.all()
+
+        spare_part = self.request.query_params.get("part", None)
+        if spare_part is not None:
+            queryset = queryset.filter(spare_part=spare_part)
+
+        integration = self.request.query_params.get("integration", None)
+        if integration is not None:
+            queryset = queryset.filter(integration=integration)
+
         return queryset
 
 

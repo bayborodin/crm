@@ -9,6 +9,11 @@ app_name = "api"
 router = routers.DefaultRouter()
 router.register(r"parts", views.SparePartViewSet, basename="SparePart")
 router.register(r"part-images", views.SparePartImageViewSet, basename="SparePartImage")
+router.register(
+    r"part-integrations",
+    views.SparePartIntegrationViewSet,
+    basename="SparePartIntegration",
+)
 
 urlpatterns = [
     path("calls/", views.CallView.as_view(), name="calls"),
