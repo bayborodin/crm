@@ -249,6 +249,8 @@ class SparePart(models.Model):
         verbose_name="Розничная цена",
         default=Decimal(DEFAULT_DECIMAL),
     )
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def filename(self):
         name = os.path.basename(self.primary_image.name)

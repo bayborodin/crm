@@ -98,6 +98,8 @@ class SparePartAdmin(admin.ModelAdmin):
         "quantity",
         "retail_price",
         get_picture_thumb,
+        "created",
+        "updated",
     ]
     list_filter = ["code_1c", "name"]
     inlines = (SparePartImageInline, SparePartIntegrationInline)
